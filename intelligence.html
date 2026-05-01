@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cultural Intelligence — Global Harlem</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Serif+Display&family=Space+Mono&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background-color: #1A3D2B;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* NAV */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 32px;
+      background-color: #1A3D2B;
+      opacity: 0;
+      animation: fadeIn 0.6s ease-out 0s forwards;
+    }
+
+    .nav-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: #FAF7F0;
+      opacity: 0.4;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-label:hover { opacity: 0.7; }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #FAF7F0;
+      opacity: 0.4;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-link:hover { opacity: 0.7; }
+
+    /* SECTION 01 — HERO */
+    .hero {
+      background-color: #1A3D2B;
+      min-height: calc(100vh - 65px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 10vw 10vh;
+    }
+
+    .hero-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: #FAF7F0;
+      opacity: 0;
+      margin-bottom: 32px;
+      animation: fadeIn 0.6s ease-out 0.2s forwards;
+    }
+
+    .hero-headline {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+      margin-bottom: 40px;
+    }
+
+    .hero-line-1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 7vw;
+      font-weight: 400;
+      color: #FAF7F0;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.4s forwards;
+    }
+
+    .hero-line-2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 7vw;
+      font-weight: 400;
+      color: #2D6A4F;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.65s forwards;
+    }
+
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: #FAF7F0;
+      opacity: 0;
+      max-width: 520px;
+      line-height: 1.75;
+      animation: fadeIn 0.8s ease-out 0.9s forwards;
+    }
+
+    /* SECTION 02 — CITY SELECTOR */
+    .cities {
+      background-color: #0D1B2A;
+      padding: 28px 32px;
+      border-bottom: 1px solid rgba(250, 247, 240, 0.08);
+    }
+
+    .cities-all {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .cities-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .cities-row + .cities-row {
+      margin-top: 12px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(250, 247, 240, 0.1);
+    }
+
+    .cities-row-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(250, 247, 240, 0.3);
+      white-space: nowrap;
+      margin-right: 4px;
+    }
+
+    .city-pill {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(250, 247, 240, 0.5);
+      border: 1px solid rgba(250, 247, 240, 0.2);
+      padding: 7px 14px;
+      cursor: pointer;
+      background: transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .city-pill:hover {
+      color: rgba(250, 247, 240, 0.8);
+      border-color: rgba(250, 247, 240, 0.4);
+    }
+
+    .city-pill.active {
+      color: #2D6A4F;
+      border-color: #2D6A4F;
+    }
+
+    /* SECTION 03 — STORY COLUMNS */
+    .stories {
+      background-color: #FAF7F0;
+      padding: 72px 10vw 100px;
+    }
+
+    .stories-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .story-column {
+      border-top: 2px solid #2D6A4F;
+      padding-top: 24px;
+    }
+
+    .story-column-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: #2D6A4F;
+      margin-bottom: 32px;
+    }
+
+    .story-card {
+      margin-bottom: 36px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(13, 27, 42, 0.08);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+
+    .story-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .story-card:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .story-city {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #2D6A4F;
+      margin-bottom: 10px;
+    }
+
+    .story-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: #0D1B2A;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .story-summary {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: #666666;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .story-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #FAF7F0;
+      background-color: #2D6A4F;
+      padding: 6px 12px;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.2s ease;
+    }
+
+    .story-link:hover {
+      opacity: 0.8;
+    }
+
+    /* SECTION 04 — NEWSLETTER CTA */
+    .newsletter-cta {
+      background-color: #1A3D2B;
+      padding: 100px 10vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .newsletter-cta-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      font-weight: 400;
+      color: #FAF7F0;
+      margin-bottom: 20px;
+      line-height: 1.15;
+    }
+
+    .newsletter-cta-subtext {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: #FAF7F0;
+      opacity: 0.6;
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0;
+    }
+
+    .newsletter-input {
+      background: transparent;
+      border: 1px solid rgba(250, 247, 240, 0.3);
+      border-right: none;
+      padding: 14px 20px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: #FAF7F0;
+      width: 280px;
+      outline: none;
+    }
+
+    .newsletter-input::placeholder {
+      color: rgba(250, 247, 240, 0.4);
+    }
+
+    .newsletter-input:focus {
+      border-color: rgba(250, 247, 240, 0.6);
+    }
+
+    .newsletter-submit {
+      background-color: #FAF7F0;
+      border: 1px solid #FAF7F0;
+      padding: 14px 24px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: #1A3D2B;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .newsletter-submit:hover { opacity: 0.85; }
+
+    .newsletter-thanks {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: #FAF7F0;
+      opacity: 0.8;
+      display: none;
+    }
+
+    /* SECTION 05 — FOOTER */
+    .footer {
+      background-color: #0D1B2A;
+      padding: 60px 10vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-rule {
+      border: none;
+      border-top: 1px solid rgba(45, 106, 79, 0.3);
+      width: 100%;
+      margin-bottom: 40px;
+    }
+
+    .footer-wordmark {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .footer-wordmark-global {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      text-transform: uppercase;
+      color: #FAF7F0;
+      line-height: 1;
+    }
+
+    .footer-wordmark-harlem {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+
+    .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: #FAF7F0;
+      opacity: 0.5;
+      margin-top: 12px;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 0;
+      align-items: center;
+      margin-top: 32px;
+    }
+
+    .footer-nav-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #FAF7F0;
+      opacity: 0.35;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .footer-nav-link:hover {
+      opacity: 0.65;
+    }
+
+    .footer-nav-sep {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      color: #FAF7F0;
+      opacity: 0.35;
+      margin: 0 10px;
+    }
+
+    .footer-legal {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      color: #FAF7F0;
+      opacity: 0.25;
+      margin-top: 24px;
+    }
+
+    /* HIDDEN STORY CARDS (city filter) */
+    .story-card[data-hidden="true"] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a class="nav-label" href="index.html">Global Harlem</a>
+    <div class="nav-links">
+      <a class="nav-link" href="about.html">About</a>
+      <a class="nav-link" href="pulse.html">Community Pulse</a>
+      <a class="nav-link" href="trust.html">Trust Audit</a>
+      <a class="nav-link" href="#">Podcast</a>
+    </div>
+  </nav>
+
+  <!-- SECTION 01: HERO -->
+  <section class="hero">
+    <p class="hero-label">Cultural Intelligence</p>
+    <div class="hero-headline">
+      <span class="hero-line-1">What the diaspora</span>
+      <span class="hero-line-2">is building now.</span>
+    </div>
+    <p class="hero-subtitle">Real stories from Black culture across seven cities, organized by Legacy, Leadership, and Ownership. Updated continuously. Powered by Global Harlem.</p>
+  </section>
+
+  <!-- SECTION 02: CITY SELECTOR -->
+  <div class="cities" id="city-selector">
+    <div class="cities-all">
+      <button class="city-pill active" data-city="all">All Cities</button>
+    </div>
+    <div class="cities-row">
+      <span class="cities-row-label">Domestic</span>
+      <button class="city-pill" data-city="harlem">Harlem</button>
+      <button class="city-pill" data-city="atlanta">Atlanta</button>
+      <button class="city-pill" data-city="houston">Houston</button>
+      <button class="city-pill" data-city="losangeles">Los Angeles</button>
+      <button class="city-pill" data-city="detroit">Detroit</button>
+      <button class="city-pill" data-city="chicago">Chicago</button>
+      <button class="city-pill" data-city="philadelphia">Philadelphia</button>
+      <button class="city-pill" data-city="neworleans">New Orleans</button>
+      <button class="city-pill" data-city="washington">Washington D.C.</button>
+    </div>
+    <div class="cities-row">
+      <span class="cities-row-label">Global</span>
+      <button class="city-pill" data-city="london">London</button>
+      <button class="city-pill" data-city="toronto">Toronto</button>
+      <button class="city-pill" data-city="kingston">Kingston</button>
+      <button class="city-pill" data-city="accra">Accra</button>
+      <button class="city-pill" data-city="lagos">Lagos</button>
+      <button class="city-pill" data-city="paris">Paris</button>
+      <button class="city-pill" data-city="amsterdam">Amsterdam</button>
+    </div>
+  </div>
+
+  <!-- SECTION 03: STORY COLUMNS -->
+  <section class="stories">
+    <div class="stories-grid">
+
+      <!-- LEGACY COLUMN -->
+      <div class="story-column">
+        <p class="story-column-label">Legacy</p>
+
+        <div class="story-card" data-city="harlem">
+          <p class="story-city">Harlem</p>
+          <h3 class="story-headline">Harlem’s Metropolitan AME plans journal to chronicle its life and ministry</h3>
+          <p class="story-summary">Metropolitan AME Church launches journal documenting 125 years of African American history in Harlem.</p>
+          <a class="story-link" href="https://amsterdamnews.com/news/2026/04/02/harlems-metropolitan-ame-journal-to-chronicle-its-life-and-ministry/" target="_blank" rel="noopener">Read more</a>
+        </div>
+
+        <div class="story-card" data-city="harlem">
+          <p class="story-city">Harlem</p>
+          <h3 class="story-headline">Why Your Cue Feels “Off” And How the Right Choice Changes Everything</h3>
+          <p class="story-summary">Billiards expertise and technique reflect Harlem's storied pool hall culture and African American sporting traditions.</p>
+          <a class="story-link" href="https://www.harlemworldmagazine.com/why-your-cue-feels-off-and-how-the-right-choice-changes-everything/" target="_blank" rel="noopener">Read more</a>
+        </div>
+
+        <div class="story-card" data-city="harlem">
+          <p class="story-city">Harlem</p>
+          <h3 class="story-headline">New York African Film Festival Returns For 33rd Year</h3>
+          <p class="story-summary">NYAFF's 33rd year celebrates African diaspora storytelling through film premieres and restorations.</p>
+          <a class="story-link" href="https://www.harlemworldmagazine.com/new-york-african-film-festival-returns-for-33rd-year/" target="_blank" rel="noopener">Read more</a>
+        </div>
+      </div>
+
+      <!-- LEADERSHIP COLUMN -->
+      <div class="story-column">
+        <p class="story-column-label">Leadership</p>
+
+        <div class="story-card" data-city="atlanta">
+          <p class="story-city">Atlanta</p>
+          <h3 class="story-headline">‘Driver Will Know His Little Secrets’: Whoopi Goldberg Faces Fury After Begging for ‘Grace’ for Tiger Woods, But Critics Say There’s a Bigger Plot at Play</h3>
+          <p class="story-summary">Whoopi Goldberg criticized for defending Tiger Woods post-DUI arrest, raising questions about accountability and platform influence.</p>
+          <a class="story-link" href="https://atlantablackstar.com/2026/04/06/whoopi-goldberg-faces-fury-after-begging-for-grace-for-tiger-woods-but-critics-say-theres-a-bigger-plot-at-play/" target="_blank" rel="noopener">Read more</a>
+        </div>
+
+        <div class="story-card" data-city="harlem">
+          <p class="story-city">Harlem</p>
+          <h3 class="story-headline">VIDEO: AmNews Staff Writer Ariama C. Long discusses NYS Black Legislative Task Force securing $30M in funding</h3>
+          <p class="story-summary">NY Black legislators secure $30M funding for 200+ nonprofits addressing housing and crisis intervention.</p>
+          <a class="story-link" href="https://amsterdamnews.com/news/2026/04/06/video-amnews-staff-writer-ariama-c-long-discusses-nys-black-legislative-task-force-securing-30m-in-funding/" target="_blank" rel="noopener">Read more</a>
+        </div>
+
+        <div class="story-card" data-city="harlem">
+          <p class="story-city">Harlem</p>
+          <h3 class="story-headline">URBAN AGENDA: We Need Clean and Affordable Electricity</h3>
+          <p class="story-summary">Governor Hochul delays climate protection act, affecting clean energy access in Black communities.</p>
+          <a class="story-link" href="https://amsterdamnews.com/news/2026/04/02/urban-agenda-we-need-clean-and-affordable-electricity/" target="_blank" rel="noopener">Read more</a>
+        </div>
+      </div>
+
+      <!-- OWNERSHIP COLUMN -->
+      <div class="story-column">
+        <p class="story-column-label">Ownership</p>
+
+        <div class="story-card" data-city="harlem">
+          <p class="story-city">Harlem</p>
+          <h3 class="story-headline">Amazon Strikes USPS Delivery Deal, Averting Sweeping Cuts From Harlem To Hollywood</h3>
+          <p class="story-summary">Amazon-USPS deal preserves logistics infrastructure critical to Black business communities nationwide.</p>
+          <a class="story-link" href="https://www.harlemworldmagazine.com/amazon-strikes-usps-delivery-deal-averting-sweeping-cuts-from-harlem-to-hollywood/" target="_blank" rel="noopener">Read more</a>
+        </div>
+
+        <div class="story-card" data-city="houston">
+          <p class="story-city">Houston</p>
+          <h3 class="story-headline">Chef Yo turns Louisiana roots into Houston culinary empire</h3>
+          <p class="story-summary">Louisiana-rooted chef builds thriving Houston culinary brand through entrepreneurship and cultural heritage.</p>
+          <a class="story-link" href="https://defendernetwork.com/people/dn-news-profiles/chef-yo-henry-nuksys-catering/" target="_blank" rel="noopener">Read more</a>
+        </div>
+
+        <div class="story-card" data-city="houston">
+          <p class="story-city">Houston</p>
+          <h3 class="story-headline">Gig workers! Don’t get in trouble this tax season</h3>
+          <p class="story-summary">Gig workers must understand 2026 tax rules to build financial security and wealth.</p>
+          <a class="story-link" href="https://defendernetwork.com/under-40/gig-workers-tax-tips/" target="_blank" rel="noopener">Read more</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 04: NEWSLETTER CTA -->
+  <section class="newsletter-cta">
+    <h2 class="newsletter-cta-headline">Get the intelligence weekly.</h2>
+    <p class="newsletter-cta-subtext">Every week the most important stories from Black culture across the diaspora land in your inbox. Free. Curated. Yours.</p>
+    <form class="newsletter-form" id="intel-newsletter-form">
+      <input class="newsletter-input" type="email" placeholder="your@email.com" required>
+      <button class="newsletter-submit" type="submit">Subscribe</button>
+    </form>
+    <p class="newsletter-thanks" id="intel-newsletter-thanks">You're in. See you every week.</p>
+  </section>
+
+  <!-- SECTION 05: FOOTER -->
+  <footer class="footer">
+    <hr class="footer-rule">
+    <div class="footer-wordmark">
+      <span class="footer-wordmark-global">Global</span>
+      <span class="footer-wordmark-harlem">Harlem</span>
+    </div>
+    <p class="footer-tagline">Rooted in Story. Driven by Purpose. Designed for Legacy.</p>
+    <nav class="footer-nav">
+      <a class="footer-nav-link" href="index.html">Home</a>
+      <span class="footer-nav-sep">·</span>
+      <a class="footer-nav-link" href="about.html">About</a>
+      <span class="footer-nav-sep">·</span>
+      <a class="footer-nav-link" href="pulse.html">Community Pulse</a>
+      <span class="footer-nav-sep">·</span>
+      <a class="footer-nav-link" href="intelligence.html">Intelligence</a>
+      <span class="footer-nav-sep">·</span>
+      <a class="footer-nav-link" href="#">Podcast</a>
+      <span class="footer-nav-sep">·</span>
+      <a class="footer-nav-link" href="#">Newsletter</a>
+    </nav>
+    <p class="footer-legal">© 2026 The Baron Carr Company, Inc. DBA Global Harlem. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Newsletter form
+    document.getElementById('intel-newsletter-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      this.style.display = 'none';
+      document.getElementById('intel-newsletter-thanks').style.display = 'block';
+    });
+
+    // City filter
+    const pills = document.querySelectorAll('.city-pill');
+    const cards = document.querySelectorAll('.story-card');
+
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        pills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+
+        const city = pill.dataset.city;
+        cards.forEach(card => {
+          if (city === 'all' || card.dataset.city === city) {
+            card.removeAttribute('data-hidden');
+          } else {
+            card.setAttribute('data-hidden', 'true');
+          }
+        });
+
+        // Re-run scroll observer after filter
+        observeCards();
+      });
+    });
+
+    // Scroll fade-up animations
+    function observeCards() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, entry.target.dataset.delay || 0);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.story-card:not([data-hidden])').forEach((card, i) => {
+        if (!card.classList.contains('visible')) {
+          card.dataset.delay = (i % 3) * 100;
+          observer.observe(card);
+        }
+      });
+    }
+
+    observeCards();
+  </script>
+</body>
+</html>

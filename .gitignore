@@ -1,0 +1,5 @@
+scraper.py
+stories.json
+.env
+.vercel
+node_modules

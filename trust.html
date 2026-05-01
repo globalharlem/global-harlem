@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engage or Fade Trust Audit — Global Harlem</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #0D1B2A;
+    --navy2:  #122236;
+    --gold:   #C9A84C;
+    --gold2:  #E8C46A;
+    --white:  #FFFFFF;
+    --off:    #F4F4F0;
+    --gray:   #888888;
+    --dark:   #1A1A1A;
+    --mid:    #555555;
+    --green:  #2E8B57;
+    --amber:  #E67E22;
+    --red:    #C0392B;
+    --r: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── SITE NAV ────────────────────────────────── */
+  .site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 32px;
+    background-color: #1A3D2B;
+    position: relative;
+    z-index: 100;
+    flex-shrink: 0;
+  }
+
+  .site-nav-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: #FAF7F0;
+    opacity: 0.4;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .site-nav-label:hover { opacity: 0.7; }
+
+  .site-nav-links {
+    display: flex;
+    gap: 32px;
+  }
+
+  .site-nav-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #FAF7F0;
+    opacity: 0.4;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .site-nav-link:hover { opacity: 0.7; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── SCREENS ─────────────────────────────────── */
+  .screen { display: none; min-height: 100vh; animation: fadeIn 0.4s ease; }
+  .screen.active { display: flex; flex-direction: column; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── FOOTER BAR ──────────────────────────────── */
+  .footer-bar {
+    background: var(--navy);
+    border-top: 1px solid rgba(201,168,76,0.2);
+    padding: 12px 24px;
+    text-align: center;
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.08em;
+    flex-shrink: 0;
+  }
+  .footer-bar span { color: var(--gold); opacity: 0.7; }
+
+  /* ══════════════════════════════════════════════
+     SCREEN 1 — WELCOME
+  ══════════════════════════════════════════════ */
+  #s1 {
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 24px;
+  }
+
+  /* Gold grain texture overlay */
+  #s1::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Decorative diagonal lines */
+  #s1::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -55deg,
+      transparent,
+      transparent 60px,
+      rgba(201,168,76,0.025) 60px,
+      rgba(201,168,76,0.025) 61px
+    );
+    pointer-events: none;
+  }
+
+  .s1-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+
+  .s1-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    opacity: 0.8;
+  }
+
+  .s1-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 10vw, 88px);
+    font-weight: 900;
+    line-height: 0.9;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .s1-title-or {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 10vw, 88px);
+    font-weight: 900;
+    line-height: 0.9;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+    font-style: italic;
+  }
+
+  .s1-rule {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 28px auto;
+  }
+
+  .s1-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  .s1-body {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    max-width: 440px;
+    margin: 0 auto 36px;
+  }
+
+  .s1-body strong { color: var(--gold); font-weight: 500; }
+
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 16px 40px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(0); }
+
+  .s1-tagline {
+    margin-top: 20px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    font-style: italic;
+    letter-spacing: 0.05em;
+  }
+
+  /* ══════════════════════════════════════════════
+     SCREENS 2 & 3 — FORMS
+  ══════════════════════════════════════════════ */
+  .form-screen {
+    background: var(--off);
+    color: var(--dark);
+    flex: 1;
+  }
+
+  .form-header {
+    background: var(--navy);
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .form-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  .step-indicator {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .step-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transition: background 0.3s;
+  }
+
+  .step-dot.active { background: var(--gold); }
+  .step-dot.done { background: rgba(201,168,76,0.5); }
+
+  .form-body {
+    flex: 1;
+    padding: 40px 32px;
+    max-width: 680px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .form-step-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .form-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .form-subheading {
+    font-size: 14px;
+    color: var(--mid);
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  .field {
+    margin-bottom: 24px;
+  }
+
+  .field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--navy);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .field input,
+  .field textarea,
+  .field select {
+    width: 100%;
+    background: var(--white);
+    border: 1.5px solid #E0E0E0;
+    border-radius: var(--r);
+    padding: 12px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--dark);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .field input:focus,
+  .field textarea:focus,
+  .field select:focus { border-color: var(--gold); }
+
+  .field textarea { resize: vertical; min-height: 180px; line-height: 1.6; }
+
+  .field-note {
+    font-size: 11px;
+    color: var(--gray);
+    margin-top: 6px;
+  }
+
+  /* Sliders */
+  .slider-field { margin-bottom: 28px; }
+
+  .slider-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+
+  .slider-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.4;
+    flex: 1;
+    padding-right: 16px;
+  }
+
+  .slider-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--gold);
+    min-width: 32px;
+    text-align: right;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    background: #E0E0E0;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--navy);
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+  .slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 40px;
+  }
+
+  .btn-back {
+    background: transparent;
+    border: 1.5px solid #E0E0E0;
+    color: var(--mid);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 14px 28px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .btn-back:hover { border-color: var(--navy); color: var(--navy); }
+
+  .btn-next {
+    flex: 1;
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-next:hover { background: var(--navy2); }
+
+  .btn-analyze {
+    flex: 1;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-analyze:hover { background: var(--gold2); }
+
+  /* ══════════════════════════════════════════════
+     SCREEN 4 — LOADING
+  ══════════════════════════════════════════════ */
+  #s4 {
+    background: var(--navy);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+  }
+
+  .loading-inner { max-width: 400px; }
+
+  .spinner {
+    width: 56px;
+    height: 56px;
+    border: 3px solid rgba(201,168,76,0.2);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+    margin: 0 auto 32px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .loading-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.6;
+  }
+
+  .loading-steps {
+    margin-top: 32px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .loading-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.3);
+    transition: color 0.4s;
+  }
+
+  .loading-step.lit { color: rgba(255,255,255,0.8); }
+  .loading-step.lit .step-icon { background: var(--gold); }
+
+  .step-icon {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    flex-shrink: 0;
+    transition: background 0.4s;
+  }
+
+  /* ══════════════════════════════════════════════
+     SCREEN 5 — RESULTS
+  ══════════════════════════════════════════════ */
+  #s5 {
+    background: var(--off);
+    color: var(--dark);
+  }
+
+  .results-header {
+    background: var(--navy);
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .results-body {
+    flex: 1;
+    padding: 40px 24px;
+    max-width: 720px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* Score hero */
+  .score-hero {
+    background: var(--navy);
+    border-radius: var(--r);
+    padding: 40px 32px;
+    text-align: center;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .score-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 70%);
+  }
+
+  .score-org {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .score-number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(80px, 15vw, 120px);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1;
+    position: relative;
+    margin-bottom: 4px;
+  }
+
+  .score-max {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: rgba(255,255,255,0.3);
+    position: relative;
+  }
+
+  .score-category {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    margin-top: 16px;
+    position: relative;
+    font-style: italic;
+  }
+
+  .cat-deeply  { color: #4CAF50; }
+  .cat-engaging { color: var(--gold); }
+  .cat-risk     { color: var(--amber); }
+  .cat-fading   { color: #E57373; }
+
+  .score-rule {
+    width: 40px;
+    height: 1px;
+    background: rgba(201,168,76,0.4);
+    margin: 20px auto;
+  }
+
+  .score-summary {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* Category bars */
+  .section-card {
+    background: var(--white);
+    border-radius: var(--r);
+    padding: 28px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--gold);
+    display: inline-block;
+  }
+
+  .cat-bar { margin-bottom: 16px; }
+
+  .cat-bar-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+
+  .cat-bar-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--navy);
+    letter-spacing: 0.04em;
+  }
+
+  .cat-bar-score {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .bar-track {
+    height: 6px;
+    background: #EEE;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--navy), var(--gold));
+    border-radius: 3px;
+    width: 0;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Strengths / priorities */
+  .items-list { list-style: none; }
+
+  .items-list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid #F0F0F0;
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  .items-list li:last-child { border-bottom: none; }
+
+  .item-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .icon-strength { background: rgba(46,139,87,0.12); color: var(--green); }
+  .icon-priority { background: rgba(201,168,76,0.15); color: var(--gold); }
+
+  .plan-text {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.8;
+    white-space: pre-wrap;
+  }
+
+  /* CTA */
+  .cta-card {
+    background: var(--navy);
+    border-radius: var(--r);
+    padding: 36px 32px;
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top, rgba(201,168,76,0.1) 0%, transparent 60%);
+  }
+
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .cta-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 24px;
+    line-height: 1.6;
+    position: relative;
+  }
+
+  .btn-cta {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 36px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+    position: relative;
+  }
+
+  .btn-cta:hover { background: var(--gold2); }
+
+  .btn-restart {
+    display: block;
+    margin-top: 12px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    cursor: pointer;
+    background: none;
+    border: none;
+    position: relative;
+    text-decoration: underline;
+  }
+
+  .btn-restart:hover { color: rgba(255,255,255,0.6); }
+
+  /* Error */
+  .error-box {
+    background: rgba(192,57,43,0.1);
+    border: 1px solid rgba(192,57,43,0.3);
+    border-radius: var(--r);
+    padding: 20px 24px;
+    margin-top: 24px;
+    font-size: 13px;
+    color: #E57373;
+    line-height: 1.6;
+  }
+
+  /* ══════════════════════════════════════════════
+     EMAIL GATE SCREEN
+  ══════════════════════════════════════════════ */
+  #s_email {
+    background: var(--navy);
+    justify-content: center;
+    align-items: center;
+    padding: 40px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #s_email::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 60%, rgba(201,168,76,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 20%, rgba(201,168,76,0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .email-gate-card {
+    position: relative;
+    z-index: 1;
+    background: var(--navy2);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 12px;
+    padding: 48px 40px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .email-gate-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-bottom: 20px;
+  }
+
+  .email-gate-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 5vw, 28px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+
+  .email-gate-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+    margin-bottom: 36px;
+  }
+
+  .email-gate-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.4;
+    margin: 0 auto 32px;
+  }
+
+  .email-gate-field {
+    margin-bottom: 18px;
+    text-align: left;
+  }
+
+  .email-gate-field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .email-gate-field input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    padding: 13px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--white);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .email-gate-field input::placeholder { color: rgba(255,255,255,0.25); }
+  .email-gate-field input:focus { border-color: var(--gold); }
+
+  .email-gate-btn {
+    display: block;
+    width: 100%;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    margin-top: 28px;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .email-gate-btn:hover { background: var(--gold2); transform: translateY(-1px); }
+  .email-gate-btn:active { transform: translateY(0); }
+
+  .email-gate-privacy {
+    margin-top: 16px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    font-style: italic;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .form-body { padding: 28px 20px; }
+    .results-body { padding: 28px 16px; }
+    .score-hero { padding: 32px 20px; }
+    .section-card { padding: 20px; }
+    .form-header, .results-header { padding: 18px 20px; }
+    .form-actions { flex-direction: column; }
+    .email-gate-card { padding: 36px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a class="site-nav-label" href="index.html">Global Harlem</a>
+  <div class="site-nav-links">
+    <a class="site-nav-link" href="about.html">About</a>
+    <a class="site-nav-link" href="pulse.html">Community Pulse</a>
+    <a class="site-nav-link" href="intelligence.html">Intelligence</a>
+    <a class="site-nav-link" href="trust.html">Trust Audit</a>
+    <a class="site-nav-link" href="#">Podcast</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     SCREEN 1 — WELCOME
+══════════════════════════════════════════════ -->
+<div id="s1" class="screen active">
+  <div class="s1-inner">
+    <div class="s1-eyebrow">Global Harlem · Baron Carr · 2026</div>
+    <div class="s1-title">ENGAGE</div>
+    <div class="s1-title-or">or Fade</div>
+    <div class="s1-rule"></div>
+    <div class="s1-subtitle">Community Trust Score</div>
+    <p class="s1-body">
+      Find out whether your community media organization is <strong>building audience trust</strong> — or quietly losing it.<br><br>
+      Powered by the Engage or Fade framework developed by <strong>Baron Carr</strong> of Global Harlem — 25 years inside Black community media, storytelling, and diaspora culture.
+    </p>
+
+    <button class="btn-primary" onclick="startAudit()">Start Your Trust Audit</button>
+    <div class="s1-tagline">Used by community media organizations across the diaspora</div>
+  </div>
+  <div class="footer-bar"><span>Engage or Fade™</span> · Global Harlem · Baron Carr · globalharlem.com</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SCREEN 2 — ORGANIZATION PROFILE
+══════════════════════════════════════════════ -->
+<div id="s2" class="screen form-screen">
+  <div class="form-header">
+    <div class="form-logo">Engage or Fade</div>
+    <div class="step-indicator">
+      <div class="step-dot active" id="dot1"></div>
+      <div class="step-dot" id="dot2"></div>
+    </div>
+  </div>
+  <div class="form-body">
+    <div class="form-step-label">Step 1 of 2</div>
+    <div class="form-heading">Your Organization</div>
+    <p class="form-subheading">Tell us who you are and share some of your recent content. The more specific you are, the more precise your Trust Score will be.</p>
+
+    <div class="field">
+      <label for="orgName">Organization Name & Community You Serve</label>
+      <input type="text" id="orgName" placeholder="e.g. The Harlem Weekly — serving Harlem and the African diaspora">
+    </div>
+
+    <div class="field">
+      <label for="orgType">Organization Type</label>
+      <select id="orgType">
+        <option value="">Select your type...</option>
+        <option value="Podcast">Podcast</option>
+        <option value="Newsletter">Newsletter</option>
+        <option value="Local News Outlet">Local News Outlet</option>
+        <option value="Community Radio">Community Radio</option>
+        <option value="Digital Platform">Digital Platform</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="orgContent">Your Recent Content</label>
+      <textarea id="orgContent" placeholder="Paste up to 2,000 words of your recent content here — episode transcript, newsletter issues, social posts, or a combination. The more honest and representative this sample is, the more useful your Trust Score will be."></textarea>
+      <div class="field-note">Paste transcript text, newsletter copy, or recent social posts. Aim for content from the last 30–60 days.</div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn-back" onclick="showScreen(1)">← Back</button>
+      <button class="btn-next" onclick="goToStep2()">Next: Self-Assessment →</button>
+    </div>
+  </div>
+  <div class="footer-bar"><span>Engage or Fade™</span> · Global Harlem · Baron Carr · globalharlem.com</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SCREEN 3 — SELF ASSESSMENT
+══════════════════════════════════════════════ -->
+<div id="s3" class="screen form-screen">
+  <div class="form-header">
+    <div class="form-logo">Engage or Fade</div>
+    <div class="step-indicator">
+      <div class="step-dot done" id="dot1b"></div>
+      <div class="step-dot active" id="dot2b"></div>
+    </div>
+  </div>
+  <div class="form-body">
+    <div class="form-step-label">Step 2 of 2</div>
+    <div class="form-heading">The Self-Assessment</div>
+    <p class="form-subheading">Be honest. This is not a test — it is a mirror. The more truthful your answers, the more useful your Trust Score will be.</p>
+
+    <div id="sliders"></div>
+
+    <div class="form-actions">
+      <button class="btn-back" onclick="showScreen(2)">← Back</button>
+      <button class="btn-analyze" onclick="runAnalysis()">Analyze My Trust Score →</button>
+    </div>
+  </div>
+  <div class="footer-bar"><span>Engage or Fade™</span> · Global Harlem · Baron Carr · globalharlem.com</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     EMAIL GATE — BETWEEN ASSESSMENT & RESULTS
+══════════════════════════════════════════════ -->
+<div id="s_email" class="screen">
+  <div class="email-gate-card">
+    <div class="email-gate-eyebrow">Almost there</div>
+    <h2 class="email-gate-heading">Almost there — where should we send your results?</h2>
+    <div class="email-gate-rule"></div>
+    <p class="email-gate-sub">Join 200+ community organizations building audience trust.</p>
+
+    <div class="email-gate-field">
+      <label for="eg-firstname">First Name</label>
+      <input type="text" id="eg-firstname" placeholder="Your first name" autocomplete="given-name">
+    </div>
+    <div class="email-gate-field">
+      <label for="eg-orgname">Organization Name</label>
+      <input type="text" id="eg-orgname" placeholder="Your organization" autocomplete="organization">
+    </div>
+    <div class="email-gate-field">
+      <label for="eg-email">Email Address</label>
+      <input type="email" id="eg-email" placeholder="you@organization.com" autocomplete="email">
+    </div>
+
+    <button class="email-gate-btn" onclick="submitEmailGate()">Generate My Trust Score</button>
+    <div class="email-gate-privacy">We respect your privacy. No spam, ever.</div>
+  </div>
+  <div class="footer-bar" style="position:absolute;bottom:0;left:0;right:0;"><span>Engage or Fade™</span> · Global Harlem · Baron Carr · globalharlem.com</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SCREEN 4 — LOADING
+══════════════════════════════════════════════ -->
+<div id="s4" class="screen">
+  <div class="loading-inner">
+    <div class="spinner"></div>
+    <div class="loading-title">Analyzing Your Trust Signals</div>
+    <div class="loading-sub">The Engage or Fade framework is scoring your organization across seven categories of community media trust.</div>
+    <div class="loading-steps">
+      <div class="loading-step" id="lst1"><div class="step-icon"></div>Reading your content</div>
+      <div class="loading-step" id="lst2"><div class="step-icon"></div>Scoring community relevance</div>
+      <div class="loading-step" id="lst3"><div class="step-icon"></div>Measuring cultural authenticity</div>
+      <div class="loading-step" id="lst4"><div class="step-icon"></div>Calculating your Trust Score</div>
+      <div class="loading-step" id="lst5"><div class="step-icon"></div>Writing your action report</div>
+    </div>
+    <div id="errorBox" class="error-box" style="display:none;"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SCREEN 5 — RESULTS
+══════════════════════════════════════════════ -->
+<div id="s5" class="screen">
+  <div class="results-header">
+    <div class="form-logo" style="color:var(--gold)">Engage or Fade</div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:0.08em;">COMMUNITY TRUST SCORE</div>
+  </div>
+  <div class="results-body">
+
+    <!-- Score Hero -->
+    <div class="score-hero">
+      <div class="score-org" id="res-org"></div>
+      <div class="score-number" id="res-score">—</div>
+      <div class="score-max">out of 100</div>
+      <div class="score-category" id="res-category"></div>
+      <div class="score-rule"></div>
+      <div class="score-summary" id="res-summary"></div>
+    </div>
+
+    <!-- Category Scores -->
+    <div class="section-card">
+      <div class="section-title">Seven Category Breakdown</div>
+      <div id="catBars"></div>
+    </div>
+
+    <!-- Strengths -->
+    <div class="section-card">
+      <div class="section-title">What Is Working</div>
+      <ul class="items-list" id="res-strengths"></ul>
+    </div>
+
+    <!-- Priorities -->
+    <div class="section-card">
+      <div class="section-title">Three Priority Actions</div>
+      <ul class="items-list" id="res-priorities"></ul>
+    </div>
+
+    <!-- 30-Day Plan -->
+    <div class="section-card">
+      <div class="section-title">Your 30-Day Plan</div>
+      <div class="plan-text" id="res-plan"></div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-card">
+      <div class="cta-title">Ready to go deeper?</div>
+      <div class="cta-sub">The full Engage or Fade Audit is a four-hour workshop with Baron Carr — a written diagnosis, a team action plan, and a 90-day check-in. For podcasts, newsletters, and community media organizations serious about building trust.</div>
+      <a href="mailto:baron@baroncarr.com?subject=Full%20Engage%20or%20Fade%20Audit%20Inquiry" class="btn-cta">Get the Full Audit</a>
+      <button class="btn-restart" onclick="restart()">Start a new audit</button>
+    </div>
+
+  </div>
+  <div class="footer-bar"><span>Engage or Fade™</span> · Global Harlem · Baron Carr · globalharlem.com</div>
+</div>
+
+<script>
+// ── State ────────────────────────────────────────
+const state = {
+  orgName: '',
+  orgType: '',
+  orgContent: '',
+  scores: []
+};
+
+const QUESTIONS = [
+  "How well does your content reflect the actual priorities and concerns of your specific community?",
+  "How strong is the storytelling quality — narrative arc, emotional resonance, and craft — of your recent content?",
+  "How actively does your audience participate in shaping, co-creating, or responding to your content?",
+  "How consistently do you publish on schedule without gaps or unexplained silences?",
+  "How culturally authentic does your content feel to the specific community you serve?"
+];
+
+const CAT_LABELS = [
+  "Community Relevance",
+  "Storytelling Quality",
+  "Audience Participation",
+  "Consistency & Reliability",
+  "Cultural Authenticity",
+  "Representation",
+  "Trust in Voice"
+];
+
+const CAT_KEYS = [
+  "communityRelevance","storytellingQuality","audienceParticipation",
+  "consistency","culturalAuthenticity","representation","founderTrust"
+];
+
+// ── Build sliders ────────────────────────────────
+function buildSliders() {
+  const wrap = document.getElementById('sliders');
+  wrap.innerHTML = '';
+  QUESTIONS.forEach((q,i) => {
+    wrap.innerHTML += `
+    <div class="slider-field">
+      <div class="slider-top">
+        <div class="slider-label">${q}</div>
+        <div class="slider-value" id="sv${i}">5</div>
+      </div>
+      <input type="range" min="1" max="10" value="5" id="sl${i}"
+        oninput="document.getElementById('sv${i}').textContent=this.value">
+      <div class="slider-labels"><span>1 — Not at all</span><span>10 — Completely</span></div>
+    </div>`;
+  });
+}
+
+// ── Navigation ───────────────────────────────────
+function showScreen(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const id = typeof n === 'number' ? 's' + n : n;
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function startAudit() {
+  buildSliders();
+  showScreen(2);
+}
+
+function goToStep2() {
+  const name = document.getElementById('orgName').value.trim();
+  const type = document.getElementById('orgType').value;
+  const content = document.getElementById('orgContent').value.trim();
+  if (!name) { alert('Please enter your organization name.'); return; }
+  if (!type) { alert('Please select your organization type.'); return; }
+  if (content.length < 100) { alert('Please paste at least a paragraph of recent content for a meaningful analysis.'); return; }
+  state.orgName = name;
+  state.orgType = type;
+  state.orgContent = content;
+  showScreen(3);
+}
+
+// ── Run Analysis — save scores, show email gate ──
+function runAnalysis() {
+  state.scores = QUESTIONS.map((_,i) => parseInt(document.getElementById('sl'+i).value));
+  showScreen('s_email');
+}
+
+// ── Email gate submit ────────────────────────────
+function submitEmailGate() {
+  const firstName = document.getElementById('eg-firstname').value.trim();
+  const orgName   = document.getElementById('eg-orgname').value.trim();
+  const email     = document.getElementById('eg-email').value.trim();
+
+  if (!firstName) { alert('Please enter your first name.'); return; }
+  if (!orgName)   { alert('Please enter your organization name.'); return; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('Please enter a valid email address.'); return;
+  }
+
+  // Open mailto to notify baron@baroncarr.com
+  const subject = encodeURIComponent('New Trust Audit Submission');
+  const body = encodeURIComponent(
+    `New Trust Audit submission:\n\nFirst Name: ${firstName}\nOrganization: ${orgName}\nEmail: ${email}\n\nAudit org: ${state.orgName}\nType: ${state.orgType}`
+  );
+  window.location.href = `mailto:baron@baroncarr.com?subject=${subject}&body=${body}`;
+
+  // Show results immediately after
+  doAnalysis();
+}
+
+// ── Do Analysis (API call + show results) ────────
+async function doAnalysis() {
+  showScreen(4);
+  animateLoadingSteps();
+
+  const selfAssessment = QUESTIONS.map((q,i) =>
+    `${q} — Self-score: ${state.scores[i]}/10`
+  ).join('\n');
+
+  const systemPrompt = `You are the Engage or Fade scoring engine — an AI analyst built on the proprietary community media trust framework developed by Baron Carr of Global Harlem, with 25 years of experience inside Black community media, journalism, and diaspora storytelling.
+
+The Engage or Fade framework measures community media trust across seven categories. Score each 1–10 based on content and self-assessment provided.
+
+CATEGORY 01 — Community Relevance (weight 20%): Are stories reflecting the actual priorities, concerns, and aspirations of the community — or what the organization assumes they care about? Look for specificity, local detail, and evidence of listening.
+
+CATEGORY 02 — Storytelling Quality (weight 15%): Is the narrative compelling, emotionally resonant, and told with the craft the community's stories deserve? Look for narrative arc, character, emotional truth, and production intentionality.
+
+CATEGORY 03 — Audience Participation (weight 15%): Is the community actively contributing to and shaping the media — or passively receiving it? Look for evidence of co-creation, community voice, and participatory processes.
+
+CATEGORY 04 — Consistency & Reliability (weight 15%): Does the organization show up on schedule, every time, without gaps? Weight the self-assessment score heavily for this category.
+
+CATEGORY 05 — Cultural Authenticity (weight 20%): Does the content feel genuinely rooted in the cultural identity and lived experience of the community it serves? Look for cultural specificity, insider knowledge, and community validation signals.
+
+CATEGORY 06 — Representation (weight 7.5%): Are diverse voices across age, gender, geography, and experience genuinely present and centered? Look for range of perspectives.
+
+CATEGORY 07 — Trust in Voice (weight 7.5%): Does the content reflect a credible, consistent, and authentic human presence the community trusts? Look for personal storytelling and consistency of values.
+
+SCORING:
+- trustScore = weighted average × 10 (scale 1–100)
+- Deeply Engaging: 85–100
+- Engaging: 70–84
+- At Risk: 50–69
+- Fading: 1–49
+
+Be honest and specific. Do not give generic advice. Every recommendation must be actionable in 30 days or less.
+
+RESPOND ONLY IN THIS EXACT JSON STRUCTURE — no preamble, no markdown, no explanation outside the JSON:
+{
+  "trustScore": <number 1-100>,
+  "trustCategory": "<Deeply Engaging|Engaging|At Risk|Fading>",
+  "categoryScores": {
+    "communityRelevance": <1-10>,
+    "storytellingQuality": <1-10>,
+    "audienceParticipation": <1-10>,
+    "consistency": <1-10>,
+    "culturalAuthenticity": <1-10>,
+    "representation": <1-10>,
+    "founderTrust": <1-10>
+  },
+  "summary": "<two sentences interpreting the overall score specifically for this organization>",
+  "strengths": ["<specific strength 1>", "<specific strength 2>"],
+  "priorities": ["<specific urgent action 1>", "<specific urgent action 2>", "<specific urgent action 3>"],
+  "thirtyDayPlan": "<three specific steps this organization can take in the next 30 days, written as Step 1, Step 2, Step 3>"
+}`;
+
+  const userPrompt = `Organization: ${state.orgName}
+Type: ${state.orgType}
+
+SELF-ASSESSMENT:
+${selfAssessment}
+
+RECENT CONTENT SAMPLE:
+${state.orgContent.slice(0, 2000)}`;
+
+  try {
+    const response = await fetch('/api/trust', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ system: systemPrompt, prompt: userPrompt })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({ error: response.statusText }));
+      throw new Error(err.error || `API error ${response.status}`);
+    }
+
+    const data = await response.json();
+    const raw = data.text || '';
+    const cleaned = raw.replace(/```json|```/g, '').trim();
+    const result = JSON.parse(cleaned);
+
+    populateResults(result);
+    showScreen(5);
+
+  } catch(err) {
+    const box = document.getElementById('errorBox');
+    box.style.display = 'block';
+    box.innerHTML = `<strong>Error:</strong> ${err.message}<br><br>
+      <button onclick="runAnalysis()" style="background:var(--gold);color:var(--navy);border:none;padding:10px 20px;border-radius:4px;cursor:pointer;font-weight:700;margin-top:8px;">Try Again</button>`;
+  }
+}
+
+// ── Animate loading steps ────────────────────────
+function animateLoadingSteps() {
+  const steps = ['lst1','lst2','lst3','lst4','lst5'];
+  steps.forEach(id => document.getElementById(id).classList.remove('lit'));
+  document.getElementById('errorBox').style.display = 'none';
+  steps.forEach((id, i) => {
+    setTimeout(() => {
+      document.getElementById(id).classList.add('lit');
+    }, i * 900);
+  });
+}
+
+// ── Populate results ─────────────────────────────
+function populateResults(r) {
+  // Org name
+  document.getElementById('res-org').textContent = state.orgName.toUpperCase();
+
+  // Score
+  document.getElementById('res-score').textContent = r.trustScore;
+
+  // Category
+  const catEl = document.getElementById('res-category');
+  catEl.textContent = r.trustCategory;
+  const cls = {
+    'Deeply Engaging': 'cat-deeply',
+    'Engaging': 'cat-engaging',
+    'At Risk': 'cat-risk',
+    'Fading': 'cat-fading'
+  };
+  catEl.className = 'score-category ' + (cls[r.trustCategory] || 'cat-engaging');
+
+  // Summary
+  document.getElementById('res-summary').textContent = r.summary;
+
+  // Category bars
+  const barsWrap = document.getElementById('catBars');
+  barsWrap.innerHTML = '';
+  CAT_LABELS.forEach((label, i) => {
+    const key = CAT_KEYS[i];
+    const score = r.categoryScores?.[key] ?? 5;
+    barsWrap.innerHTML += `
+    <div class="cat-bar">
+      <div class="cat-bar-top">
+        <div class="cat-bar-label">${label}</div>
+        <div class="cat-bar-score">${score}<span style="font-size:12px;color:#AAA">/10</span></div>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill" id="bar${i}" data-width="${score * 10}%"></div>
+      </div>
+    </div>`;
+  });
+
+  // Animate bars after render
+  setTimeout(() => {
+    CAT_LABELS.forEach((_, i) => {
+      const bar = document.getElementById('bar'+i);
+      if (bar) bar.style.width = bar.dataset.width;
+    });
+  }, 200);
+
+  // Strengths
+  const sEl = document.getElementById('res-strengths');
+  sEl.innerHTML = (r.strengths || []).map((s,i) =>
+    `<li><div class="item-icon icon-strength">✓</div><span>${s}</span></li>`
+  ).join('');
+
+  // Priorities
+  const pEl = document.getElementById('res-priorities');
+  pEl.innerHTML = (r.priorities || []).map((p,i) =>
+    `<li><div class="item-icon icon-priority">${i+1}</div><span>${p}</span></li>`
+  ).join('');
+
+  // 30-day plan
+  document.getElementById('res-plan').textContent = r.thirtyDayPlan || '';
+}
+
+// ── Restart ──────────────────────────────────────
+function restart() {
+  document.getElementById('orgName').value = '';
+  document.getElementById('orgType').value = '';
+  document.getElementById('orgContent').value = '';
+  buildSliders();
+  showScreen(1);
+}
+</script>
+</body>
+</html>

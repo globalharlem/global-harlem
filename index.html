@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Harlem — Cultural Intelligence Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital@1&family=DM+Serif+Display&family=Space+Mono&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background-color: #1A3D2B;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes drawWidth {
+      from { width: 0; }
+      to   { width: 100%; }
+    }
+
+    /* NAV BAR */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 32px;
+      background-color: #1A3D2B;
+      opacity: 0;
+      animation: fadeIn 0.6s ease-out 0s forwards;
+    }
+
+    .nav-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: #FAF7F0;
+      opacity: 0.4;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-label:hover {
+      opacity: 0.7;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #FAF7F0;
+      opacity: 0.4;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-link:hover {
+      opacity: 0.7;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      min-height: calc(100vh - 65px);
+      padding-left: 10vw;
+      padding-top: 14vh;
+      padding-bottom: 0;
+    }
+
+    .wordmark {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .wordmark-global {
+      font-family: 'DM Serif Display', serif;
+      font-size: 11vw;
+      text-transform: uppercase;
+      color: #FAF7F0;
+      line-height: 1;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.2s forwards;
+    }
+
+    .wordmark-global sup {
+      font-size: 1.8vw;
+      vertical-align: baseline;
+      position: relative;
+      top: -0.7em;
+      line-height: 0;
+    }
+
+    .wordmark-harlem {
+      font-family: 'DM Serif Display', serif;
+      font-size: 11vw;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      line-height: 1;
+      margin-bottom: 0;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.5s forwards;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(250, 247, 240, 0.25);
+      width: 0;
+      margin: 14px 0;
+      animation: drawWidth 0.6s ease-out 0.9s forwards;
+    }
+
+    .tagline {
+      margin-top: 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      color: #FAF7F0;
+      opacity: 0;
+      animation: fadeIn 0.6s ease-out 1.1s forwards;
+    }
+
+    .mission {
+      margin-top: 60px;
+      font-family: 'DM Serif Display', serif !important;
+      font-size: 16px;
+      font-weight: 400 !important;
+      letter-spacing: 0.05em;
+      color: #FAF7F0;
+      opacity: 0;
+      animation: fadeIn 0.6s ease-out 1.4s forwards;
+    }
+
+    .cta {
+      margin-top: 40px;
+      display: inline-block;
+      padding: 14px 32px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s ease;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out 1.1s forwards;
+    }
+
+    .cta:hover {
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .podcast {
+      background-color: #0D1B2A;
+      padding: 100px 10vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .podcast-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: #2D6A4F;
+      opacity: 0.8;
+      margin-bottom: 28px;
+    }
+
+    .podcast-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 52px;
+      color: #FFFFFF;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .podcast-description {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: #FAF7F0;
+      opacity: 0.65;
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    .podcast-buttons {
+      display: flex;
+      gap: 16px;
+    }
+
+    .podcast-btn {
+      padding: 14px 28px;
+      border: 1px solid rgba(250, 247, 240, 0.3);
+      background: transparent;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: #FAF7F0;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .podcast-btn:hover {
+      border-color: rgba(250, 247, 240, 0.6);
+    }
+
+    .newsletter {
+      background-color: #1A3D2B;
+      padding: 60px 10vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .newsletter-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: #FAF7F0;
+      opacity: 0.4;
+      margin-bottom: 28px;
+    }
+
+    .newsletter-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: #FAF7F0;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    .newsletter-subtext {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 22px;
+      color: #FAF7F0;
+      opacity: 0.6;
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0;
+    }
+
+    .newsletter-input {
+      background: transparent;
+      border: 1px solid rgba(250, 247, 240, 0.3);
+      border-right: none;
+      padding: 14px 20px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: #FAF7F0;
+      width: 280px;
+      outline: none;
+    }
+
+    .newsletter-input::placeholder {
+      color: rgba(250, 247, 240, 0.4);
+    }
+
+    .newsletter-input:focus {
+      border-color: rgba(250, 247, 240, 0.6);
+    }
+
+    .newsletter-submit {
+      background-color: #FAF7F0;
+      border: 1px solid #FAF7F0;
+      padding: 14px 24px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: #1A3D2B;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .newsletter-submit:hover {
+      opacity: 0.85;
+    }
+
+    .newsletter-thanks {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: #FAF7F0;
+      opacity: 0.8;
+      display: none;
+    }
+
+    .pillars {
+      background-color: #FAF7F0;
+      padding: 60px 10vw 100px;
+    }
+
+    .pillars-label {
+      text-align: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: #0D1B2A;
+      opacity: 0.4;
+      margin-bottom: 60px;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .pillar-card {
+      background-color: #FFFFFF;
+      border-left: 2px solid #2D6A4F;
+      padding: 36px 36px 48px;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .pillar-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #2D6A4F;
+      margin-bottom: 20px;
+    }
+
+    .pillar-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      color: #0D1B2A;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .pillar-description {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: #555555;
+      opacity: 1;
+      line-height: 1.6;
+    }
+
+    .footer {
+      background-color: #0D1B2A;
+      padding: 60px 10vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-rule {
+      border: none;
+      border-top: 1px solid rgba(45, 106, 79, 0.3);
+      width: 100%;
+      margin-bottom: 40px;
+    }
+
+    .footer-wordmark {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .footer-wordmark-global {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      text-transform: uppercase;
+      color: #FAF7F0;
+      line-height: 1;
+    }
+
+    .footer-wordmark-harlem {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+
+    .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: #FAF7F0;
+      opacity: 0.5;
+      margin-top: 12px;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 0;
+      align-items: center;
+      margin-top: 32px;
+    }
+
+    .footer-nav-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #FAF7F0;
+      opacity: 0.35;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .footer-nav-link:hover {
+      opacity: 0.65;
+    }
+
+    .footer-nav-sep {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      color: #FAF7F0;
+      opacity: 0.35;
+      margin: 0 10px;
+    }
+
+    .footer-legal {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      color: #FAF7F0;
+      opacity: 0.25;
+      margin-top: 24px;
+    }
+
+    /* TABLET AND MOBILE — max 768px */
+    @media (max-width: 768px) {
+      .hero {
+        padding-left: 6vw;
+      }
+
+      .wordmark-global,
+      .wordmark-harlem {
+        font-size: 18vw;
+      }
+
+      .wordmark-global sup {
+        font-size: 3.2vw;
+      }
+
+      .podcast {
+        padding: 60px 10vw;
+      }
+
+      .pillars {
+        padding: 60px 10vw;
+      }
+
+      .pillars-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px;
+      }
+
+      .beehiiv-embed {
+        width: 100% !important;
+      }
+    }
+
+    /* PHONES ONLY — max 480px */
+    @media (max-width: 480px) {
+      .hero {
+        padding-left: 5vw;
+      }
+
+      .wordmark-global,
+      .wordmark-harlem {
+        font-size: 20vw;
+      }
+
+      .wordmark-global sup {
+        font-size: 4vw;
+      }
+
+      .podcast {
+        padding: 40px 8vw;
+      }
+
+      .newsletter {
+        padding: 40px 8vw;
+      }
+
+      .pillars {
+        padding: 40px 8vw;
+      }
+
+      .footer {
+        padding: 40px 8vw;
+      }
+
+      .cta {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      .podcast-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .podcast-btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .beehiiv-embed {
+        width: 100% !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-label" href="index.html">Global Harlem</a>
+    <div class="nav-links">
+      <a class="nav-link" href="about.html">About</a>
+      <a class="nav-link" href="pulse.html">Community Pulse</a>
+      <a class="nav-link" href="intelligence.html">Intelligence</a>
+      <a class="nav-link" href="trust.html">Trust Audit</a>
+      <a class="nav-link" href="#">Podcast</a>
+    </div>
+  </nav>
+
+  <main class="hero">
+    <div class="wordmark">
+      <span class="wordmark-global">Global<sup>®</sup></span>
+      <span class="wordmark-harlem">Harlem</span>
+      <hr class="divider">
+      <p class="tagline">Local Roots. Global Impact.</p>
+    </div>
+    <p class="mission">Rooted in Story. Driven by Purpose. Designed for Legacy.</p>
+    <a class="cta" href="pulse.html" style="animation: fadeIn 0.5s ease-out 1.1s forwards;">Take the Harlem Community Pulse</a>
+  </main>
+
+  <section class="pillars">
+    <p class="pillars-label">Three Pillars</p>
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <p class="pillar-number">01</p>
+        <h2 class="pillar-title">Legacy</h2>
+        <p class="pillar-description">The builders who made Harlem the cultural capital of the world — told at the level they deserve.</p>
+      </div>
+      <div class="pillar-card">
+        <p class="pillar-number">02</p>
+        <h2 class="pillar-title">Leadership</h2>
+        <p class="pillar-description">How the best leaders think, decide, and build — transmitted to the next generation.</p>
+      </div>
+      <div class="pillar-card">
+        <p class="pillar-number">03</p>
+        <h2 class="pillar-title">Ownership</h2>
+        <p class="pillar-description">Who owns it, how they got there, and the specific moves available to every builder right now.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="podcast">
+    <p class="podcast-label">The Podcast</p>
+    <h2 class="podcast-title">Mindset Disrupt</h2>
+    <p class="podcast-description">A narrative podcast on story, leadership, and what it means to build something that lasts. Rooted in Harlem. Built for the world.</p>
+    <div class="podcast-buttons">
+      <a class="podcast-btn" href="#">Listen on Spotify</a>
+      <a class="podcast-btn" href="#">Listen on Apple</a>
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <p class="newsletter-subtext">A weekly dispatch on story, trust, and what's happening in Black culture across the diaspora. Free. Every week.</p>
+    <div style="display: flex; justify-content: center;">
+      <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script><iframe src="https://subscribe-forms.beehiiv.com/ef1c77d2-76b0-4228-8984-4412e30f3cf8" class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="width: 609px; height: 339px; margin: 0; border-radius: 0px 0px 0px 0px !important; background-color: transparent; box-shadow: 0 0 #0000; max-width: 100%;"></iframe>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <hr class="footer-rule">
+    <div class="footer-wordmark">
+      <span class="footer-wordmark-global">Global</span>
+      <span class="footer-wordmark-harlem">Harlem</span>
+    </div>
+    <p class="footer-tagline">Rooted in Story. Driven by Purpose. Designed for Legacy.</p>
+    <nav class="footer-nav">
+      <a class="footer-nav-link" href="index.html">Home</a>
+      <span class="footer-nav-sep">·</span>
+      <a class="footer-nav-link" href="about.html">About</a>
+      <span class="footer-nav-sep">·</span>
+      <a class="footer-nav-link" href="pulse.html">Community Pulse</a>
+      <span class="footer-nav-sep">·</span>
+      <a class="footer-nav-link" href="intelligence.html">Intelligence</a>
+      <span class="footer-nav-sep">·</span>
+      <a class="footer-nav-link" href="#">Podcast</a>
+      <span class="footer-nav-sep">·</span>
+      <a class="footer-nav-link" href="#">Newsletter</a>
+    </nav>
+    <p class="footer-legal">© 2026 The Baron Carr Company, Inc. DBA Global Harlem. All rights reserved.</p>
+  </footer>
+</body>
+</html>

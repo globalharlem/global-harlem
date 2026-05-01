@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Global Harlem</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Serif+Display&family=Space+Mono&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background-color: #1A3D2B;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes drawWidth {
+      from { width: 0; }
+      to   { width: 100%; }
+    }
+
+    /* NAV BAR */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 32px;
+      background-color: #1A3D2B;
+      opacity: 0;
+      animation: fadeIn 0.6s ease-out 0s forwards;
+    }
+
+    .nav-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: #FAF7F0;
+      opacity: 0.4;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-label:hover {
+      opacity: 0.7;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #FAF7F0;
+      opacity: 0.4;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-link:hover {
+      opacity: 0.7;
+    }
+
+    /* HERO */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      min-height: 100vh;
+      padding-left: 10vw;
+      padding-right: 10vw;
+      padding-bottom: 10vh;
+    }
+
+    .hero-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: #FAF7F0;
+      opacity: 0;
+      margin-bottom: 32px;
+      animation: fadeIn 0.6s ease-out 0.2s forwards;
+    }
+
+    .hero-headline {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+      margin-bottom: 48px;
+    }
+
+    .hero-line-1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 7vw;
+      font-weight: 400;
+      color: #FAF7F0;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.4s forwards;
+    }
+
+    .hero-line-2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 7vw;
+      font-weight: 400;
+      color: #2D6A4F;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.7s forwards;
+    }
+
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: #FAF7F0;
+      opacity: 0;
+      max-width: 600px;
+      line-height: 1.7;
+      animation: fadeIn 0.8s ease-out 1.0s forwards;
+    }
+
+    /* SECTION BASE */
+    .section {
+      padding: 100px 10vw;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: #FAF7F0;
+      opacity: 0.4;
+      margin-bottom: 48px;
+    }
+
+    /* SECTION 02 — BARON CARR */
+    .founder {
+      background-color: #0D1B2A;
+    }
+
+    .founder-inner {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .founder-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 48px;
+      font-weight: 400;
+      color: #FAF7F0;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+
+    .founder-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: #FAF7F0;
+      opacity: 0.55;
+      line-height: 1.6;
+    }
+
+    .founder-body p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      color: #FAF7F0;
+      opacity: 0.8;
+      line-height: 1.85;
+      margin-bottom: 28px;
+    }
+
+    .founder-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* SECTION 03 — WHY THIS EXISTS */
+    .why {
+      background-color: #1A3D2B;
+    }
+
+    .why-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: 40px;
+      font-weight: 400;
+      color: #FAF7F0;
+      line-height: 1.15;
+      max-width: 640px;
+      margin-bottom: 56px;
+    }
+
+    .why-body {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .why-body p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: #FAF7F0;
+      opacity: 0.75;
+      line-height: 1.85;
+    }
+
+    /* SECTION 04 — WHO IT IS FOR */
+    .audience {
+      background-color: #FAF7F0;
+    }
+
+    .audience .section-label {
+      color: #0D1B2A;
+      opacity: 0.4;
+    }
+
+    .audience-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: 40px;
+      font-weight: 400;
+      color: #0D1B2A;
+      line-height: 1.15;
+      margin-bottom: 60px;
+    }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+
+    .audience-card {
+      background-color: #FFFFFF;
+      border-left: 2px solid #2D6A4F;
+      padding: 36px 36px 48px;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .audience-card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: #0D1B2A;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .audience-card-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: #555555;
+      line-height: 1.7;
+    }
+
+    /* SECTION 05 — FOOTER */
+    .footer {
+      background-color: #0D1B2A;
+      padding: 60px 10vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-rule {
+      border: none;
+      border-top: 1px solid rgba(45, 106, 79, 0.3);
+      width: 100%;
+      margin-bottom: 40px;
+    }
+
+    .footer-wordmark {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .footer-wordmark-global {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      text-transform: uppercase;
+      color: #FAF7F0;
+      line-height: 1;
+    }
+
+    .footer-wordmark-harlem {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+
+    .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: #FAF7F0;
+      opacity: 0.5;
+      margin-top: 12px;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 0;
+      align-items: center;
+      margin-top: 32px;
+    }
+
+    .footer-nav-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #FAF7F0;
+      opacity: 0.35;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .footer-nav-link:hover {
+      opacity: 0.65;
+    }
+
+    .footer-nav-sep {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      color: #FAF7F0;
+      opacity: 0.35;
+      margin: 0 10px;
+    }
+
+    .footer-legal {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      color: #FAF7F0;
+      opacity: 0.25;
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-label" href="index.html">Global Harlem</a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="pulse.html">Community Pulse</a>
+      <a class="nav-link" href="intelligence.html">Intelligence</a>
+      <a class="nav-link" href="trust.html">Trust Audit</a>
+      <a class="nav-link" href="#">Podcast</a>
+    </div>
+  </nav>
+
+  <!-- SECTION 01: HERO -->
+  <main class="hero">
+    <p class="hero-label">Our Story</p>
+    <div class="hero-headline">
+      <span class="hero-line-1">We have always</span>
+      <span class="hero-line-2">been this.</span>
+    </div>
+    <p class="hero-subtitle">Architects. Romantics. Culture setters. Business minds. Charmers. Builders. Legacy makers. We have always been these things. Now the world has a platform worthy of who we are.</p>
+  </main>
+
+  <!-- SECTION 02: BARON CARR -->
+  <section class="section founder">
+    <p class="section-label">The Founder</p>
+    <div class="founder-inner">
+      <div class="founder-identity">
+        <h2 class="founder-name">Baron Carr</h2>
+        <p class="founder-subtitle">Strategic Communications Leader. Engagement Journalist. Community Architect.</p>
+      </div>
+      <div class="founder-body">
+        <p>Baron Carr is a strategic communications leader, engagement journalist, and community architect with 25 years of experience across finance, brand marketing, wellness, and organizational leadership. He has spent a career building trust between institutions and the people they serve and noticed what was consistently missing. Not the talent. Not the stories. The infrastructure. The ownership. The platform that is rooted in our culture, built from our experience, and open to everyone who believes in the value we bring to the world.</p>
+        <p>Global Harlem is the answer to that gap. And it is being built at the precise moment when artificial intelligence has made possible what we could once only imagine. Baron believes deeply that humans come first. That critical thinking, cultural wisdom, and lived experience are the foundation. That AI exists to support our dreams, accelerate our plans, and build the infrastructure that turns what lived only in our minds into something the world can see, touch, and benefit from. This is that platform. Built by a human. Powered by intelligence. Designed for legacy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 03: WHY THIS EXISTS -->
+  <section class="section why">
+    <p class="section-label">Why This Exists</p>
+    <h2 class="why-headline">Every great culture deserves a platform worthy of it.</h2>
+    <div class="why-body">
+      <p>The stories of Black people have always been extraordinary. Builders who shaped music, fashion, language, business, and culture across every continent. Trendsetters whose creativity the world follows. Entrepreneurs whose ingenuity creates movements. This is who we have always been. Global Harlem is the platform that finally tells it at the level it deserves.</p>
+      <p>We are business minds and romantics. Culture setters and trendsetters. Entrepreneurs and artists and community builders and legacy makers. We love deeply and build boldly. We welcome everyone who loves and supports this culture because our circle has always been wide. Global Harlem exists to amplify every voice in that circle and connect it to the world.</p>
+      <p>For entrepreneurs ready to scale. For creatives ready to be seen. For nonprofits doing the essential work. For brands and organizations ready to engage authentically with one of the most influential cultures in human history. Global Harlem delivers the stories, the intelligence, and the infrastructure that makes all of it possible. This platform is built to last. Designed for legacy. And it belongs to all of us.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 04: WHO IT IS FOR -->
+  <section class="section audience">
+    <p class="section-label">Who This Is For</p>
+    <h2 class="audience-headline">For everyone who claims the culture.</h2>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <h3 class="audience-card-title">Entrepreneurs.</h3>
+        <p class="audience-card-body">Building something real and looking for the infrastructure, the stories, and the community to support it. Global Harlem is where your work gets seen by the people who matter most.</p>
+      </div>
+      <div class="audience-card">
+        <h3 class="audience-card-title">Creatives.</h3>
+        <p class="audience-card-body">Making culture and ready for a platform that treats your work with the gravity it deserves. Your stories belong here and this community is ready to receive them.</p>
+      </div>
+      <div class="audience-card">
+        <h3 class="audience-card-title">Nonprofits.</h3>
+        <p class="audience-card-body">Doing the essential community work every day. Global Harlem amplifies what you are building and connects your mission to the audiences that need to hear it.</p>
+      </div>
+      <div class="audience-card">
+        <h3 class="audience-card-title">Brands and Organizations.</h3>
+        <p class="audience-card-body">Ready to engage authentically with one of the most influential cultures in human history. Global Harlem delivers the intelligence, the access, and the trust that makes that possible.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 05: FOOTER -->
+  <footer class="footer">
+    <hr class="footer-rule">
+    <div class="footer-wordmark">
+      <span class="footer-wordmark-global">Global</span>
+      <span class="footer-wordmark-harlem">Harlem</span>
+    </div>
+    <p class="footer-tagline">Rooted in Story. Driven by Purpose. Designed for Legacy.</p>
+    <nav class="footer-nav">
+      <a class="footer-nav-link" href="index.html">Home</a>
+      <span class="footer-nav-sep">·</span>
+      <a class="footer-nav-link" href="about.html">About</a>
+      <span class="footer-nav-sep">·</span>
+      <a class="footer-nav-link" href="pulse.html">Community Pulse</a>
+      <span class="footer-nav-sep">·</span>
+      <a class="footer-nav-link" href="intelligence.html">Intelligence</a>
+      <span class="footer-nav-sep">·</span>
+      <a class="footer-nav-link" href="#">Podcast</a>
+      <span class="footer-nav-sep">·</span>
+      <a class="footer-nav-link" href="#">Newsletter</a>
+    </nav>
+    <p class="footer-legal">© 2026 The Baron Carr Company, Inc. DBA Global Harlem. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
