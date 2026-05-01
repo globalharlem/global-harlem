@@ -1,3 +1,4 @@
+import os
 import feedparser
 import requests
 import json
@@ -27,7 +28,7 @@ SOURCES = [
     {"city": "Paris", "region": "global", "name": "Afropean", "url": "https://afropean.com/feed/"},
 ]
 
-ANTHROPIC_API_KEY = "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"
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
 
 def categorize_story(title, summary, city):
     """Send story to Claude to categorize by pillar and summarize."""
