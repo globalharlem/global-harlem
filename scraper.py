@@ -6,26 +6,62 @@ import datetime
 
 # ── NEWS SOURCES BY CITY ──────────────────────────────────
 SOURCES = [
-    # DOMESTIC
+    # ── US NATIONAL ──────────────────────────────────────
+    {"city": "National", "region": "domestic", "name": "Black Enterprise", "url": "https://www.blackenterprise.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "TheGrio", "url": "https://thegrio.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "Essence", "url": "https://www.essence.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "Ebony", "url": "https://www.ebony.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "Blavity", "url": "https://blavity.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "AfroTech", "url": "https://afrotech.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "NewsOne", "url": "https://newsone.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "Shadow & Act", "url": "https://shadowandact.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "EURweb", "url": "https://eurweb.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "BlackPressUSA", "url": "https://blackpressusa.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "UrbanGeekz", "url": "https://urbangeekz.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "OkayPlayer", "url": "https://www.okayplayer.com/feed/"},
+    # ── US CITIES ─────────────────────────────────────────
     {"city": "Harlem", "region": "domestic", "name": "Amsterdam News", "url": "https://amsterdamnews.com/feed/"},
     {"city": "Harlem", "region": "domestic", "name": "Harlem World", "url": "https://www.harlemworldmagazine.com/feed/"},
     {"city": "Atlanta", "region": "domestic", "name": "Atlanta Black Star", "url": "https://atlantablackstar.com/feed/"},
+    {"city": "Atlanta", "region": "domestic", "name": "Atlanta Tribune", "url": "https://atlantatribune.com/feed/"},
     {"city": "Washington D.C.", "region": "domestic", "name": "The Root", "url": "https://www.theroot.com/rss"},
+    {"city": "Washington D.C.", "region": "domestic", "name": "Washington Informer", "url": "https://washingtoninformer.com/feed/"},
     {"city": "Chicago", "region": "domestic", "name": "Chicago Defender", "url": "https://chicagodefender.com/feed/"},
     {"city": "Houston", "region": "domestic", "name": "Defender Network", "url": "https://defendernetwork.com/feed/"},
-    {"city": "Los Angeles", "region": "domestic", "name": "LA Sentinel", "url": "https://lasentinel.net/feed"},
-    {"city": "Detroit", "region": "domestic", "name": "Michigan Chronicle", "url": "https://michiganchronicle.com/feed"},
-    {"city": "Philadelphia", "region": "domestic", "name": "Philadelphia Tribune", "url": "https://www.phillytrib.com/feed"},
-    {"city": "New Orleans", "region": "domestic", "name": "Louisiana Weekly", "url": "https://www.louisianaweekly.com/feed/"},
-    # GLOBAL
-    {"city": "London", "region": "global", "name": "Black Ballad", "url": "https://blackballad.co.uk/feed"},
-    {"city": "London", "region": "global", "name": "The Voice UK", "url": "https://www.voice-online.co.uk/feed/"},
-    {"city": "Accra", "region": "global", "name": "Pulse Ghana", "url": "https://www.pulse.com.gh/rss"},
-    {"city": "Lagos", "region": "global", "name": "Pulse Nigeria", "url": "https://www.pulse.ng/rss"},
-    {"city": "Lagos", "region": "global", "name": "Guardian Nigeria", "url": "https://guardian.ng/feed/"},
-    {"city": "Toronto", "region": "global", "name": "Afro Toronto", "url": "https://afrotoronto.com/feed/"},
-    {"city": "Kingston", "region": "global", "name": "Jamaica Gleaner", "url": "https://jamaica-gleaner.com/feed/rss.xml"},
-    {"city": "Paris", "region": "global", "name": "Afropean", "url": "https://afropean.com/feed/"},
+    {"city": "Houston", "region": "domestic", "name": "Afro American News", "url": "https://aframnews.com/feed/"},
+    {"city": "Los Angeles", "region": "domestic", "name": "LA Sentinel", "url": "https://lasentinel.net/feed/"},
+    {"city": "Baltimore", "region": "domestic", "name": "Afro American", "url": "https://afro.com/feed/"},
+    {"city": "Detroit", "region": "domestic", "name": "Michigan Chronicle", "url": "https://michiganchronicle.com/feed/"},
+    {"city": "Philadelphia", "region": "domestic", "name": "Philadelphia Tribune", "url": "https://www.phillytrib.com/feed/"},
+    {"city": "New Orleans", "region": "domestic", "name": "Louisiana Weekly", "url": "https://louisianaweekly.com/feed/"},
+    {"city": "Memphis", "region": "domestic", "name": "Tri-State Defender", "url": "https://tri-statedefender.com/feed/"},
+    {"city": "Cleveland", "region": "domestic", "name": "Call & Post", "url": "https://callandpost.com/feed/"},
+    {"city": "Oakland", "region": "domestic", "name": "Oakland Post", "url": "https://oaklandpost.org/feed/"},
+    # ── CARIBBEAN ─────────────────────────────────────────
+    {"city": "Kingston", "region": "caribbean", "name": "Jamaica Gleaner", "url": "https://jamaica-gleaner.com/feed/rss.xml"},
+    {"city": "Trinidad", "region": "caribbean", "name": "Trinidad Express", "url": "https://trinidadexpress.com/feed/"},
+    {"city": "Barbados", "region": "caribbean", "name": "Barbados Today", "url": "https://barbadostoday.bb/feed/"},
+    {"city": "Guyana", "region": "caribbean", "name": "Stabroek News", "url": "https://www.stabroeknews.com/feed/"},
+    # ── AFRICA ────────────────────────────────────────────
+    {"city": "Lagos", "region": "africa", "name": "Pulse Nigeria", "url": "https://www.pulse.ng/rss"},
+    {"city": "Lagos", "region": "africa", "name": "Guardian Nigeria", "url": "https://guardian.ng/feed/"},
+    {"city": "Lagos", "region": "africa", "name": "Vanguard Nigeria", "url": "https://www.vanguardngr.com/feed/"},
+    {"city": "Accra", "region": "africa", "name": "Pulse Ghana", "url": "https://www.pulse.com.gh/rss"},
+    {"city": "Accra", "region": "africa", "name": "Ghana Web", "url": "https://www.ghanaweb.com/GhanaHomePage/rss/index.xml"},
+    {"city": "Nairobi", "region": "africa", "name": "Daily Nation Kenya", "url": "https://nation.africa/kenya/rss.xml"},
+    {"city": "Johannesburg", "region": "africa", "name": "Daily Maverick", "url": "https://www.dailymaverick.co.za/feed/"},
+    {"city": "Pan-Africa", "region": "africa", "name": "OkayAfrica", "url": "https://www.okayafrica.com/feeds/feed.rss"},
+    {"city": "Pan-Africa", "region": "africa", "name": "Afrocritik", "url": "https://afrocritik.com/feed/"},
+    {"city": "Pan-Africa", "region": "africa", "name": "Africa Is A Country", "url": "https://africasacountry.com/feed/"},
+    {"city": "Pan-Africa", "region": "africa", "name": "AllAfrica", "url": "https://allafrica.com/tools/headlines/rdf/latest/headlines.rdf"},
+    # ── UK & EUROPE ───────────────────────────────────────
+    {"city": "London", "region": "europe", "name": "Black Ballad", "url": "https://blackballad.co.uk/feed"},
+    {"city": "London", "region": "europe", "name": "The Voice UK", "url": "https://www.voice-online.co.uk/feed/"},
+    {"city": "Paris", "region": "europe", "name": "Afropean", "url": "https://afropean.com/feed/"},
+    # ── CANADA ────────────────────────────────────────────
+    {"city": "Toronto", "region": "canada", "name": "Afro Toronto", "url": "https://afrotoronto.com/feed/"},
+    # ── BRAZIL ────────────────────────────────────────────
+    {"city": "São Paulo", "region": "latam", "name": "Alma Preta", "url": "https://almapreta.com.br/feed/"},
 ]
 
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
@@ -150,3 +186,63 @@ def run_scraper():
 
 if __name__ == "__main__":
     run_scraper()
+# --- appended sources ---
+EXTRA_SOURCES = [
+    # ── US NATIONAL ──────────────────────────────────────
+    {"city": "National", "region": "domestic", "name": "Black Enterprise", "url": "https://www.blackenterprise.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "TheGrio", "url": "https://thegrio.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "Essence", "url": "https://www.essence.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "Ebony", "url": "https://www.ebony.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "Blavity", "url": "https://blavity.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "AfroTech", "url": "https://afrotech.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "NewsOne", "url": "https://newsone.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "Shadow & Act", "url": "https://shadowandact.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "EURweb", "url": "https://eurweb.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "BlackPressUSA", "url": "https://blackpressusa.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "UrbanGeekz", "url": "https://urbangeekz.com/feed/"},
+    {"city": "National", "region": "domestic", "name": "OkayPlayer", "url": "https://www.okayplayer.com/feed/"},
+    # ── US CITIES ─────────────────────────────────────────
+    {"city": "Harlem", "region": "domestic", "name": "Amsterdam News", "url": "https://amsterdamnews.com/feed/"},
+    {"city": "Harlem", "region": "domestic", "name": "Harlem World", "url": "https://www.harlemworldmagazine.com/feed/"},
+    {"city": "Atlanta", "region": "domestic", "name": "Atlanta Black Star", "url": "https://atlantablackstar.com/feed/"},
+    {"city": "Atlanta", "region": "domestic", "name": "Atlanta Tribune", "url": "https://atlantatribune.com/feed/"},
+    {"city": "Washington D.C.", "region": "domestic", "name": "The Root", "url": "https://www.theroot.com/rss"},
+    {"city": "Washington D.C.", "region": "domestic", "name": "Washington Informer", "url": "https://washingtoninformer.com/feed/"},
+    {"city": "Chicago", "region": "domestic", "name": "Chicago Defender", "url": "https://chicagodefender.com/feed/"},
+    {"city": "Houston", "region": "domestic", "name": "Defender Network", "url": "https://defendernetwork.com/feed/"},
+    {"city": "Houston", "region": "domestic", "name": "Afro American News", "url": "https://aframnews.com/feed/"},
+    {"city": "Los Angeles", "region": "domestic", "name": "LA Sentinel", "url": "https://lasentinel.net/feed/"},
+    {"city": "Baltimore", "region": "domestic", "name": "Afro American", "url": "https://afro.com/feed/"},
+    {"city": "Detroit", "region": "domestic", "name": "Michigan Chronicle", "url": "https://michiganchronicle.com/feed/"},
+    {"city": "Philadelphia", "region": "domestic", "name": "Philadelphia Tribune", "url": "https://www.phillytrib.com/feed/"},
+    {"city": "New Orleans", "region": "domestic", "name": "Louisiana Weekly", "url": "https://louisianaweekly.com/feed/"},
+    {"city": "Memphis", "region": "domestic", "name": "Tri-State Defender", "url": "https://tri-statedefender.com/feed/"},
+    {"city": "Cleveland", "region": "domestic", "name": "Call & Post", "url": "https://callandpost.com/feed/"},
+    {"city": "Oakland", "region": "domestic", "name": "Oakland Post", "url": "https://oaklandpost.org/feed/"},
+    # ── CARIBBEAN ─────────────────────────────────────────
+    {"city": "Kingston", "region": "caribbean", "name": "Jamaica Gleaner", "url": "https://jamaica-gleaner.com/feed/rss.xml"},
+    {"city": "Trinidad", "region": "caribbean", "name": "Trinidad Express", "url": "https://trinidadexpress.com/feed/"},
+    {"city": "Barbados", "region": "caribbean", "name": "Barbados Today", "url": "https://barbadostoday.bb/feed/"},
+    {"city": "Guyana", "region": "caribbean", "name": "Stabroek News", "url": "https://www.stabroeknews.com/feed/"},
+    # ── AFRICA ────────────────────────────────────────────
+    {"city": "Lagos", "region": "africa", "name": "Pulse Nigeria", "url": "https://www.pulse.ng/rss"},
+    {"city": "Lagos", "region": "africa", "name": "Guardian Nigeria", "url": "https://guardian.ng/feed/"},
+    {"city": "Lagos", "region": "africa", "name": "Vanguard Nigeria", "url": "https://www.vanguardngr.com/feed/"},
+    {"city": "Accra", "region": "africa", "name": "Pulse Ghana", "url": "https://www.pulse.com.gh/rss"},
+    {"city": "Accra", "region": "africa", "name": "Ghana Web", "url": "https://www.ghanaweb.com/GhanaHomePage/rss/index.xml"},
+    {"city": "Nairobi", "region": "africa", "name": "Daily Nation Kenya", "url": "https://nation.africa/kenya/rss.xml"},
+    {"city": "Johannesburg", "region": "africa", "name": "Daily Maverick", "url": "https://www.dailymaverick.co.za/feed/"},
+    {"city": "Pan-Africa", "region": "africa", "name": "OkayAfrica", "url": "https://www.okayafrica.com/feeds/feed.rss"},
+    {"city": "Pan-Africa", "region": "africa", "name": "Afrocritik", "url": "https://afrocritik.com/feed/"},
+    {"city": "Pan-Africa", "region": "africa", "name": "Africa Is A Country", "url": "https://africasacountry.com/feed/"},
+    {"city": "Pan-Africa", "region": "africa", "name": "AllAfrica", "url": "https://allafrica.com/tools/headlines/rdf/latest/headlines.rdf"},
+    # ── UK & EUROPE ───────────────────────────────────────
+    {"city": "London", "region": "europe", "name": "Black Ballad", "url": "https://blackballad.co.uk/feed"},
+    {"city": "London", "region": "europe", "name": "The Voice UK", "url": "https://www.voice-online.co.uk/feed/"},
+    {"city": "Paris", "region": "europe", "name": "Afropean", "url": "https://afropean.com/feed/"},
+    # ── CANADA ────────────────────────────────────────────
+    {"city": "Toronto", "region": "canada", "name": "Afro Toronto", "url": "https://afrotoronto.com/feed/"},
+    # ── BRAZIL ────────────────────────────────────────────
+    {"city": "São Paulo", "region": "latam", "name": "Alma Preta", "url": "https://almapreta.com.br/feed/"},
+]
+SOURCES.extend(EXTRA_SOURCES)
