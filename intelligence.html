@@ -306,9 +306,9 @@ body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville
 </nav>
 <header class="masthead">
   <div class="masthead-top">
-    <span>Global Harlem Media Network</span>
+    <span></span>
     <span id="liveDate"></span>
-    <span>Cultural Intelligence Platform</span>
+    <span></span>
   </div>
   <div class="masthead-main">
     <div>
@@ -331,7 +331,7 @@ body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville
 
 <nav class="mode-bar">
   <button class="mode-tab active" onclick="switchMode('weekly')"><div class="dot"></div>Weekly Intelligence Report</button>
-  <button class="mode-tab" onclick="switchMode('daily')"><div class="dot"></div>Daily Site Updates</button>
+  
 </nav>
 
 <div class="city-filter-bar" id="cityFilterBar">
@@ -339,11 +339,10 @@ body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville
   <button class="cf-btn active" data-city="all" onclick="filterCity(this)">All Cities</button>
   <button class="cf-btn" data-city="Harlem" onclick="filterCity(this)">Harlem</button>
   <button class="cf-btn" data-city="Atlanta" onclick="filterCity(this)">Atlanta</button>
-  <button class="cf-btn" data-city="London" onclick="filterCity(this)">London</button>
-  <button class="cf-btn" data-city="Lagos" onclick="filterCity(this)">Lagos</button>
-  <button class="cf-btn" data-city="Accra" onclick="filterCity(this)">Accra</button>
-  <button class="cf-btn" data-city="Toronto" onclick="filterCity(this)">Toronto</button>
-</div>
+  <button class="cf-btn" data-city="Washington DC" onclick="filterCity(this)">Washington DC</button>
+  <button class="cf-btn" data-city="Chicago" onclick="filterCity(this)">Chicago</button>
+  <button class="cf-btn" data-city="Houston" onclick="filterCity(this)">Houston</button>
+        </div>
 
 <!-- WEEKLY PANEL -->
 <div class="panel active" id="panel-weekly">
@@ -365,12 +364,12 @@ body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville
         <button class="btn-generate" id="btnGenerate" onclick="generateWeeklyReport()">Run Report ↗</button>
       </div>
     </div>
-    <div class="print-bar visible" id="printBar">
+    <div class="print-bar" id="printBar">
       <div class="print-bar-text">Report ready — share as PDF or export for partners</div>
       <button class="btn-print" onclick="window.print()">⬇ Export / Print PDF</button>
     </div>
     <div id="reportContainer">
-      <div style="text-align:center;padding:10px;font-family:IBM Plex Mono,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);background:var(--ink);margin-bottom:12px;border-radius:2px;">Sample Report — May 24 – May 30, 2026</div>
+      
 
   <div class="read-time-bar">
     <span>⏱ 5–8 minute read · May 24 – May 30, 2026</span>
@@ -1275,7 +1274,7 @@ async function generateWeeklyReport(){
     'Accra':{lat:5.6037,lng:-0.187},'Toronto':{lat:43.6532,lng:-79.3832}
   };
 
-  const prompt=`You are the intelligence analyst for Global Harlem Media Network — a diaspora-focused media platform covering Black communities across Harlem, Atlanta, London, Lagos, Accra, and Toronto. Four signal categories: Cultural & Arts, Economic & Business, Wellness & Health, Technology & Media.
+  const prompt=`You are the intelligence analyst for  — a diaspora-focused media platform covering Black communities across Harlem, Atlanta, London, Lagos, Accra, and Toronto. Four signal categories: Cultural & Arts, Economic & Business, Wellness & Health, Technology & Media.
 
 Generate a weekly intelligence brief for: ${weekVal}
 
@@ -1414,7 +1413,20 @@ Respond ONLY with valid JSON, no markdown fences:
 Make all content specific and grounded in real diaspora economics, culture, and geography. Use real website domains for URLs.`;
 
   try {
-    const resp=await fetch('/api/generate',{
+    // Fetch real scraped stories
+  let realStories = '';
+  try {
+    const sr = await fetch('/api/stories');
+    if (sr.ok) {
+      const sd = await sr.json();
+      realStories = '\n\nREAL SIGNALS FROM THIS WEEK (use these as the basis for your report, use their real headlines, sources, and links):\n' +
+        (sd.stories||[]).map((s,i) => (i+1)+'. ['+s.category+'] ['+s.city+'] '+s.title+' (Source: '+s.source+', Link: '+s.link+')').join('\n');
+      console.log('Loaded '+sd.total_signals+' real signals');
+    }
+  } catch(e) { console.log('Using AI generation'); }
+  prompt += realStories;
+
+  const resp=await fetch('/api/generate',{
       method:'POST',
       headers:{'Content-Type':'application/json',},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:8192,messages:[{role:'user',content:prompt}]})
@@ -1444,7 +1456,7 @@ async function generateDailyUpdates(){
   btn.disabled=true; btn.textContent='⟳ Loading…';
   document.getElementById('dailyFeed').innerHTML=`<div class="loading-msg"><span class="spinner"></span>Pulling today's site activity…</div>`;
   const todayStr=`${DAYS[now.getDay()]}, ${MONTHS[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
-  const prompt=`Generate a realistic daily site activity log for Global Harlem Media Network for today: ${todayStr}. Covers Black diaspora culture, leadership, wellness, economics across Harlem, Atlanta, London, Lagos, Accra, Toronto.
+  const prompt=`Generate a realistic daily site activity log for  for today: ${todayStr}. Covers Black diaspora culture, leadership, wellness, economics across Harlem, Atlanta, London, Lagos, Accra, Toronto.
 
 Respond ONLY with valid JSON, no fences:
 {"updates":[
