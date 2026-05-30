@@ -342,6 +342,8 @@ body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville
   <button class="cf-btn" data-city="Washington DC" onclick="filterCity(this)">Washington DC</button>
   <button class="cf-btn" data-city="Chicago" onclick="filterCity(this)">Chicago</button>
   <button class="cf-btn" data-city="Houston" onclick="filterCity(this)">Houston</button>
+  <button class="cf-btn" data-city="Detroit" onclick="filterCity(this)">Detroit</button>
+  <button class="cf-btn" data-city="Philadelphia" onclick="filterCity(this)">Philadelphia</button>
         </div>
 
 <!-- WEEKLY PANEL -->
@@ -707,6 +709,8 @@ async function generateWeeklyReport(){
         <span class="loading-city" id="lc-dc">DC</span>
         <span class="loading-city" id="lc-chicago">Chicago</span>
         <span class="loading-city" id="lc-houston">Houston</span>
+        <span class="loading-city" id="lc-detroit">Detroit</span>
+        <span class="loading-city" id="lc-philly">Philly</span>
         <span class="loading-city" id="lc-national">National</span>
       </div>
     </div>`;
@@ -748,7 +752,7 @@ async function generateWeeklyReport(){
     
   };
 
-  const prompt=`You are the intelligence analyst for  — a diaspora-focused media platform covering Black communities across Harlem, Atlanta, Washington DC, Chicago, and Houston. Four signal categories: Cultural & Arts, Economic & Business, Wellness & Health, Technology & Media.
+  let prompt=`You are the intelligence analyst for  — a diaspora-focused media platform covering Black communities across Harlem, Atlanta, Washington DC, Chicago, and Houston. Four signal categories: Cultural & Arts, Economic & Business, Wellness & Health, Technology & Media.
 
 Generate a weekly intelligence brief for: ${weekVal}
 
