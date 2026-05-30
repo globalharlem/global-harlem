@@ -3,658 +3,608 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Global Harlem — Cultural Intelligence Platform</title>
+  <title>Global Harlem — Community Intelligence for the Black Diaspora</title>
+  <meta name="description" content="Listening helps communities be heard. Community intelligence helps communities be understood. Global Harlem is the intelligence platform for the Black diaspora.">
+  <meta property="og:title" content="Global Harlem — Community Intelligence">
+  <meta property="og:description" content="Listening helps communities be heard. Community intelligence helps communities be understood.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital@1&family=DM+Serif+Display&family=Space+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root {
+      --ink: #0d0d0d;
+      --paper: #FAF7F0;
+      --cream: #f0ebe0;
+      --forest: #2D6A4F;
+      --forest-deep: #1A3D2B;
+      --navy: #0D1B2A;
+      --gold: #c9a84c;
+      --slate: #1a1a18;
+      --muted: #3a3a32;
+      --rule: #d4cdb8;
     }
 
-    html, body {
-      height: 100%;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; }
 
     body {
-      background-color: #1A3D2B;
-      min-height: 100vh;
-      position: relative;
+      background: var(--paper);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes drawLine { from{width:0} to{width:100%} }
+    @keyframes drawVert { from{height:0} to{height:100%} }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes drawWidth {
-      from { width: 0; }
-      to   { width: 100%; }
-    }
-
-    /* NAV BAR */
+    /* ── NAV ── */
     .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 28px 32px;
-      background-color: #1A3D2B;
-      opacity: 0;
-      animation: fadeIn 0.6s ease-out 0s forwards;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:22px 48px;
+      background:var(--forest-deep);
+      opacity:0; animation:fadeIn .5s ease .1s forwards;
     }
 
-    .nav-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.25em;
-      color: #FAF7F0;
-      opacity: 0.4;
-      text-decoration: none;
-      transition: opacity 0.2s ease;
+    .nav-brand {
+      font-family:'DM Serif Display',serif;
+      font-size:19px; color:var(--paper);
+      text-decoration:none; letter-spacing:.03em;
     }
 
-    .nav-label:hover {
-      opacity: 0.7;
-    }
+    .nav-brand span { color:var(--forest); font-weight:400; }
 
-    .nav-links {
-      display: flex;
-      gap: 32px;
-    }
+    .nav-links { display:flex; gap:32px; align-items:center; }
 
     .nav-link {
-      font-family: 'Space Mono', monospace;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: #FAF7F0;
-      opacity: 0.4;
-      text-decoration: none;
-      transition: opacity 0.2s ease;
+      font-family:'Space Mono',monospace; font-size:11px;
+      letter-spacing:.2em; text-transform:uppercase;
+      color:rgba(250,247,240,.5); text-decoration:none;
+      transition:color .3s;
     }
 
-    .nav-link:hover {
-      opacity: 0.7;
-    }
+    .nav-link:hover { color:rgba(250,247,240,.85); }
 
+    /* ── HERO ── */
     .hero {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      min-height: calc(100vh - 65px);
-      padding-left: 10vw;
-      padding-top: 14vh;
-      padding-bottom: 0;
+      padding:100px 48px 80px;
+      max-width:900px;
+      opacity:0; animation:fadeUp .8s ease .2s forwards;
     }
 
-    .wordmark {
-      display: flex;
-      flex-direction: column;
-      line-height: 1;
+    .hero-eyebrow {
+      font-family:'Space Mono',monospace; font-size:11px;
+      letter-spacing:.35em; text-transform:uppercase;
+      color:var(--forest); margin-bottom:32px;
     }
 
-    .wordmark-global {
-      font-family: 'DM Serif Display', serif;
-      font-size: 11vw;
-      text-transform: uppercase;
-      color: #FAF7F0;
-      line-height: 1;
-      opacity: 0;
-      animation: fadeUp 0.8s ease-out 0.2s forwards;
+    .hero h1 {
+      font-family:'DM Serif Display',serif;
+      font-size:clamp(48px,7vw,80px);
+      line-height:1.02; color:#0d0d0d;
+      margin-bottom:0; font-weight:400;
     }
 
-    .wordmark-global sup {
-      font-size: 1.8vw;
-      vertical-align: baseline;
-      position: relative;
-      top: -0.7em;
-      line-height: 0;
+    .hero h1 em {
+      font-style:normal;
+      color:var(--forest);
     }
 
-    .wordmark-harlem {
-      font-family: 'DM Serif Display', serif;
-      font-size: 11vw;
-      text-transform: uppercase;
-      color: #FFFFFF;
-      line-height: 1;
-      margin-bottom: 0;
-      opacity: 0;
-      animation: fadeUp 0.8s ease-out 0.5s forwards;
+    .hero-rule {
+      border:none; border-top:1px solid var(--rule);
+      width:0; margin:36px 0 32px;
+      animation:drawLine .6s ease .8s forwards;
     }
 
-    .divider {
-      border: none;
-      border-top: 1px solid rgba(250, 247, 240, 0.25);
-      width: 0;
-      margin: 14px 0;
-      animation: drawWidth 0.6s ease-out 0.9s forwards;
+    .hero-statement {
+      font-family:'Cormorant Garamond',serif;
+      font-style:italic; font-size:clamp(20px,2.5vw,26px);
+      color:#0d0d0d; line-height:1.85;
+      max-width:560px; margin-bottom:44px;
+      opacity:0; animation:fadeIn .6s ease 1s forwards;
     }
 
-    .tagline {
-      margin-top: 0;
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 13px;
-      letter-spacing: 0.2em;
-      color: #FAF7F0;
-      opacity: 0;
-      animation: fadeIn 0.6s ease-out 1.1s forwards;
+    .hero-cta {
+      display:inline-block;
+      padding:14px 36px;
+      border:1px solid var(--ink);
+      font-family:'Space Mono',monospace; font-size:12px;
+      letter-spacing:.2em; text-transform:uppercase;
+      color:#0d0d0d; text-decoration:none;
+      transition:all .25s;
+      opacity:0; animation:fadeIn .5s ease 1.2s forwards;
     }
 
-    .mission {
-      margin-top: 60px;
-      font-family: 'DM Serif Display', serif !important;
-      font-size: 16px;
-      font-weight: 400 !important;
-      letter-spacing: 0.05em;
-      color: #FAF7F0;
-      opacity: 0;
-      animation: fadeIn 0.6s ease-out 1.4s forwards;
+    .hero-cta:hover {
+      background:var(--ink); color:var(--paper);
     }
 
-    .cta {
-      margin-top: 40px;
-      display: inline-block;
-      padding: 14px 32px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      background: none;
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      color: #FFFFFF;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-decoration: none;
-      transition: border-color 0.2s ease;
-      opacity: 0;
-      animation: fadeIn 0.5s ease-out 1.1s forwards;
+    /* ── POSITIONING ── */
+    .positioning {
+      border-top:1px solid var(--rule);
+      border-bottom:1px solid var(--rule);
+      padding:48px 48px;
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:48px; align-items:center;
     }
 
-    .cta:hover {
-      border-color: rgba(255, 255, 255, 0.6);
+    .pos-left {
+      font-family:'Cormorant Garamond',serif;
+      font-size:28px; font-weight:500;
+      color:#0d0d0d; line-height:1.45;
     }
 
-    .podcast {
-      background-color: #0D1B2A;
-      padding: 100px 10vw;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+    .pos-left em {
+      font-style:italic; color:var(--forest);
     }
 
-    .podcast-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.25em;
-      color: #2D6A4F;
-      opacity: 0.8;
-      margin-bottom: 28px;
+    .pos-right {
+      font-family:'Cormorant Garamond',serif;
+      font-size:19px; color:#0d0d0d;
+      line-height:1.855; font-style:italic;
     }
 
-    .podcast-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 52px;
-      color: #FFFFFF;
-      line-height: 1.1;
-      margin-bottom: 24px;
+    /* ── PRODUCTS ── */
+    .products {
+      padding:80px 48px;
+      max-width:1000px;
+      margin:0 auto;
     }
 
-    .podcast-description {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 16px;
-      color: #FAF7F0;
-      opacity: 0.65;
-      max-width: 520px;
-      line-height: 1.7;
-      margin-bottom: 48px;
+    .products-eyebrow {
+      font-family:'Space Mono',monospace; font-size:11px;
+      letter-spacing:.35em; text-transform:uppercase;
+      color:var(--muted); margin-bottom:48px;
     }
 
-    .podcast-buttons {
-      display: flex;
-      gap: 16px;
+    .product-row {
+      display:grid; grid-template-columns:200px 1fr;
+      gap:0; border-top:1px solid var(--rule);
+      padding:42px 0;
+      transition:background .3s;
     }
 
-    .podcast-btn {
-      padding: 14px 28px;
-      border: 1px solid rgba(250, 247, 240, 0.3);
-      background: transparent;
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      color: #FAF7F0;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-decoration: none;
-      transition: border-color 0.2s ease;
+    .product-row:last-child { border-bottom:1px solid var(--rule); }
+
+    .product-row:hover { background:rgba(45,106,79,.03); }
+
+    .pr-left {}
+
+    .pr-number {
+      font-family:'Space Mono',monospace; font-size:11px;
+      color:var(--muted); letter-spacing:.15em;
+      margin-bottom:8px;
     }
 
-    .podcast-btn:hover {
-      border-color: rgba(250, 247, 240, 0.6);
+    .pr-name {
+      font-family:'DM Serif Display',serif;
+      font-size:28px; color:#0d0d0d;
+      margin-bottom:6px;
     }
 
-    .newsletter {
-      background-color: #1A3D2B;
-      padding: 60px 10vw;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+    .pr-name a {
+      color:inherit; text-decoration:none;
+      transition:color .2s;
     }
 
-    .newsletter-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.25em;
-      color: #FAF7F0;
-      opacity: 0.4;
-      margin-bottom: 28px;
+    .pr-name a:hover { color:var(--forest); }
+
+    .pr-status {
+      font-family:'Space Mono',monospace; font-size:11px;
+      letter-spacing:.15em; text-transform:uppercase;
     }
 
-    .newsletter-headline {
-      font-family: 'DM Serif Display', serif;
-      font-size: 36px;
-      font-weight: 400;
-      color: #FAF7F0;
-      margin-bottom: 20px;
-      line-height: 1.1;
+    .pr-status.live { color:var(--forest); }
+    .pr-status.coming { color:var(--muted); }
+
+    .pr-right {}
+
+    .pr-question {
+      font-family:'Cormorant Garamond',serif;
+      font-style:italic; font-size:22px;
+      color:var(--forest); margin-bottom:16px;
     }
 
-    .newsletter-subtext {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 22px;
-      color: #FAF7F0;
-      opacity: 0.6;
-      max-width: 480px;
-      line-height: 1.7;
-      margin-bottom: 24px;
+    .pr-desc {
+      font-family:'Cormorant Garamond',serif;
+      font-size:19px; color:#0d0d0d;
+      line-height:1.85; max-width:520px;
     }
 
-    .newsletter-form {
-      display: flex;
-      gap: 0;
+    /* ── CYCLE ── */
+    .cycle-section {
+      background:var(--forest-deep);
+      padding:70px 48px;
+      text-align:center;
     }
 
-    .newsletter-input {
-      background: transparent;
-      border: 1px solid rgba(250, 247, 240, 0.3);
-      border-right: none;
-      padding: 14px 20px;
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      color: #FAF7F0;
-      width: 280px;
-      outline: none;
+    .cycle-eyebrow {
+      font-family:'Space Mono',monospace; font-size:11px;
+      letter-spacing:.35em; text-transform:uppercase;
+      color:var(--forest); margin-bottom:32px;
     }
 
-    .newsletter-input::placeholder {
-      color: rgba(250, 247, 240, 0.4);
+    .cycle-flow {
+      display:flex; align-items:center; justify-content:center;
+      gap:0; flex-wrap:wrap; margin-bottom:40px;
     }
 
-    .newsletter-input:focus {
-      border-color: rgba(250, 247, 240, 0.6);
+    .cy-step {
+      text-align:center;
     }
 
-    .newsletter-submit {
-      background-color: #FAF7F0;
-      border: 1px solid #FAF7F0;
-      padding: 14px 24px;
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      color: #1A3D2B;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: opacity 0.2s ease;
+    .cy-word {
+      font-family:'DM Serif Display',serif;
+      font-size:22px; color:var(--paper);
     }
 
-    .newsletter-submit:hover {
-      opacity: 0.85;
+    .cy-label {
+      font-family:'Space Mono',monospace; font-size:11px;
+      letter-spacing:.15em; text-transform:uppercase;
+      color:rgba(250,247,240,.85); margin-top:4px;
     }
 
-    .newsletter-thanks {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 18px;
-      color: #FAF7F0;
-      opacity: 0.8;
-      display: none;
+    .cy-arrow {
+      font-family:'Cormorant Garamond',serif;
+      font-size:22px; color:rgba(250,247,240,.4);
+      margin:0 20px;
     }
 
-    .pillars {
-      background-color: #FAF7F0;
-      padding: 60px 10vw 100px;
+    .cycle-statement {
+      font-family:'Cormorant Garamond',serif;
+      font-style:italic; font-size:22px;
+      color:rgba(250,247,240,.85); line-height:1.85;
+      max-width:560px; margin:0 auto;
     }
 
-    .pillars-label {
-      text-align: center;
-      font-family: 'Space Mono', monospace;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.3em;
-      color: #0D1B2A;
-      opacity: 0.4;
-      margin-bottom: 60px;
+    /* ── AUDIENCE ── */
+    .audience {
+      padding:70px 48px;
+      max-width:1000px; margin:0 auto;
     }
 
-    .pillars-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
+    .audience-eyebrow {
+      font-family:'Space Mono',monospace; font-size:11px;
+      letter-spacing:.35em; text-transform:uppercase;
+      color:var(--muted); margin-bottom:16px;
     }
 
-    .pillar-card {
-      background-color: #FFFFFF;
-      border-left: 2px solid #2D6A4F;
-      padding: 36px 36px 48px;
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+    .audience-title {
+      font-family:'DM Serif Display',serif;
+      font-size:32px; color:#0d0d0d;
+      margin-bottom:40px;
     }
 
-    .pillar-number {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: #2D6A4F;
-      margin-bottom: 20px;
+    .aud-grid {
+      display:grid; grid-template-columns:1fr 1fr 1fr;
+      gap:0; border-top:1px solid var(--rule);
     }
 
-    .pillar-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 32px;
-      color: #0D1B2A;
-      line-height: 1.1;
-      margin-bottom: 16px;
+    .aud-item {
+      padding:32px 28px 28px 0;
+      border-bottom:1px solid var(--rule);
+      border-right:1px solid var(--rule);
     }
 
-    .pillar-description {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 15px;
-      color: #555555;
-      opacity: 1;
-      line-height: 1.6;
+    .aud-item:nth-child(3n) { border-right:none; }
+    .aud-item:nth-child(3n+2), .aud-item:nth-child(3n+3) { padding-left:28px; }
+
+    .aud-name {
+      font-family:'Space Mono',monospace; font-size:12px;
+      letter-spacing:.15em; text-transform:uppercase;
+      color:var(--forest); margin-bottom:14px;
     }
 
+    .aud-desc {
+      font-family:'Cormorant Garamond',serif;
+      font-size:22px; color:#0d0d0d;
+      line-height:1.85; font-style:italic;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      border-top:1px solid var(--rule);
+      padding:60px 48px;
+      display:flex; align-items:center;
+      justify-content:space-between;
+      max-width:1000px; margin:0 auto;
+      gap:32px;
+    }
+
+    .cta-text {
+      font-family:'DM Serif Display',serif;
+      font-size:28px; color:#0d0d0d; line-height:1.3;
+    }
+
+    .cta-text em { font-style:normal; color:var(--forest); }
+
+    .cta-link {
+      flex-shrink:0;
+      display:inline-block; padding:14px 36px;
+      border:1px solid var(--ink);
+      font-family:'Space Mono',monospace; font-size:12px;
+      letter-spacing:.2em; text-transform:uppercase;
+      color:#0d0d0d; text-decoration:none;
+      transition:all .25s;
+    }
+
+    .cta-link:hover { background:var(--ink); color:var(--paper); }
+
+    /* ── FOOTER ── */
     .footer {
-      background-color: #0D1B2A;
-      padding: 60px 10vw;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+      background:var(--forest-deep);
+      padding:48px 48px 40px;
+      margin-top:40px;
     }
 
-    .footer-rule {
-      border: none;
-      border-top: 1px solid rgba(45, 106, 79, 0.3);
-      width: 100%;
-      margin-bottom: 40px;
+    .footer-inner {
+      max-width:1000px; margin:0 auto;
+      display:grid; grid-template-columns:1fr auto;
+      gap:40px; align-items:start;
     }
 
-    .footer-wordmark {
-      display: flex;
-      flex-direction: column;
-      line-height: 1;
+    .footer-brand {
+      font-family:'DM Serif Display',serif;
+      font-size:22px; color:var(--paper);
+      margin-bottom:8px;
     }
 
-    .footer-wordmark-global {
-      font-family: 'DM Serif Display', serif;
-      font-size: 28px;
-      text-transform: uppercase;
-      color: #FAF7F0;
-      line-height: 1;
-    }
-
-    .footer-wordmark-harlem {
-      font-family: 'DM Serif Display', serif;
-      font-size: 28px;
-      text-transform: uppercase;
-      color: #FFFFFF;
-      line-height: 1;
-    }
+    .footer-brand span { color:var(--forest); }
 
     .footer-tagline {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 13px;
-      color: #FAF7F0;
-      opacity: 0.5;
-      margin-top: 12px;
+      font-family:'Cormorant Garamond',serif;
+      font-style:italic; font-size:16px;
+      color:rgba(250,247,240,.85); line-height:1.6;
+      max-width:360px;
+    }
+
+    .footer-right {
+      text-align:right;
     }
 
     .footer-nav {
-      display: flex;
-      gap: 0;
-      align-items: center;
-      margin-top: 32px;
+      display:flex; gap:24px; margin-bottom:20px;
+      justify-content:flex-end;
     }
 
-    .footer-nav-link {
-      font-family: 'Space Mono', monospace;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: #FAF7F0;
-      opacity: 0.35;
-      text-decoration: none;
-      transition: opacity 0.2s ease;
+    .footer-link {
+      font-family:'Space Mono',monospace; font-size:11px;
+      letter-spacing:.15em; text-transform:uppercase;
+      color:rgba(250,247,240,.85); text-decoration:none;
+      transition:color .2s;
     }
 
-    .footer-nav-link:hover {
-      opacity: 0.65;
+    .footer-link:hover { color:rgba(250,247,240,.85); }
+
+    .footer-social {
+      display:flex; gap:12px; justify-content:flex-end;
+      margin-bottom:20px;
     }
 
-    .footer-nav-sep {
-      font-family: 'Space Mono', monospace;
-      font-size: 9px;
-      color: #FAF7F0;
-      opacity: 0.35;
-      margin: 0 10px;
+    .footer-social a {
+      display:flex; align-items:center; justify-content:center;
+      width:30px; height:30px; border-radius:50%;
+      border:1px solid rgba(250,247,240,.12);
+      color:rgba(250,247,240,.85); text-decoration:none;
+      transition:all .2s;
     }
+
+    .footer-social a:hover { border-color:var(--forest); color:var(--forest); }
+    .footer-social svg { width:13px; height:13px; fill:currentColor; }
 
     .footer-legal {
-      font-family: 'Space Mono', monospace;
-      font-size: 8px;
-      color: #FAF7F0;
-      opacity: 0.25;
-      margin-top: 24px;
+      font-family:'Space Mono',monospace; font-size:10px;
+      color:rgba(250,247,240,.55); letter-spacing:.06em;
+      text-align:right;
     }
 
-    /* TABLET AND MOBILE — max 768px */
-    @media (max-width: 768px) {
-      .hero {
-        padding-left: 6vw;
-      }
-
-      .wordmark-global,
-      .wordmark-harlem {
-        font-size: 18vw;
-      }
-
-      .wordmark-global sup {
-        font-size: 3.2vw;
-      }
-
-      .podcast {
-        padding: 60px 10vw;
-      }
-
-      .pillars {
-        padding: 60px 10vw;
-      }
-
-      .pillars-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-nav {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 4px;
-      }
-
-      .beehiiv-embed {
-        width: 100% !important;
-      }
+    /* ── MOBILE ── */
+    @media (max-width:768px) {
+      .nav { padding:18px 24px; }
+      .nav-links { gap:20px; }
+      .hero { padding:64px 24px 50px; }
+      .positioning { grid-template-columns:1fr; padding:36px 24px; gap:24px; }
+      .products { padding:50px 24px; }
+      .product-row { grid-template-columns:1fr; gap:12px; padding:28px 0; }
+      .cycle-section { padding:50px 24px; }
+      .audience { padding:50px 24px; }
+      .aud-grid { grid-template-columns:1fr; }
+      .aud-item { border-right:none; padding:24px 0 24px 0; }
+      .cta-section { flex-direction:column; text-align:center; padding:50px 24px; }
+      .footer { padding:36px 24px; }
+      .footer-inner { grid-template-columns:1fr; gap:24px; }
+      .footer-right { text-align:left; }
+      .footer-nav, .footer-social { justify-content:flex-start; }
+      .footer-legal { text-align:left; }
     }
 
-    /* PHONES ONLY — max 480px */
-    @media (max-width: 480px) {
-      .hero {
-        padding-left: 5vw;
-      }
-
-      .wordmark-global,
-      .wordmark-harlem {
-        font-size: 20vw;
-      }
-
-      .wordmark-global sup {
-        font-size: 4vw;
-      }
-
-      .podcast {
-        padding: 40px 8vw;
-      }
-
-      .newsletter {
-        padding: 40px 8vw;
-      }
-
-      .pillars {
-        padding: 40px 8vw;
-      }
-
-      .footer {
-        padding: 40px 8vw;
-      }
-
-      .cta {
-        width: 100%;
-        text-align: center;
-        box-sizing: border-box;
-      }
-
-      .podcast-buttons {
-        flex-direction: column;
-        width: 100%;
-      }
-
-      .podcast-btn {
-        width: 100%;
-        text-align: center;
-      }
-
-      .beehiiv-embed {
-        width: 100% !important;
-      }
+    @media (max-width:480px) {
+      .nav-links { gap:14px; }
+      .nav-link { font-size:10px; letter-spacing:.12em; }
+      .hero h1 { font-size:36px; }
+      .pos-left { font-size:22px; }
+      .pr-name { font-size:24px; }
+      .cycle-flow { flex-direction:column; gap:16px; }
+      .cy-arrow { transform:rotate(90deg); margin:0; }
     }
   </style>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1A3D2B">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta property="og:image" content="https://www.globalharlem.com/og-image.png">
 </head>
 <body>
-  <nav class="nav">
-    <a class="nav-label" href="index.html">Global Harlem</a>
-    <div class="nav-links">
-      <a class="nav-link" href="about.html">About</a>
-      <a class="nav-link" href="pulse.html">Community Pulse</a>
-      <a class="nav-link" href="intelligence.html">Intelligence</a>
-      <a class="nav-link" href="https://baroncarr.com/trust-audit" target="_blank">Trust Audit</a>
-      <a class="nav-link" href="#">Podcast</a>
-    </div>
-  </nav>
 
-  <main class="hero">
-    <div class="wordmark">
-      <span class="wordmark-global">Global<sup>®</sup></span>
-      <span class="wordmark-harlem">Harlem</span>
-      <hr class="divider">
-      <p class="tagline">Local Roots. Global Impact.</p>
-    </div>
-    <p class="mission">Rooted in Story. Driven by Purpose. Designed for Legacy.</p>
-    <a class="cta" href="pulse.html" style="animation: fadeIn 0.5s ease-out 1.1s forwards;">Take the Harlem Community Pulse</a>
-  </main>
+<nav style="padding:0;background:#1A3D2B;">
+  <div style="display:flex;align-items:center;justify-content:center;padding:28px 10vw 0;">
+    <a href="index.html" style="font-family:'DM Serif Display',serif;font-size:32px;color:#FAF7F0;text-decoration:none;letter-spacing:.02em;">Global <span style="color:#3D8A68;">Harlem</span></a>
+  </div>
+  <div style="display:flex;gap:32px;justify-content:center;padding:16px 10vw 20px;">
+    <a href="intelligence.html" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,247,240,.4);text-decoration:none;">Intelligence</a>
+    <a href="pulse.html" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,247,240,.4);text-decoration:none;">Pulse</a>
+    <a href="trust.html" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,247,240,.4);text-decoration:none;">Trust</a>
+    <a href="about.html" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,247,240,.4);text-decoration:none;">About</a>
+  </div>
+  <div style="border-top:1px solid rgba(250,247,240,.1);"></div>
+</nav>
 
-  <section class="pillars">
-    <p class="pillars-label">Three Pillars</p>
-    <div class="pillars-grid">
-      <div class="pillar-card">
-        <p class="pillar-number">01</p>
-        <h2 class="pillar-title">Legacy</h2>
-        <p class="pillar-description">The builders who made Harlem the cultural capital of the world — told at the level they deserve.</p>
+<section class="hero">
+  <p class="hero-eyebrow">Community Intelligence Platform</p>
+  <h1>Intelligence<br>for the <em>Black<br>Diaspora.</em></h1>
+  <hr class="hero-rule">
+  <p class="hero-statement">Listening helps communities be heard. Community intelligence helps communities be understood.</p>
+  <a href="intelligence.html" class="hero-cta">Read this week's brief →</a>
+</section>
+
+<section class="positioning">
+  <div class="pos-left">Not a media company.<br>Not a listening project.<br>Not a newsletter.<br><em>A community intelligence organization.</em></div>
+  <div class="pos-right">Global Harlem turns listening into intelligence, intelligence into trust, and trust into action — for organizations that need to understand diaspora communities, not just observe them.</div>
+</section>
+
+<section class="products">
+  <p class="products-eyebrow">The Platform</p>
+
+  <div class="product-row">
+    <div class="pr-left">
+      <div class="pr-number">01</div>
+      <div class="pr-name"><a href="intelligence.html">Intelligence</a></div>
+      <div class="pr-status live">Live</div>
+    </div>
+    <div class="pr-right">
+      <div class="pr-question">"What is happening in the diaspora?"</div>
+      <p class="pr-desc">AI-powered weekly intelligence brief covering signals across culture, economics, wellness, and technology. Executive summary, cultural nuance, business applications, and source links — built for organizations that make decisions about diaspora communities.</p>
+    </div>
+  </div>
+
+  <div class="product-row">
+    <div class="pr-left">
+      <div class="pr-number">02</div>
+      <div class="pr-name"><a href="pulse.html">Pulse</a></div>
+      <div class="pr-status live">Live</div>
+    </div>
+    <div class="pr-right">
+      <div class="pr-question">"What is the community feeling?"</div>
+      <p class="pr-desc">The listening layer. Direct community voice — surveys, feedback, and listening tools that capture what diaspora communities are experiencing before it becomes a headline. The input that feeds everything else.</p>
+    </div>
+  </div>
+
+  <div class="product-row">
+    <div class="pr-left">
+      <div class="pr-number">03</div>
+      <div class="pr-name"><a href="trust.html">Trust</a></div>
+      <div class="pr-status live">Live</div>
+    </div>
+    <div class="pr-right">
+      <div class="pr-question">"How strong is our engagement?"</div>
+      <p class="pr-desc">The Engage or Fade trust audit. Organizations answer questions about their community engagement and receive a trust score with specific, actionable recommendations. Culture is not a soft issue — it directly affects revenue, retention, and growth.</p>
+    </div>
+  </div>
+
+  <div class="product-row">
+    <div class="pr-left">
+      <div class="pr-number">04</div>
+      <div class="pr-name">The Signal</div>
+      <div class="pr-status coming">Coming</div>
+    </div>
+    <div class="pr-right">
+      <div class="pr-question">"What does it mean?"</div>
+      <p class="pr-desc">Weekly conversations unpacking the top signals from the intelligence brief with voices from each city. Not just what happened — what it means for communities, organizations, and the future of the diaspora.</p>
+    </div>
+  </div>
+
+</section>
+
+<section class="cycle-section">
+  <p class="cycle-eyebrow">The Intelligence Cycle</p>
+  <div class="cycle-flow">
+    <div class="cy-step">
+      <div class="cy-word">Listen</div>
+      <div class="cy-label">Pulse</div>
+    </div>
+    <div class="cy-arrow">→</div>
+    <div class="cy-step">
+      <div class="cy-word">Analyze</div>
+      <div class="cy-label">Intelligence</div>
+    </div>
+    <div class="cy-arrow">→</div>
+    <div class="cy-step">
+      <div class="cy-word">Measure</div>
+      <div class="cy-label">Trust</div>
+    </div>
+    <div class="cy-arrow">→</div>
+    <div class="cy-step">
+      <div class="cy-word">Interpret</div>
+      <div class="cy-label">The Signal</div>
+    </div>
+    <div class="cy-arrow">→</div>
+    <div class="cy-step">
+      <div class="cy-word">Impact</div>
+      <div class="cy-label">Action</div>
+    </div>
+  </div>
+  <p class="cycle-statement">Community intelligence is not a report. It is a cycle. We listen, analyze, measure, interpret, and drive impact. Every product feeds the next. Every week the cycle runs again.</p>
+</section>
+
+<section class="audience">
+  <p class="audience-eyebrow">Who This Serves</p>
+  <h2 class="audience-title">Built for organizations that<br>need to understand.</h2>
+  <div class="aud-grid">
+    <div class="aud-item">
+      <div class="aud-name">Foundations</div>
+      <p class="aud-desc">Program officers making funding decisions. Weekly intelligence replaces the research report that takes six months and costs fifty thousand dollars.</p>
+    </div>
+    <div class="aud-item">
+      <div class="aud-name">Brand Agencies</div>
+      <p class="aud-desc">Cultural strategists who need to see where diaspora taste is moving before their competitors do.</p>
+    </div>
+    <div class="aud-item">
+      <div class="aud-name">Corporations</div>
+      <p class="aud-desc">CDOs and community affairs teams who need grounded intelligence about what Black communities are experiencing globally.</p>
+    </div>
+    <div class="aud-item">
+      <div class="aud-name">Media Teams</div>
+      <p class="aud-desc">Editors who need a diaspora story pipeline where every signal comes with built-in audience demand data.</p>
+    </div>
+    <div class="aud-item">
+      <div class="aud-name">City Governments</div>
+      <p class="aud-desc">Policy offices tracking economic health and displacement in Black communities between elections and commissions.</p>
+    </div>
+    <div class="aud-item">
+      <div class="aud-name">Researchers</div>
+      <p class="aud-desc">Academics needing consistent longitudinal diaspora data. Same categories, same cities, same methodology — every week.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-text">Read this week's<br><em>intelligence brief.</em></div>
+  <a href="intelligence.html" class="cta-link">Open the terminal →</a>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Global <span>Harlem</span></div>
+      <p class="footer-tagline">Listening helps communities be heard. Community intelligence helps communities be understood.</p>
+    </div>
+    <div class="footer-right">
+      <nav class="footer-nav">
+        <a href="index.html" class="footer-link">Home</a>
+        <a href="intelligence.html" class="footer-link">Intelligence</a>
+        <a href="pulse.html" class="footer-link">Pulse</a>
+        <a href="trust.html" class="footer-link">Trust</a>
+        <a href="about.html" class="footer-link">About</a>
+      </nav>
+      <div class="footer-social">
+        <a href="https://www.youtube.com/@GlobalHarlem" target="_blank" rel="noopener" title="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.5a3 3 0 0 0-2.1-2.1C19.5 4 12 4 12 4s-7.5 0-9.4.4a3 3 0 0 0-2.1 2.1C0 8.4 0 12 0 12s0 3.6.5 5.5a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.5.5-5.5s0-3.6-.5-5.5zM9.5 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg></a>
+        <a href="https://www.instagram.com/globalharlem" target="_blank" rel="noopener" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.1 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.2.5 3 .3.8.7 1.5 1.4 2.1.7.7 1.3 1.1 2.1 1.4.8.3 1.7.5 3 .5C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.2-.2 3-.5.8-.3 1.5-.7 2.1-1.4.7-.7 1.1-1.3 1.4-2.1.3-.8.5-1.7.5-3 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.2-.5-3-.3-.8-.7-1.5-1.4-2.1-.7-.7-1.3-1.1-2.1-1.4-.8-.3-1.7-.5-3-.5C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a>
+        <a href="https://www.linkedin.com/company/globalharlem" target="_blank" rel="noopener" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.5V9h3.4v1.6h.1c.5-.9 1.6-1.8 3.3-1.8 3.5 0 4.2 2.3 4.2 5.3v6.3zM5.3 7.4a2 2 0 1 1 0-4.1 2 2 0 0 1 0 4.1zM7.1 20.4H3.6V9h3.5v11.4zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7c0-.9-.8-1.7-1.8-1.7z"/></svg></a>
       </div>
-      <div class="pillar-card">
-        <p class="pillar-number">02</p>
-        <h2 class="pillar-title">Leadership</h2>
-        <p class="pillar-description">How the best leaders think, decide, and build — transmitted to the next generation.</p>
-      </div>
-      <div class="pillar-card">
-        <p class="pillar-number">03</p>
-        <h2 class="pillar-title">Ownership</h2>
-        <p class="pillar-description">Who owns it, how they got there, and the specific moves available to every builder right now.</p>
-      </div>
+      <p class="footer-legal">© 2026 The Baron Carr Company, Inc. d/b/a Global Harlem. All rights reserved.</p>
     </div>
-  </section>
+  </div>
+</footer>
 
-  <section class="podcast">
-    <p class="podcast-label">The Podcast</p>
-    <h2 class="podcast-title">Mindset Disrupt</h2>
-    <p class="podcast-description">A narrative podcast on story, leadership, and what it means to build something that lasts. Rooted in Harlem. Built for the world.</p>
-    <div class="podcast-buttons">
-      <a class="podcast-btn" href="#">Listen on Spotify</a>
-      <a class="podcast-btn" href="#">Listen on Apple</a>
-    </div>
-  </section>
-
-  <section class="newsletter">
-    <p class="newsletter-subtext">A weekly dispatch on story, trust, and what's happening in Black culture across the diaspora. Free. Every week.</p>
-    <div style="display: flex; justify-content: center;">
-      <a href="https://barons-newsletter-211dab.beehiiv.com" target="_blank" style="display:inline-block;background:#2D6A4F;color:#FAF7F0;padding:14px 28px;font-family:DM Serif Display,serif;text-decoration:none;border-radius:4px;letter-spacing:0.05em;">Subscribe to Global Harlem</a>
-    </div>
-  </section>
-
-  <!-- TRUST AUDIT REFERRAL -->
-  <section style="background:#0D1B2A;padding:2rem clamp(1.5rem,6vw,4rem);border-top:1px solid rgba(255,255,255,.08);">
-    <div style="max-width:680px;margin:0 auto;text-align:center;">
-      <p style="font-family:'Space Mono',monospace;font-size:.62rem;line-height:1.75;color:rgba(250,247,240,.4);margin-bottom:.8rem;">Is your organization building community trust — or quietly losing it? <a href="https://baroncarr.com/trust-audit" target="_blank" style="color:rgba(201,168,76,.8);text-decoration:none;letter-spacing:.04em;">Take the free Trust Audit at baroncarr.com →</a></p>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <hr class="footer-rule">
-    <div class="footer-wordmark">
-      <span class="footer-wordmark-global">Global</span>
-      <span class="footer-wordmark-harlem">Harlem</span>
-    </div>
-    <p class="footer-tagline">Rooted in Story. Driven by Purpose. Designed for Legacy.</p>
-    <nav class="footer-nav">
-      <a class="footer-nav-link" href="index.html">Home</a>
-      <span class="footer-nav-sep">·</span>
-      <a class="footer-nav-link" href="about.html">About</a>
-      <span class="footer-nav-sep">·</span>
-      <a class="footer-nav-link" href="pulse.html">Community Pulse</a>
-      <span class="footer-nav-sep">·</span>
-      <a class="footer-nav-link" href="intelligence.html">Intelligence</a>
-      <span class="footer-nav-sep">·</span>
-      <a class="footer-nav-link" href="#">Podcast</a>
-      <span class="footer-nav-sep">·</span>
-      <a class="footer-nav-link" href="#">Newsletter</a>
-    </nav>
-    <p class="footer-legal">© 2026 The Baron Carr Company, Inc. DBA Global Harlem. All rights reserved.</p>
-  </footer>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js")}</script>
 </body>
 </html>
