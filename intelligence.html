@@ -53,15 +53,15 @@ body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville
 .generate-bar { background:var(--ink); border-radius:2px; margin-bottom:36px; padding:40px 36px 36px; }
 .generate-bar-title { font-family:'Playfair Display',serif; font-size:28px; font-weight:700; color:var(--paper); line-height:1.2; margin-bottom:6px; }
 .generate-bar-title span { color:var(--gold); }
-.generate-bar-sub { font-family:'IBM Plex Mono',monospace; font-size:12px; color:#666; letter-spacing:.06em; margin-bottom:24px; line-height:1.6; }
+.generate-bar-sub { font-family:'IBM Plex Mono',monospace; font-size:12px; color:#999; letter-spacing:.06em; margin-bottom:24px; line-height:1.6; }
 .generate-bar-features { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px; }
-.gen-feat { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; color:#888; padding:5px 12px; border:1px solid #2a2a2a; border-radius:2px; }
+.gen-feat { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; color:#aaa; padding:5px 12px; border:1px solid #2a2a2a; border-radius:2px; }
 .generate-bar-row { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
 .week-input { font-family:'IBM Plex Mono',monospace; font-size:14px; background:#1a1a1a; border:1px solid #333; color:var(--paper); padding:12px 16px; border-radius:2px; width:260px; }
 .week-input:focus { outline:1px solid var(--gold); }
 .btn-generate { background:var(--gold); color:var(--ink); border:none; padding:12px 28px; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; border-radius:2px; transition:all .2s; white-space:nowrap; }
 .btn-generate:hover { background:var(--gold-light); }
-.btn-generate:disabled { background:#333; color:#666; cursor:not-allowed; }
+.btn-generate:disabled { background:#333; color:#999; cursor:not-allowed; }
 
 /* PRINT BAR */
 .print-bar { display:none; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--forest); border-radius:2px; margin-bottom:24px; }
@@ -157,7 +157,7 @@ body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville
 
 /* SOCIAL LINKS */
 .social-links { display:flex; gap:10px; align-items:center; margin-top:10px; }
-.social-link { display:flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; border:1px solid #333; color:#666; text-decoration:none; font-size:13px; transition:all .2s; font-family:'IBM Plex Mono',monospace; font-weight:500; }
+.social-link { display:flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; border:1px solid #333; color:#999; text-decoration:none; font-size:13px; transition:all .2s; font-family:'IBM Plex Mono',monospace; font-weight:500; }
 .social-link:hover { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,.1); }
 .social-link svg { width:14px; height:14px; fill:currentColor; }
 
@@ -298,9 +298,9 @@ body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville
   </div>
   <div style="display:flex;gap:32px;justify-content:center;padding:16px 40px 20px;">
     <a href="intelligence.html" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#c9a84c;text-decoration:none;">Intelligence</a>
-    <a href="pulse.html" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,247,240,.4);text-decoration:none;">Pulse</a>
-    <a href="trust.html" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,247,240,.4);text-decoration:none;">Trust</a>
-    <a href="about.html" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,247,240,.4);text-decoration:none;">About</a>
+    <a href="pulse.html" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,247,240,.65);text-decoration:none;">Pulse</a>
+    <a href="trust.html" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,247,240,.65);text-decoration:none;">Trust</a>
+    <a href="about.html" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,247,240,.65);text-decoration:none;">About</a>
   </div>
   <div style="border-top:1px solid rgba(250,247,240,.08);"></div>
 </nav>
@@ -384,7 +384,7 @@ body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville
         <input class="week-input" type="text" id="weekInput" readonly style="cursor:default;opacity:.8;" placeholder="e.g. May 26 – June 1, 2026"/>
         <button class="btn-generate" id="btnGenerate" onclick="generateWeeklyReport()">Run Report ↗</button>
       </div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#666;line-height:1.7;margin-top:16px;padding-top:14px;border-top:1px solid #222;">This report analyzes real signals collected from 25+ publications across 8 US cities. Signals are scraped daily at 6am EST, categorized by AI, and accumulated throughout the week. Source links connect directly to the original article.</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#999;line-height:1.7;margin-top:16px;padding-top:14px;border-top:1px solid #222;">This report analyzes real signals collected from 25+ publications across 8 US cities. Signals are scraped daily at 6am EST, categorized by AI, and accumulated throughout the week. Source links connect directly to the original article.</div>
     </div>
     <div class="print-bar" id="printBar">
       <div class="print-bar-text">Report ready — share as PDF or export for partners</div>
