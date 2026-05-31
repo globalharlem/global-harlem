@@ -289,6 +289,7 @@ body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville
   <meta name="theme-color" content="#1A3D2B">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <meta property="og:image" content="https://www.globalharlem.com/og-image.png">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
@@ -388,7 +389,7 @@ body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville
     </div>
     <div class="print-bar" id="printBar">
       <div class="print-bar-text">Report ready — share as PDF or export for partners</div>
-      <button class="btn-print" onclick="window.print()">⬇ Export / Print PDF</button>
+      <button class="btn-print" onclick="exportPDF()">⬇ Export / Print PDF</button>
     </div>
     <div id="reportContainer">
       
@@ -772,7 +773,7 @@ async function generateWeeklyReport(){
     
   };
 
-  let prompt=`You are the intelligence analyst for  — a diaspora-focused media platform covering Black communities across Harlem, Atlanta, Washington DC, Chicago, and Houston. IMPORTANT: Do not use any emoji icons anywhere in the report. No emoji in signal headers, categories, or anywhere else. Four signal categories: Cultural & Arts, Economic & Business, Wellness & Health, Technology & Media.
+  let prompt=`You are the intelligence analyst for  — a diaspora-focused media platform covering Black communities across Harlem, Atlanta, Washington DC, Chicago, and Houston. IMPORTANT: Do not use any emoji icons anywhere in the report. Do not include any signal-cat-icon divs. No emoji characters at all. No emoji in signal headers, categories, or anywhere else. Four signal categories: Cultural & Arts, Economic & Business, Wellness & Health, Technology & Media.
 
 Generate a weekly intelligence brief for: ${weekVal}
 
@@ -948,6 +949,7 @@ Make all content specific and grounded in real diaspora economics, culture, and 
     });
 
     renderWeeklyReport(r);
+    document.querySelectorAll(".signal-cat-icon").forEach(el=>el.remove());
     clearInterval(loadInterval);
   } catch(e){
     clearInterval(loadInterval);
@@ -994,6 +996,50 @@ Respond ONLY with valid JSON, no fences:
   btn.disabled=false; btn.textContent='Refresh Updates';
 }
 </script>
-<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js")}</script>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js")}
+function exportPDF(){
+  const rc = document.getElementById('reportContainer');
+  if (!rc || rc.querySelector('.empty-state')) return;
+  const week = document.getElementById('weekInput')?.value || 'Weekly Report';
+  const G='#1A3D2B',F='#2D6A4F',A='#C9A84C',BG='#f8f6f1';
+  const execSummary = rc.querySelector('[style*="var(--ink)"] div[style*="font-size:16px"]')?.textContent||'';
+  const takeaways=[];
+  rc.querySelectorAll('[style*="var(--gold)"][style*="font-weight"]').forEach(el=>{const t=el.parentElement?.querySelector('div[style*="font-size:15px"]')?.textContent;if(t)takeaways.push(t);});
+  const signals=[];
+  rc.querySelectorAll('.signal-section').forEach(sig=>{signals.push({cat:sig.querySelector('.tag')?.textContent||'',city:sig.querySelector('.signal-city-tag')?.textContent?.replace(/[^a-zA-Z ]/g,'').trim()||'',headline:sig.querySelector('.signal-top-headline')?.textContent||'',brief:sig.querySelector('.signal-brief')?.textContent||'',analysis:sig.querySelector('.deep-body')?.textContent||'',nuance:sig.querySelector('.nuance-box p')?.textContent||'',discussion:sig.querySelector('.discussion-box p')?.textContent||'',strength:sig.querySelectorAll('.pip.on')?.length||0,sources:Array.from(sig.querySelectorAll('.source-link')).map(a=>({name:a.querySelector('.source-domain')?.textContent||'',title:a.querySelector('span:nth-child(2)')?.textContent||'',url:a.href}))});});
+  const bizApps=[];
+  rc.querySelectorAll('[style*="var(--gold)"][style*="letter-spacing"]').forEach(el=>{const au=el.textContent,ad=el.parentElement?.querySelector('div[style*="font-size:15px"]')?.textContent;if(au&&ad&&au.length<40)bizApps.push({audience:au,advice:ad});});
+  const watchItems=[];
+  rc.querySelectorAll('.watch-item').forEach(w=>{const n=w.querySelector('.watch-name')?.textContent||'',y=w.querySelector('.watch-why')?.textContent||'';if(n)watchItems.push({name:n,why:y});});
+  const cityCounts={},catCounts={};
+  signals.forEach(s=>{cityCounts[s.city]=(cityCounts[s.city]||0)+1;catCounts[s.cat]=(catCounts[s.cat]||0)+1;});
+  const maxCity=Math.max(...Object.values(cityCounts),1),maxCat=Math.max(...Object.values(catCounts),1);
+  let h='<div style="font-family:Georgia,serif;color:#1a1a1a;width:700px;line-height:1.7;">';
+  h+='<div style="min-height:480px;background:'+G+';padding:60px 50px;display:flex;flex-direction:column;justify-content:space-between;color:#FAF7F0;"><div><div style="width:50px;height:3px;background:'+F+';margin-bottom:24px;"></div><div style="font-family:monospace;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:rgba(250,247,240,.35);margin-bottom:48px;">Community Intelligence Platform</div><div style="font-size:48px;line-height:1.05;margin-bottom:6px;">Global</div><div style="font-size:48px;line-height:1.05;color:'+F+';">Harlem</div></div><div><div style="width:100%;height:1px;background:rgba(250,247,240,.1);margin-bottom:20px;"></div><div style="font-size:22px;margin-bottom:4px;">The Intelligence Brief</div><div style="font-family:monospace;font-size:13px;color:rgba(250,247,240,.45);">'+week+'</div><div style="display:flex;gap:40px;margin-top:24px;font-family:monospace;font-size:11px;color:rgba(250,247,240,.3);"><span>'+signals.length+' signals</span><span>8 US cities</span><span>4 categories</span></div></div></div>';
+  h+='<div style="padding:44px 50px;background:#fff;"><div style="display:flex;gap:36px;"><div style="flex:1.4;"><div style="width:40px;height:2px;background:'+F+';margin-bottom:10px;"></div><div style="font-family:monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:'+F+';margin-bottom:14px;">Executive Summary</div><div style="font-size:15px;color:#333;line-height:1.9;">'+execSummary+'</div></div>';
+  h+='<div style="flex:0.6;background:'+BG+';padding:22px;border-radius:6px;"><div style="font-family:monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:'+F+';margin-bottom:14px;">This Week</div><div style="text-align:center;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #e0ddd5;"><div style="font-size:36px;color:'+G+';">'+signals.length+'</div><div style="font-family:monospace;font-size:9px;color:#999;">Signals tracked</div></div>';
+  h+='<div style="font-family:monospace;font-size:8px;color:#aaa;margin-bottom:6px;">BY CITY</div>';
+  Object.entries(cityCounts).sort((a,b)=>b[1]-a[1]).forEach(([c,n])=>{h+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><div style="width:60px;font-family:monospace;font-size:9px;color:#666;text-align:right;">'+c+'</div><div style="flex:1;height:6px;background:#e8e5dd;border-radius:3px;overflow:hidden;"><div style="width:'+Math.round(n/maxCity*100)+'%;height:100%;background:'+F+';border-radius:3px;"></div></div><div style="font-family:monospace;font-size:9px;color:#aaa;width:16px;">'+n+'</div></div>';});
+  h+='<div style="font-family:monospace;font-size:8px;color:#aaa;margin:10px 0 6px;">BY CATEGORY</div>';
+  Object.entries(catCounts).sort((a,b)=>b[1]-a[1]).forEach(([c,n])=>{h+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;"><div style="width:60px;font-family:monospace;font-size:9px;color:#666;text-align:right;">'+c.split('&')[0].trim()+'</div><div style="flex:1;height:6px;background:#e8e5dd;border-radius:3px;overflow:hidden;"><div style="width:'+Math.round(n/maxCat*100)+'%;height:100%;background:'+A+';border-radius:3px;"></div></div><div style="font-family:monospace;font-size:9px;color:#aaa;width:16px;">'+n+'</div></div>';});
+  h+='</div></div></div>';
+  if(takeaways.length){h+='<div style="background:'+BG+';padding:32px 50px;"><div style="width:40px;height:2px;background:'+F+';margin-bottom:10px;"></div><div style="font-family:monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:'+F+';margin-bottom:16px;">Key Takeaways</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">';takeaways.forEach((t,i)=>{h+='<div style="background:#fff;padding:16px 18px;border-radius:4px;border-left:3px solid '+F+';"><div style="font-family:monospace;font-size:11px;color:'+F+';margin-bottom:6px;">0'+(i+1)+'</div><div style="font-size:13px;color:#333;line-height:1.7;">'+t+'</div></div>';});h+='</div></div>';}
+  h+='<div style="padding:40px 50px;background:#fff;"><div style="width:40px;height:2px;background:'+F+';margin-bottom:10px;"></div><div style="font-family:monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:'+F+';margin-bottom:28px;">Signal Analysis</div>';
+  signals.forEach((sig)=>{h+='<div style="margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid #eee;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="display:flex;gap:10px;align-items:center;"><span style="font-family:monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:'+F+';padding:2px 8px;border-radius:2px;">'+sig.cat+'</span><span style="font-family:monospace;font-size:10px;color:#999;">'+sig.city+'</span></div><div style="display:flex;gap:2px;align-items:center;">';for(let p=0;p<5;p++)h+='<div style="width:10px;height:3px;border-radius:2px;background:'+(p<sig.strength?A:'#ddd')+';"></div>';h+='<span style="font-family:monospace;font-size:9px;color:#bbb;margin-left:4px;">'+sig.strength+'/5</span></div></div><div style="font-size:18px;color:#1a1a1a;line-height:1.3;margin-bottom:6px;">'+sig.headline+'</div><div style="font-size:13px;color:#888;font-style:italic;line-height:1.6;margin-bottom:16px;">'+sig.brief+'</div>';if(sig.analysis||sig.nuance){h+='<div style="display:flex;gap:20px;">';if(sig.analysis){h+='<div style="flex:1;"><div style="font-family:monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:'+F+';margin-bottom:6px;">Analysis</div><div style="font-size:12px;color:#444;line-height:1.75;">'+sig.analysis+'</div></div>';}if(sig.nuance){h+='<div style="flex:1;background:'+BG+';padding:14px 16px;border-radius:4px;"><div style="font-family:monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:'+F+';margin-bottom:6px;">Cultural Nuance</div><div style="font-size:12px;color:#555;line-height:1.75;">'+sig.nuance+'</div></div>';}h+='</div>';}if(sig.discussion){h+='<div style="border-left:2px solid '+A+';padding:6px 14px;margin-top:12px;font-size:12px;color:#666;font-style:italic;line-height:1.6;">'+sig.discussion+'</div>';}if(sig.sources.length){h+='<div style="margin-top:8px;font-family:monospace;font-size:9px;color:#bbb;">';sig.sources.forEach(src=>{h+='Source: '+src.name+' | '+src.url+'<br>';});h+='</div>';}h+='</div>';});
+  h+='</div>';
+  if(bizApps.length){h+='<div style="background:'+BG+';padding:36px 50px;"><div style="width:40px;height:2px;background:'+A+';margin-bottom:10px;"></div><div style="font-family:monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:'+A+';margin-bottom:18px;">How to Apply This Intelligence</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">';bizApps.forEach(ba=>{h+='<div style="background:#fff;border:1px solid #e8e5dd;padding:16px 18px;border-radius:4px;"><div style="font-family:monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:'+F+';margin-bottom:6px;">'+ba.audience+'</div><div style="font-size:12px;color:#444;line-height:1.7;">'+ba.advice+'</div></div>';});h+='</div></div>';}
+  if(watchItems.length){h+='<div style="padding:32px 50px;background:#fff;"><div style="width:40px;height:2px;background:'+A+';margin-bottom:10px;"></div><div style="font-family:monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:'+A+';margin-bottom:16px;">Watch List: Next Week</div>';watchItems.forEach((w,i)=>{h+='<div style="display:flex;gap:14px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #f0ede5;"><div style="font-family:monospace;font-size:12px;color:'+A+';">0'+(i+1)+'</div><div><div style="font-size:13px;color:#333;margin-bottom:2px;">'+w.name+'</div><div style="font-size:11px;color:#999;font-style:italic;">'+w.why+'</div></div></div>';});h+='</div>';}
+  h+='<div style="background:'+BG+';padding:36px 50px;"><div style="width:40px;height:2px;background:'+G+';margin-bottom:10px;"></div><div style="font-family:monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:'+G+';margin-bottom:18px;">Appendix: Sources Cited</div>';
+  const allSrc=[];signals.forEach(sig=>sig.sources.forEach(src=>{if(!allSrc.find(s=>s.url===src.url))allSrc.push(src);}));
+  allSrc.forEach((src,i)=>{h+='<div style="display:flex;gap:10px;margin-bottom:5px;font-size:11px;"><div style="font-family:monospace;color:#aaa;flex-shrink:0;">['+(i+1)+']</div><div><span style="color:#333;">'+src.title+'</span><br><span style="font-family:monospace;font-size:9px;color:#aaa;">'+src.name+' | '+src.url+'</span></div></div>';});
+  h+='</div>';
+  h+='<div style="background:#f0ede5;padding:28px 50px;display:flex;justify-content:space-between;align-items:flex-end;"><div><div style="font-size:18px;color:'+G+';">Global <span style="color:'+F+';">Harlem</span></div><div style="font-family:monospace;font-size:9px;color:#aaa;margin-top:4px;">globalharlem.com</div></div><div style="text-align:right;font-family:monospace;font-size:9px;color:#aaa;"><div>Confidential: subscribers and partners only</div><div style="margin-top:3px;">2026 The Baron Carr Company, Inc. d/b/a Global Harlem</div></div></div>';
+  h+='</div>';
+  const el=document.createElement('div');el.innerHTML=h;el.style.cssText='position:fixed;left:0;top:0;width:700px;z-index:99999;background:#fff;overflow:auto;';document.body.appendChild(el);
+  const fn='Global-Harlem-Intelligence-Brief-'+week.split(' ').join('-')+'.pdf';
+  html2pdf().set({margin:0,filename:fn,image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true,logging:false,width:700},jsPDF:{unit:'px',format:[700,9000],orientation:'portrait',hotfixes:['px_scaling']},pagebreak:{mode:['css'],before:'[style*="page-break-before"]'}}).from(el).save().then(()=>{document.body.removeChild(el);});
+}
+
+</script>
 </body>
 </html>
