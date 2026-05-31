@@ -361,10 +361,30 @@ body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville
         <span class="gen-feat">Business applications</span>
         <span class="gen-feat">PDF export</span>
       </div>
+      <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+        <select id="cityFilter" style="font-family:'Space Mono',monospace;font-size:12px;padding:8px 14px;background:#1a1a1a;border:1px solid #333;color:var(--paper);border-radius:2px;">
+          <option value="all">All Cities</option>
+          <option value="Harlem">Harlem</option>
+          <option value="Atlanta">Atlanta</option>
+          <option value="Washington DC">Washington DC</option>
+          <option value="Chicago">Chicago</option>
+          <option value="Houston">Houston</option>
+          <option value="Detroit">Detroit</option>
+          <option value="Philadelphia">Philadelphia</option>
+        </select>
+        <select id="catFilter" style="font-family:'Space Mono',monospace;font-size:12px;padding:8px 14px;background:#1a1a1a;border:1px solid #333;color:var(--paper);border-radius:2px;">
+          <option value="all">All Categories</option>
+          <option value="Cultural & Arts">Cultural & Arts</option>
+          <option value="Economic & Business">Economic & Business</option>
+          <option value="Wellness & Health">Wellness & Health</option>
+          <option value="Technology & Media">Technology & Media</option>
+        </select>
+      </div>
       <div class="generate-bar-row">
-        <input class="week-input" type="text" id="weekInput" placeholder="e.g. May 26 – June 1, 2026"/>
+        <input class="week-input" type="text" id="weekInput" readonly style="cursor:default;opacity:.8;" placeholder="e.g. May 26 – June 1, 2026"/>
         <button class="btn-generate" id="btnGenerate" onclick="generateWeeklyReport()">Run Report ↗</button>
       </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#666;line-height:1.7;margin-top:16px;padding-top:14px;border-top:1px solid #222;">This report analyzes real signals collected from 25+ publications across 8 US cities. Signals are scraped daily at 6am EST, categorized by AI, and accumulated throughout the week. Source links connect directly to the original article.</div>
     </div>
     <div class="print-bar" id="printBar">
       <div class="print-bar-text">Report ready — share as PDF or export for partners</div>
@@ -752,7 +772,7 @@ async function generateWeeklyReport(){
     
   };
 
-  let prompt=`You are the intelligence analyst for  — a diaspora-focused media platform covering Black communities across Harlem, Atlanta, Washington DC, Chicago, and Houston. Four signal categories: Cultural & Arts, Economic & Business, Wellness & Health, Technology & Media.
+  let prompt=`You are the intelligence analyst for  — a diaspora-focused media platform covering Black communities across Harlem, Atlanta, Washington DC, Chicago, and Houston. IMPORTANT: Do not use any emoji icons anywhere in the report. No emoji in signal headers, categories, or anywhere else. Four signal categories: Cultural & Arts, Economic & Business, Wellness & Health, Technology & Media.
 
 Generate a weekly intelligence brief for: ${weekVal}
 
@@ -898,10 +918,18 @@ Make all content specific and grounded in real diaspora economics, culture, and 
     if (sr.ok) {
       const sd = await sr.json();
       realStories = '\n\nREAL SIGNALS FROM THIS WEEK (use these as the basis for your report, use their real headlines, sources, and links):\n' +
-        (sd.stories||[]).map((s,i) => (i+1)+'. ['+s.category+'] ['+s.city+'] '+s.title+' (Source: '+s.source+', Link: '+s.link+')').join('\n');
+        (sd.stories||[]).filter(function(s){ var cf=document.getElementById('cityFilter').value; var catf=document.getElementById('catFilter').value; return (cf==='all'||s.city===cf)&&(catf==='all'||s.category===catf); }).map((s,i) => (i+1)+'. ['+s.category+'] ['+s.city+'] '+s.title+' (Source: '+s.source+', Link: '+s.link+')').join('\n');
       console.log('Loaded '+sd.total_signals+' real signals');
     }
   } catch(e) { console.log('Using AI generation'); }
+  var cityVal = document.getElementById('cityFilter').value;
+  var catVal = document.getElementById('catFilter').value;
+  if (cityVal !== 'all') {
+    prompt += '\n\nIMPORTANT: Generate signals ONLY for ' + cityVal + '. Do not include any other cities.';
+  }
+  if (catVal !== 'all') {
+    prompt += '\n\nIMPORTANT: Generate signals ONLY in the ' + catVal + ' category. Do not include other categories.';
+  }
   prompt += realStories;
 
   const resp=await fetch('/api/generate',{
