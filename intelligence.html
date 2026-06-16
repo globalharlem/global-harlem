@@ -290,6 +290,15 @@ body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <meta property="og:image" content="https://www.globalharlem.com/og-image.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style media="print">
+  @page { margin: 15mm; }
+  body { background: #fff; color: #111; }
+  .masthead, .mode-bar, .generate-bar, .print-bar, .city-filter-bar, nav, .signal-expand-btn, .share-btn, .mini-map { display: none; }
+  .signal-deep { display: block; }
+  .signal-section { break-inside: avoid; margin-bottom: 24px; border: 1px solid #ddd; }
+  .read-time-bar, .summary-strip, .watchlist, .report-footer { break-inside: avoid; }
+  .nuance-box { background: #f5f3ee; }
+  </style>
 </head>
 <body>
 
@@ -389,7 +398,7 @@ body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville
     </div>
     <div class="print-bar" id="printBar">
       <div class="print-bar-text">Report ready — share as PDF or export for partners</div>
-      <button class="btn-print" onclick="exportPDF()">⬇ Export / Print PDF</button>
+      <button class="btn-print" onclick="window.print()">⬇ Export / Print PDF</button>
     </div>
     <div id="reportContainer">
       
@@ -1035,9 +1044,19 @@ function exportPDF(){
   h+='</div>';
   h+='<div style="background:#f0ede5;padding:28px 50px;display:flex;justify-content:space-between;align-items:flex-end;"><div><div style="font-size:18px;color:'+G+';">Global <span style="color:'+F+';">Harlem</span></div><div style="font-family:monospace;font-size:9px;color:#aaa;margin-top:4px;">globalharlem.com</div></div><div style="text-align:right;font-family:monospace;font-size:9px;color:#aaa;"><div>Confidential: subscribers and partners only</div><div style="margin-top:3px;">2026 The Baron Carr Company, Inc. d/b/a Global Harlem</div></div></div>';
   h+='</div>';
-  const el=document.createElement('div');el.innerHTML=h;el.style.cssText='position:fixed;left:0;top:0;width:700px;z-index:99999;background:#fff;overflow:auto;';document.body.appendChild(el);
-  const fn='Global-Harlem-Intelligence-Brief-'+week.split(' ').join('-')+'.pdf';
-  html2pdf().set({margin:0,filename:fn,image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true,logging:false,width:700},jsPDF:{unit:'px',format:[700,9000],orientation:'portrait',hotfixes:['px_scaling']},pagebreak:{mode:['css'],before:'[style*="page-break-before"]'}}).from(el).save().then(()=>{document.body.removeChild(el);});
+  const w=window.open('','_blank');
+  w.document.write('<html><head><title>Global Harlem Intelligence Brief</title><style>@media print{body{margin:0}@page{margin:10mm}}</style><style media="print">
+  @page { margin: 15mm; }
+  body { background: #fff; color: #111; }
+  .masthead, .mode-bar, .generate-bar, .print-bar, .city-filter-bar, nav, .signal-expand-btn, .share-btn, .mini-map { display: none; }
+  .signal-deep { display: block; }
+  .signal-section { break-inside: avoid; margin-bottom: 24px; border: 1px solid #ddd; }
+  .read-time-bar, .summary-strip, .watchlist, .report-footer { break-inside: avoid; }
+  .nuance-box { background: #f5f3ee; }
+  </style>
+</head><body>'+h+'</body></html>');
+  w.document.close();
+  setTimeout(()=>{w.print();},500);
 }
 
 </script>

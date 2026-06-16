@@ -969,8 +969,8 @@
     <div class="s1-rule"></div>
     <div class="s1-subtitle">Community Trust Score</div>
     <p class="s1-body">
-      Find out whether your community media organization is <strong>building audience trust</strong> — or quietly losing it.<br><br>
-      Powered by the Engage or Fade framework developed by <strong>Baron Carr</strong> of Global Harlem — 25 years inside Black community media, storytelling, and diaspora culture.
+      Find out whether your organization is <strong>building community trust</strong> — or quietly losing it.<br><br>
+      Powered by the Engage or Fade framework developed by <strong>Baron Carr</strong> of Global Harlem — 25 years inside community media, corporate communications, and diaspora culture.
     </p>
 
     <button class="btn-primary" onclick="startAudit()">Start Your Trust Audit</button>
@@ -1002,21 +1002,43 @@
 
     <div class="field">
       <label for="orgType">Organization Type</label>
-      <select id="orgType">
+      <select id="orgType" onchange="handleOrgTypeChange()">
         <option value="">Select your type...</option>
         <option value="Podcast">Podcast</option>
         <option value="Newsletter">Newsletter</option>
         <option value="Local News Outlet">Local News Outlet</option>
         <option value="Community Radio">Community Radio</option>
         <option value="Digital Platform">Digital Platform</option>
+        <option value="For-Profit Corporation">For-Profit Corporation</option>
+        <option value="Nonprofit Organization">Nonprofit Organization</option>
+        <option value="Government Agency">Government Agency</option>
+        <option value="Foundation">Foundation</option>
+        <option value="Faith-Based Organization">Faith-Based Organization</option>
+        <option value="University / Academic Institution">University / Academic Institution</option>
+        <option value="Labor Union / Association">Labor Union / Association</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="field" id="commsChannelField" style="display:none;">
+      <label for="orgCommsChannel">How does your organization communicate with your community?</label>
+      <select id="orgCommsChannel">
+        <option value="">Select your primary channel...</option>
+        <option value="Website / Blog">Website / Blog</option>
+        <option value="Email / Newsletter">Email / Newsletter</option>
+        <option value="Social Media">Social Media</option>
+        <option value="Annual / Impact Reports">Annual / Impact Reports</option>
+        <option value="Press Releases">Press Releases</option>
+        <option value="Events & Town Halls">Events &amp; Town Halls</option>
+        <option value="Internal Communications">Internal Communications</option>
         <option value="Other">Other</option>
       </select>
     </div>
 
     <div class="field">
-      <label for="orgContent">Your Recent Content</label>
-      <textarea id="orgContent" placeholder="Paste up to 2,000 words of your recent content here — episode transcript, newsletter issues, social posts, or a combination. The more honest and representative this sample is, the more useful your Trust Score will be."></textarea>
-      <div class="field-note">Paste transcript text, newsletter copy, or recent social posts. Aim for content from the last 30–60 days.</div>
+      <label for="orgContent" id="orgContentLabel">Your Recent Content</label>
+      <textarea id="orgContent" placeholder="Paste up to 2,000 words of your recent content here. The more honest and representative this sample is, the more useful your Trust Score will be."></textarea>
+      <div class="field-note" id="orgContentNote">Aim for content from the last 30–60 days.</div>
     </div>
 
     <div class="form-actions">
@@ -1148,7 +1170,7 @@
     <!-- CTA -->
     <div class="cta-card">
       <div class="cta-title">Ready to go deeper?</div>
-      <div class="cta-sub">The full Engage or Fade Audit is a four-hour workshop with Baron Carr — a written diagnosis, a team action plan, and a 90-day check-in. For podcasts, newsletters, and community media organizations serious about building trust.</div>
+      <div class="cta-sub" id="cta-sub-text"></div>
       <a href="mailto:baron@baroncarr.com?subject=Full%20Engage%20or%20Fade%20Audit%20Inquiry" class="btn-cta">Get the Full Audit</a>
       <button class="btn-restart" onclick="restart()">Start a new audit</button>
     </div>
@@ -1162,6 +1184,7 @@
 const state = {
   orgName: '',
   orgType: '',
+  orgCommsChannel: '',
   orgContent: '',
   scores: []
 };
@@ -1220,15 +1243,45 @@ function startAudit() {
   showScreen(2);
 }
 
+const MEDIA_TYPES = ['Podcast','Newsletter','Local News Outlet','Community Radio','Digital Platform'];
+
+function isMediaOrg(type) {
+  return MEDIA_TYPES.includes(type);
+}
+
+function handleOrgTypeChange() {
+  const type = document.getElementById('orgType').value;
+  const commsField = document.getElementById('commsChannelField');
+  const contentLabel = document.getElementById('orgContentLabel');
+  const contentNote = document.getElementById('orgContentNote');
+  const contentArea = document.getElementById('orgContent');
+
+  if (type && !isMediaOrg(type)) {
+    commsField.style.display = 'block';
+    contentLabel.textContent = 'Your Recent Public Communications';
+    contentNote.textContent = 'Paste your most recent community report, press release, website copy, public statements, or stakeholder communications. Aim for content from the last 30–60 days.';
+    contentArea.placeholder = 'Paste up to 2,000 words of recent communications — annual report excerpts, press releases, website copy, social media posts, or a combination.';
+  } else {
+    commsField.style.display = 'none';
+    contentLabel.textContent = 'Your Recent Content';
+    contentNote.textContent = 'Aim for content from the last 30–60 days.';
+    contentArea.placeholder = 'Paste up to 2,000 words of your recent content here — episode transcript, newsletter issues, social posts, or a combination. The more honest and representative this sample is, the more useful your Trust Score will be.';
+  }
+}
+
 function goToStep2() {
   const name = document.getElementById('orgName').value.trim();
   const type = document.getElementById('orgType').value;
   const content = document.getElementById('orgContent').value.trim();
+  const commsChannel = document.getElementById('orgCommsChannel') ? document.getElementById('orgCommsChannel').value : '';
+
   if (!name) { alert('Please enter your organization name.'); return; }
   if (!type) { alert('Please select your organization type.'); return; }
+  if (!isMediaOrg(type) && !commsChannel) { alert('Please select your primary communication channel.'); return; }
   if (content.length < 100) { alert('Please paste at least a paragraph of recent content for a meaningful analysis.'); return; }
   state.orgName = name;
   state.orgType = type;
+  state.orgCommsChannel = commsChannel;
   state.orgContent = content;
   showScreen(3);
 }
@@ -1271,7 +1324,10 @@ async function doAnalysis() {
     `${q} — Self-score: ${state.scores[i]}/10`
   ).join('\n');
 
-  const systemPrompt = `You are the Engage or Fade scoring engine — an AI analyst built on the proprietary community media trust framework developed by Baron Carr of Global Harlem, with 25 years of experience inside Black community media, journalism, and diaspora storytelling.
+  const isMedia = isMediaOrg(state.orgType);
+
+  const systemPrompt = isMedia
+  ? `You are the Engage or Fade scoring engine — an AI analyst built on the proprietary community media trust framework developed by Baron Carr of Global Harlem, with 25 years of experience inside Black community media, journalism, and diaspora storytelling.
 
 The Engage or Fade framework measures community media trust across seven categories. Score each 1–10 based on content and self-assessment provided.
 
@@ -1315,11 +1371,57 @@ RESPOND ONLY IN THIS EXACT JSON STRUCTURE — no preamble, no markdown, no expla
   "strengths": ["<specific strength 1>", "<specific strength 2>"],
   "priorities": ["<specific urgent action 1>", "<specific urgent action 2>", "<specific urgent action 3>"],
   "thirtyDayPlan": "<three specific steps this organization can take in the next 30 days, written as Step 1, Step 2, Step 3>"
+}`
+  : `You are the Engage or Fade scoring engine — an AI analyst built on the proprietary community trust framework developed by Baron Carr of Global Harlem, with 25 years of experience in community engagement, organizational communications, and diaspora culture.
+
+The Engage or Fade framework measures how effectively organizations build trust with the communities they serve. This organization is a ${state.orgType}. Score each category 1–10 based on the communications sample and self-assessment provided. Apply the framework through the lens of organizational communications, stakeholder engagement, and public trust — not media production.
+
+CATEGORY 01 — Community Relevance (weight 20%): Do the organization's communications reflect the actual priorities, concerns, and lived experience of the community — or what leadership assumes they care about? Look for specificity, community voice, and evidence of listening over broadcasting.
+
+CATEGORY 02 — Communications Quality (weight 15%): Are the organization's public communications clear, compelling, and crafted with the care the community deserves? Look for clarity, emotional resonance, and intentionality.
+
+CATEGORY 03 — Community Participation (weight 15%): Is the community actively shaping the organization's decisions and communications — or passively receiving them? Look for co-creation, feedback loops, and genuine two-way engagement.
+
+CATEGORY 04 — Consistency & Reliability (weight 15%): Does the organization communicate on a predictable, reliable cadence without unexplained gaps? Weight the self-assessment score heavily for this category.
+
+CATEGORY 05 — Cultural Authenticity (weight 20%): Do the organization's communications feel genuinely rooted in the cultural identity and lived experience of the community they serve? Look for cultural specificity and insider knowledge rather than corporate genericism.
+
+CATEGORY 06 — Representation (weight 7.5%): Are diverse voices across age, gender, geography, and experience genuinely present and centered in the organization's communications and leadership? Look for range of perspectives.
+
+CATEGORY 07 — Trust in Voice (weight 7.5%): Does the organization project a credible, consistent, and authentic presence the community trusts? Look for values alignment, transparency, and accountability.
+
+SCORING:
+- trustScore = weighted average × 10 (scale 1–100)
+- Deeply Engaging: 85–100
+- Engaging: 70–84
+- At Risk: 50–69
+- Fading: 1–49
+
+Be honest and specific. Do not give generic advice. Every recommendation must be actionable in 30 days or less. Frame all feedback in the context of organizational trust and community engagement — not media production.
+
+RESPOND ONLY IN THIS EXACT JSON STRUCTURE — no preamble, no markdown, no explanation outside the JSON:
+{
+  "trustScore": <number 1-100>,
+  "trustCategory": "<Deeply Engaging|Engaging|At Risk|Fading>",
+  "categoryScores": {
+    "communityRelevance": <1-10>,
+    "storytellingQuality": <1-10>,
+    "audienceParticipation": <1-10>,
+    "consistency": <1-10>,
+    "culturalAuthenticity": <1-10>,
+    "representation": <1-10>,
+    "founderTrust": <1-10>
+  },
+  "summary": "<two sentences interpreting the overall score specifically for this organization>",
+  "strengths": ["<specific strength 1>", "<specific strength 2>"],
+  "priorities": ["<specific urgent action 1>", "<specific urgent action 2>", "<specific urgent action 3>"],
+  "thirtyDayPlan": "<three specific steps this organization can take in the next 30 days, written as Step 1, Step 2, Step 3>"
 }`;
 
+  const commsLine = state.orgCommsChannel ? `Primary Communication Channel: ${state.orgCommsChannel}\n` : '';
   const userPrompt = `Organization: ${state.orgName}
 Type: ${state.orgType}
-
+${commsLine}
 SELF-ASSESSMENT:
 ${selfAssessment}
 
@@ -1368,6 +1470,14 @@ function animateLoadingSteps() {
 
 // ── Populate results ─────────────────────────────
 function populateResults(r) {
+  // Conditional CTA copy
+  const ctaSub = document.getElementById('cta-sub-text');
+  if (isMedia) {
+    ctaSub.textContent = 'The full Engage or Fade Audit is a four-hour workshop with Baron Carr — a written diagnosis, a team action plan, and a 90-day check-in. For podcasts, newsletters, and community media organizations serious about building trust.';
+  } else {
+    ctaSub.textContent = 'The full Engage or Fade Audit is a four-hour engagement strategy session with Baron Carr — a written diagnosis, a stakeholder action plan, and a 90-day check-in. For corporations, nonprofits, government agencies, and institutions serious about rebuilding community trust.';
+  }
+
   // Org name
   document.getElementById('res-org').textContent = state.orgName.toUpperCase();
 
@@ -1434,6 +1544,8 @@ function populateResults(r) {
 function restart() {
   document.getElementById('orgName').value = '';
   document.getElementById('orgType').value = '';
+  document.getElementById('orgCommsChannel').value = '';
+  document.getElementById('commsChannelField').style.display = 'none';
   document.getElementById('orgContent').value = '';
   buildSliders();
   showScreen(1);
