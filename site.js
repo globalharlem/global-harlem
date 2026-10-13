@@ -17,11 +17,11 @@ if(mb)mb.addEventListener('click',function(){var o=nav.classList.toggle('open');
   f.addEventListener('submit',function(e){
     e.preventDefault();
     var out=f.querySelector('output'),btn=f.querySelector('button[type=submit]');
-    if(/YOUR_/.test(f.action)){out.textContent='This form is not connected yet. Please write to baron@baroncarr.com.';return}
+    if(/YOUR_/.test(f.action)){out.textContent='This form is not connected yet. Please write to baron@globalharlem.com.';return}
     btn.disabled=true;out.textContent='Sending...';
     fetch(f.action,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}})
-      .then(function(r){if(r.ok){f.reset();out.textContent='Thank you. We will be in touch.'}else{out.textContent='Something went wrong. Please write to baron@baroncarr.com.'}})
-      .catch(function(){out.textContent='Something went wrong. Please write to baron@baroncarr.com.'})
+      .then(function(r){if(r.ok){f.reset();out.textContent='Thank you. We will be in touch.'}else{out.textContent='Something went wrong. Please write to baron@globalharlem.com.'}})
+      .catch(function(){out.textContent='Something went wrong. Please write to baron@globalharlem.com.'})
       .then(function(){btn.disabled=false});
   });
 });
