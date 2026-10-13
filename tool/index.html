@@ -400,7 +400,7 @@ function renderReport(){
      :`<div class="action"><p>All eight categories are engaging. Re-audit in 90 days and push your lowest category toward 8.</p></div>`)+`</div>
      <p style="margin-top:14px;font-size:14.5px"><b>90-day check-in:</b> ${checkinDate()}. Take this audit again then and compare.</p></div>`;
 
-  h+=`<div class="sec closing"><span class="toast" id="toast">Copy the full written output to share internally or drop into a doc.</span><button class="btn" type="button" id="copy">Copy written output</button></div><textarea id="fallback" hidden readonly aria-label="Written output"></textarea>`;
+  h+=`<div class="sec" style="border-top:1px solid var(--line);padding-top:22px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between"><div><h3>Want to talk through your score?</h3><p style="color:var(--muted);margin-top:4px">Book a call and we will read it together.</p></div><a class="btn" href="/contact" target="_top" style="text-decoration:none;display:inline-block">Book a call</a></div><div class="sec closing"><span class="toast" id="toast">Copy the full written output to share internally or drop into a doc.</span><button class="btn" type="button" id="copy">Copy written output</button></div><textarea id="fallback" hidden readonly aria-label="Written output"></textarea>`;
   el.innerHTML=h;wireGo(el);
   el.querySelectorAll("[data-owner]").forEach(inp=>inp.addEventListener("input",e=>{state.owners[e.target.dataset.owner]=e.target.value;save();}));
   $("copy").addEventListener("click",()=>{copyOut();track("report_copied",{});});
