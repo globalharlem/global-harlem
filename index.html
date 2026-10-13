@@ -1,607 +1,497 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Global Harlem | Community Intelligence for the Black Diaspora</title>
-  <meta name="description" content="Listening helps communities be heard. Community intelligence helps communities be understood. Global Harlem is the intelligence platform for the Black diaspora.">
-  <meta property="og:title" content="Global Harlem: Community Intelligence">
-  <meta property="og:description" content="Listening helps communities be heard. Community intelligence helps communities be understood.">
-  <meta property="og:image" content="https://www.globalharlem.com/og-image.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --ink: #0d0d0d;
-      --paper: #FAF7F0;
-      --cream: #f0ebe0;
-      --forest: #2D6A4F;
-      --forest-deep: #1A3D2B;
-      --navy: #0D1B2A;
-      --gold: #c9a84c;
-      --slate: #1a1a18;
-      --muted: #3a3a32;
-      --rule: #d4cdb8;
-    }
-
-    * { margin:0; padding:0; box-sizing:border-box; }
-
-    body {
-      background: var(--paper);
-      color: var(--ink);
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes drawLine { from{width:0} to{width:100%} }
-    @keyframes drawVert { from{height:0} to{height:100%} }
-
-    /* ── NAV ── */
-    .nav {
-      display:flex; align-items:center; justify-content:space-between;
-      padding:22px 48px;
-      background:var(--forest-deep);
-      opacity:0; animation:fadeIn .5s ease .1s forwards;
-    }
-
-    .nav-brand {
-      font-family:'DM Serif Display',serif;
-      font-size:19px; color:var(--paper);
-      text-decoration:none; letter-spacing:.03em;
-    }
-
-    .nav-brand span { color:var(--forest); font-weight:400; }
-
-    .nav-links { display:flex; gap:32px; align-items:center; }
-
-    .nav-link {
-      font-family:'Space Mono',monospace; font-size:11px;
-      letter-spacing:.2em; text-transform:uppercase;
-      color:rgba(250,247,240,.7); text-decoration:none;
-      transition:color .3s;
-    }
-
-    .nav-link:hover { color:rgba(250,247,240,.85); }
-
-    /* ── HERO ── */
-    .hero {
-      padding:100px 48px 80px;
-      max-width:900px;
-      opacity:0; animation:fadeUp .8s ease .2s forwards;
-    }
-
-    .hero-eyebrow {
-      font-family:'Space Mono',monospace; font-size:11px;
-      letter-spacing:.35em; text-transform:uppercase;
-      color:var(--forest); margin-bottom:32px;
-    }
-
-    .hero h1 {
-      font-family:'DM Serif Display',serif;
-      font-size:clamp(48px,7vw,80px);
-      line-height:1.02; color:#0d0d0d;
-      margin-bottom:0; font-weight:400;
-    }
-
-    .hero h1 em {
-      font-style:normal;
-      color:var(--forest);
-    }
-
-    .hero-rule {
-      border:none; border-top:1px solid var(--rule);
-      width:0; margin:36px 0 32px;
-      animation:drawLine .6s ease .8s forwards;
-    }
-
-    .hero-statement {
-      font-family:'Cormorant Garamond',serif;
-      font-style:italic; font-size:clamp(20px,2.5vw,26px);
-      color:#0d0d0d; line-height:1.85;
-      max-width:560px; margin-bottom:44px;
-      opacity:0; animation:fadeIn .6s ease 1s forwards;
-    }
-
-    .hero-cta {
-      display:inline-block;
-      padding:14px 36px;
-      border:1px solid var(--ink);
-      font-family:'Space Mono',monospace; font-size:12px;
-      letter-spacing:.2em; text-transform:uppercase;
-      color:#0d0d0d; text-decoration:none;
-      transition:all .25s;
-      opacity:0; animation:fadeIn .5s ease 1.2s forwards;
-    }
-
-    .hero-cta:hover {
-      background:var(--ink); color:var(--paper);
-    }
-
-    /* ── POSITIONING ── */
-    .positioning {
-      border-top:1px solid var(--rule);
-      border-bottom:1px solid var(--rule);
-      padding:48px 48px;
-      display:grid; grid-template-columns:1fr 1fr;
-      gap:48px; align-items:center;
-    }
-
-    .pos-left {
-      font-family:'Cormorant Garamond',serif;
-      font-size:28px; font-weight:500;
-      color:#0d0d0d; line-height:1.45;
-    }
-
-    .pos-left em {
-      font-style:italic; color:var(--forest);
-    }
-
-    .pos-right {
-      font-family:'Cormorant Garamond',serif;
-      font-size:19px; color:#0d0d0d;
-      line-height:1.855; font-style:italic;
-    }
-
-    /* ── PRODUCTS ── */
-    .products {
-      padding:80px 48px;
-      max-width:1000px;
-      margin:0 auto;
-    }
-
-    .products-eyebrow {
-      font-family:'Space Mono',monospace; font-size:11px;
-      letter-spacing:.35em; text-transform:uppercase;
-      color:var(--muted); margin-bottom:48px;
-    }
-
-    .product-row {
-      display:grid; grid-template-columns:200px 1fr;
-      gap:0; border-top:1px solid var(--rule);
-      padding:42px 0;
-      transition:background .3s;
-    }
-
-    .product-row:last-child { border-bottom:1px solid var(--rule); }
-
-    .product-row:hover { background:rgba(45,106,79,.03); }
-
-    .pr-left {}
-
-    .pr-number {
-      font-family:'Space Mono',monospace; font-size:11px;
-      color:var(--muted); letter-spacing:.15em;
-      margin-bottom:8px;
-    }
-
-    .pr-name {
-      font-family:'DM Serif Display',serif;
-      font-size:28px; color:#0d0d0d;
-      margin-bottom:6px;
-    }
-
-    .pr-name a {
-      color:inherit; text-decoration:none;
-      transition:color .2s;
-    }
-
-    .pr-name a:hover { color:var(--forest); }
-
-    .pr-status {
-      font-family:'Space Mono',monospace; font-size:11px;
-      letter-spacing:.15em; text-transform:uppercase;
-    }
-
-    .pr-status.live { color:var(--forest); }
-    .pr-status.coming { color:var(--muted); }
-
-    .pr-right {}
-
-    .pr-question {
-      font-family:'Cormorant Garamond',serif;
-      font-style:italic; font-size:22px;
-      color:var(--forest); margin-bottom:16px;
-    }
-
-    .pr-desc {
-      font-family:'Cormorant Garamond',serif;
-      font-size:19px; color:#0d0d0d;
-      line-height:1.85; max-width:520px;
-    }
-
-    /* ── CYCLE ── */
-    .cycle-section {
-      background:var(--forest-deep);
-      padding:70px 48px;
-      text-align:center;
-    }
-
-    .cycle-eyebrow {
-      font-family:'Space Mono',monospace; font-size:11px;
-      letter-spacing:.35em; text-transform:uppercase;
-      color:var(--forest); margin-bottom:32px;
-    }
-
-    .cycle-flow {
-      display:flex; align-items:center; justify-content:center;
-      gap:0; flex-wrap:wrap; margin-bottom:40px;
-    }
-
-    .cy-step {
-      text-align:center;
-    }
-
-    .cy-word {
-      font-family:'DM Serif Display',serif;
-      font-size:22px; color:var(--paper);
-    }
-
-    .cy-label {
-      font-family:'Space Mono',monospace; font-size:11px;
-      letter-spacing:.15em; text-transform:uppercase;
-      color:rgba(250,247,240,.85); margin-top:4px;
-    }
-
-    .cy-arrow {
-      font-family:'Cormorant Garamond',serif;
-      font-size:22px; color:rgba(250,247,240,.65);
-      margin:0 20px;
-    }
-
-    .cycle-statement {
-      font-family:'Cormorant Garamond',serif;
-      font-style:italic; font-size:22px;
-      color:rgba(250,247,240,.85); line-height:1.85;
-      max-width:560px; margin:0 auto;
-    }
-
-    /* ── AUDIENCE ── */
-    .audience {
-      padding:70px 48px;
-      max-width:1000px; margin:0 auto;
-    }
-
-    .audience-eyebrow {
-      font-family:'Space Mono',monospace; font-size:11px;
-      letter-spacing:.35em; text-transform:uppercase;
-      color:var(--muted); margin-bottom:16px;
-    }
-
-    .audience-title {
-      font-family:'DM Serif Display',serif;
-      font-size:32px; color:#0d0d0d;
-      margin-bottom:40px;
-    }
-
-    .aud-grid {
-      display:grid; grid-template-columns:1fr 1fr 1fr;
-      gap:0; border-top:1px solid var(--rule);
-    }
-
-    .aud-item {
-      padding:32px 28px 28px 0;
-      border-bottom:1px solid var(--rule);
-      border-right:1px solid var(--rule);
-    }
-
-    .aud-item:nth-child(3n) { border-right:none; }
-    .aud-item:nth-child(3n+2), .aud-item:nth-child(3n+3) { padding-left:28px; }
-
-    .aud-name {
-      font-family:'Space Mono',monospace; font-size:12px;
-      letter-spacing:.15em; text-transform:uppercase;
-      color:var(--forest); margin-bottom:14px;
-    }
-
-    .aud-desc {
-      font-family:'Cormorant Garamond',serif;
-      font-size:22px; color:#0d0d0d;
-      line-height:1.85; font-style:italic;
-    }
-
-    /* ── CTA ── */
-    .cta-section {
-      border-top:1px solid var(--rule);
-      padding:60px 48px;
-      display:flex; align-items:center;
-      justify-content:space-between;
-      max-width:1000px; margin:0 auto;
-      gap:32px;
-    }
-
-    .cta-text {
-      font-family:'DM Serif Display',serif;
-      font-size:28px; color:#0d0d0d; line-height:1.3;
-    }
-
-    .cta-text em { font-style:normal; color:var(--forest); }
-
-    .cta-link {
-      flex-shrink:0;
-      display:inline-block; padding:14px 36px;
-      border:1px solid var(--ink);
-      font-family:'Space Mono',monospace; font-size:12px;
-      letter-spacing:.2em; text-transform:uppercase;
-      color:#0d0d0d; text-decoration:none;
-      transition:all .25s;
-    }
-
-    .cta-link:hover { background:var(--ink); color:var(--paper); }
-
-    /* ── FOOTER ── */
-    .footer {
-      background:var(--forest-deep);
-      padding:48px 48px 40px;
-      margin-top:40px;
-    }
-
-    .footer-inner {
-      max-width:1000px; margin:0 auto;
-      display:grid; grid-template-columns:1fr auto;
-      gap:40px; align-items:start;
-    }
-
-    .footer-brand {
-      font-family:'DM Serif Display',serif;
-      font-size:22px; color:var(--paper);
-      margin-bottom:8px;
-    }
-
-    .footer-brand span { color:var(--forest); }
-
-    .footer-tagline {
-      font-family:'Cormorant Garamond',serif;
-      font-style:italic; font-size:16px;
-      color:rgba(250,247,240,.85); line-height:1.6;
-      max-width:360px;
-    }
-
-    .footer-right {
-      text-align:right;
-    }
-
-    .footer-nav {
-      display:flex; gap:24px; margin-bottom:20px;
-      justify-content:flex-end;
-    }
-
-    .footer-link {
-      font-family:'Space Mono',monospace; font-size:11px;
-      letter-spacing:.15em; text-transform:uppercase;
-      color:rgba(250,247,240,.85); text-decoration:none;
-      transition:color .2s;
-    }
-
-    .footer-link:hover { color:rgba(250,247,240,.85); }
-
-    .footer-social {
-      display:flex; gap:12px; justify-content:flex-end;
-      margin-bottom:20px;
-    }
-
-    .footer-social a {
-      display:flex; align-items:center; justify-content:center;
-      width:30px; height:30px; border-radius:50%;
-      border:1px solid rgba(250,247,240,.12);
-      color:rgba(250,247,240,.85); text-decoration:none;
-      transition:all .2s;
-    }
-
-    .footer-social a:hover { border-color:var(--forest); color:var(--forest); }
-    .footer-social svg { width:13px; height:13px; fill:currentColor; }
-
-    .footer-legal {
-      font-family:'Space Mono',monospace; font-size:10px;
-      color:rgba(250,247,240,.75); letter-spacing:.06em;
-      text-align:right;
-    }
-
-    /* ── MOBILE ── */
-    @media (max-width:768px) {
-      .nav { padding:18px 24px; }
-      .nav-links { gap:20px; }
-      .hero { padding:64px 24px 50px; }
-      .positioning { grid-template-columns:1fr; padding:36px 24px; gap:24px; }
-      .products { padding:50px 24px; }
-      .product-row { grid-template-columns:1fr; gap:12px; padding:28px 0; }
-      .cycle-section { padding:50px 24px; }
-      .audience { padding:50px 24px; }
-      .aud-grid { grid-template-columns:1fr; }
-      .aud-item { border-right:none; padding:24px 0 24px 0; }
-      .cta-section { flex-direction:column; text-align:center; padding:50px 24px; }
-      .footer { padding:36px 24px; }
-      .footer-inner { grid-template-columns:1fr; gap:24px; }
-      .footer-right { text-align:left; }
-      .footer-nav, .footer-social { justify-content:flex-start; }
-      .footer-legal { text-align:left; }
-    }
-
-    @media (max-width:480px) {
-      .nav-links { gap:14px; }
-      .nav-link { font-size:10px; letter-spacing:.12em; }
-      .hero h1 { font-size:36px; }
-      .pos-left { font-size:22px; }
-      .pr-name { font-size:24px; }
-      .cycle-flow { flex-direction:column; gap:16px; }
-      .cy-arrow { transform:rotate(90deg); margin:0; }
-    }
-  </style>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#1A3D2B">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="The E.N.G.A.G.E. Trust Audit from Engage or Fade. Score your organization across eight categories of community trust and get an insights report.">
+<meta property="og:title" content="The E.N.G.A.G.E. Trust Audit">
+<meta property="og:description" content="Is your organization building community trust or quietly losing it? 24 questions. One honest report.">
+<title>E.N.G.A.G.E. Trust Audit · Global Harlem</title>
+<link rel="canonical" href="https://globalharlem.com/take-audit">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: mirrors Baron's E.N.G.A.G.E. framework page. Light editorial ground, Playfair headlines with italic green, hairline grid of eight category cells. Two tabs: Insights report and the 24-question audit. */
+:root{
+  --bg:#F7F5EF; --surface:#FBFAF6; --ink:#13202B; --muted:#55605C; --line:#D3DED6;
+  --green:#3C6E50; --pale:#BFD6C8; --soft:#EEECE5; --on-green:#F7F5EF;
+  --deeply:#2E6B48; --engaging:#4A8C63; --risk:#A86F0C; --fading:#A8432F;
+  --display:"Playfair Display",Georgia,serif;
+  --body:"DM Sans",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111915; --surface:#16211C; --ink:#F2EFE6; --muted:#AEBBB3; --line:#2B3D33;
+  --green:#8CC3A0; --pale:#36533F; --soft:#1D2B24; --on-green:#111915;
+  --deeply:#8CC3A0; --engaging:#A9D6B9; --risk:#E2B451; --fading:#EC8E76; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111915; --surface:#16211C; --ink:#F2EFE6; --muted:#AEBBB3; --line:#2B3D33;
+  --green:#8CC3A0; --pale:#36533F; --soft:#1D2B24; --on-green:#111915;
+  --deeply:#8CC3A0; --engaging:#A9D6B9; --risk:#E2B451; --fading:#EC8E76; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:0 64px}
+p{margin:0}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.kicker{display:flex;align-items:center;gap:14px;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--green);padding-top:30px}
+.kicker::after{content:"";flex:1;border-top:1px solid var(--line)}
+.mast{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px 48px;align-items:start;padding-block:26px 8px}
+@media (max-width:820px){.mast{grid-template-columns:minmax(0,1fr)}}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(38px,6.4vw,72px);line-height:1.02;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h1 em,h2 em{font-weight:500;color:var(--green)}
+.mast .lede{font-size:17px;line-height:1.75;padding-top:10px;max-width:58ch}
+.tabs{display:flex;gap:26px;border-bottom:1px solid var(--line);margin-top:22px;flex-wrap:wrap}
+.tabs button{font:inherit;font-size:14.5px;font-weight:600;background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);padding:10px 0;margin-bottom:-1px;cursor:pointer}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--green)}
+.tabs .count{font-family:var(--mono);font-size:11.5px;font-weight:500;margin-left:6px;color:var(--muted)}
+.banner{font-size:14px;background:var(--soft);border:1px solid var(--line);padding:11px 16px;margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.btn{font:inherit;font-size:14px;font-weight:600;padding:9px 16px;cursor:pointer;border:1px solid var(--green);background:var(--green);color:var(--on-green);border-radius:2px}
+.btn.ghost{background:transparent;color:var(--green)}
+.sec{margin-top:40px}
+.label{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(26px,3.6vw,36px);line-height:1.12;margin:0 0 10px;text-wrap:balance}
+h3{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.25;margin:0}
+.chip{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:2px;white-space:nowrap;color:var(--on-green)}
+.b-deeply{background:var(--deeply)}.b-engaging{background:var(--engaging)}.b-risk{background:var(--risk)}.b-fading{background:var(--fading)}.b-none{background:var(--muted)}
+.numeral{font-family:var(--display);font-weight:500;font-size:40px;line-height:1;color:var(--pale);font-variant-numeric:oldstyle-nums}
+
+/* Verdict */
+.verdict{display:grid;grid-template-columns:auto minmax(0,1fr);gap:32px;align-items:center;margin-top:30px;padding-bottom:30px;border-bottom:1px solid var(--line)}
+@media (max-width:640px){.verdict{grid-template-columns:minmax(0,1fr);gap:16px}}
+.dial{width:156px;height:156px;position:relative}
+.dial svg{width:100%;height:100%}
+.dial .val{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.dial .val b{font-family:var(--display);font-weight:700;font-size:48px;line-height:1;font-variant-numeric:lining-nums tabular-nums;display:block}
+.dial .val span{font-size:10px;font-weight:600;letter-spacing:.14em;color:var(--muted)}
+.verdict .org{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+
+/* Grid cells, like the framework page */
+.cells{display:grid;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.cells>*{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px;min-width:0;display:grid;gap:10px;align-content:start}
+.c2{grid-template-columns:1fr 1fr}
+.c4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:980px){.c4{grid-template-columns:1fr 1fr}}
+@media (max-width:760px){.c2{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){.c4{grid-template-columns:minmax(0,1fr)}}
+.gap-bars{display:grid;gap:8px}
+.gb{display:grid;grid-template-columns:110px 1fr 34px;gap:10px;align-items:center;font-size:13.5px}
+.gb .v,.pr .v{font-family:var(--mono);font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
+.track{position:relative;height:10px;background:var(--soft);border:1px solid var(--line)}
+.fill{position:absolute;inset:-1px auto -1px -1px}
+.track .seven{position:absolute;top:-4px;bottom:-4px;left:70%;border-left:1.5px dashed var(--ink);opacity:.5}
+
+/* Profile cells */
+.pcell .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.pcell .score{font-family:var(--display);font-weight:700;font-size:30px;line-height:1;font-variant-numeric:lining-nums tabular-nums}
+.pcell.weak{background:var(--soft)}
+
+/* Patterns */
+.patterns{display:grid;gap:22px}
+.pattern{display:grid;grid-template-columns:4px minmax(0,1fr);gap:18px;max-width:78ch}
+.pattern::before{content:"";background:var(--risk)}
+.pattern.good::before{background:var(--deeply)}
+.pattern>div{display:grid;gap:6px}
+.pattern .why{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+
+.question{font-family:var(--display);font-style:italic;font-weight:500;font-size:24px;line-height:1.35;color:var(--green)}
+
+/* Ledger */
+.ledger{border-top:1px solid var(--line)}
+.lrow{display:grid;grid-template-columns:150px minmax(0,1fr) 54px;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14.5px;align-items:baseline}
+.lrow .c{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+.lrow .a{font-style:italic;color:var(--muted)}
+.lrow .pts{font-family:var(--mono);font-size:13px;text-align:right;color:var(--fading)}
+@media (max-width:560px){.lrow{grid-template-columns:minmax(0,1fr) 46px}.lrow .c{grid-column:1/-1}}
+
+/* Actions */
+.action .meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13.5px;color:var(--muted);align-items:center}
+.action input{font:inherit;font-size:13.5px;color:var(--ink);background:var(--bg);border:1px solid var(--line);padding:5px 8px;width:180px;max-width:100%}
+.closing{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:20px}
+.toast{font-size:13.5px;color:var(--muted)}
+#fallback{width:100%;min-height:180px;font-family:var(--mono);font-size:12px;margin-top:10px;background:var(--surface);color:var(--ink);border:1px solid var(--line);padding:10px}
+
+/* Audit */
+.audit-grid{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:36px;align-items:start;margin-top:26px}
+@media (max-width:920px){.audit-grid{grid-template-columns:minmax(0,1fr)}}
+.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 14px);border:1px solid var(--line);background:var(--surface);padding:18px;display:grid;gap:10px}
+@media (max-width:920px){.rail{position:static;order:-1}}
+.mini{display:grid;gap:6px}
+.mini .r{display:grid;grid-template-columns:20px 1fr 30px;gap:8px;align-items:center;font-size:12px}
+.mini .r .n{font-family:var(--display);font-weight:700;color:var(--green)}
+.mini .r .v{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.f{display:grid;gap:5px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.f input,.f select{font:inherit;font-size:15px;color:var(--ink);background:var(--surface);border:1px solid var(--line);padding:10px 12px;width:100%;text-transform:none;letter-spacing:0;font-weight:400;border-radius:2px}
+.setup{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:560px){.setup{grid-template-columns:1fr}}
+.gut{display:grid;grid-template-columns:1fr 44px;gap:12px;align-items:center}
+.gut output{font-family:var(--display);font-weight:700;font-size:28px;text-align:right}
+input[type=range]{width:100%;accent-color:var(--green);height:28px}
+.cat{margin-top:34px;display:grid;gap:12px}
+.cat-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 18px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:12px}
+.cat-head .numeral{grid-row:span 3}
+.cat-head .score{font-family:var(--mono);font-size:12.5px;text-align:right;grid-row:span 3;align-self:end}
+.cat-head .desc{color:var(--muted);font-size:14.5px}
+@media (max-width:560px){.cat-head{grid-template-columns:minmax(0,1fr)}.cat-head .numeral,.cat-head .score{grid-row:auto;text-align:left}}
+.q{background:var(--surface);border:1px solid var(--line);padding:16px}
+.q fieldset{border:0;margin:0;padding:0;min-width:0}
+.q legend{font-weight:600;font-size:15px;padding:0;margin-bottom:10px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:560px){.opts{grid-template-columns:1fr}}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);padding:9px 11px;cursor:pointer;font-size:14px;line-height:1.4;background:var(--bg)}
+.opt input{margin-top:3px;accent-color:var(--green)}
+.opt:has(input:checked){border-color:var(--green);background:var(--soft)}
+footer{margin-top:48px;font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 20px;border-top:1px solid var(--line);padding-top:16px}
+@media (prefers-reduced-motion:no-preference){.fill{transition:width .25s ease}}
+</style>
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<style id="gh-theme">
+/* Global Harlem site theme override: matches the Magna look (white ground, deep green, emerald, Archivo). Delete this block to restore the original cream and Playfair look. */
+:root{--bg:#FFFFFF;--surface:#F3F5F4;--ink:#0F2418;--muted:#6F7A73;--line:#D9DEDB;--green:#0F2418;--pale:#BFE3CF;--soft:#F3F5F4;--on-green:#FFFFFF;--deeply:#0F2418;--engaging:#1FA463;--risk:#A86F0C;--fading:#A8432F;--display:"Archivo",system-ui,sans-serif;--body:"Archivo",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1A12;--surface:#12271B;--ink:#F1EFE6;--muted:#9AA8A0;--line:#27402F;--green:#35C77F;--pale:#2B4636;--soft:#12271B;--on-green:#06140C;--deeply:#35C77F;--engaging:#6FD9A4;--risk:#E2B451;--fading:#EC8E76}}
+h1,h2,h3{text-transform:uppercase;letter-spacing:-.02em}
+h1{font-weight:800}h1 em,h2 em{font-style:normal;color:var(--engaging)}
+.btn{border-radius:0;text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+.kicker{display:none}
+.wrap{padding-block:0 40px}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800&display=swap">
 </head>
 <body>
-
-<nav class="nav">
-  <a href="index.html" class="nav-brand">Global <span>Harlem</span></a>
-  <div class="nav-links">
-    <a href="intelligence.html" class="nav-link">Intelligence</a>
-    <a href="pulse.html" class="nav-link">Pulse</a>
-    <a href="trust.html" class="nav-link">Trust</a>
-    <a href="about.html" class="nav-link">About</a>
+<div class="wrap">
+  <div class="kicker">Engage or Fade™ · Trust Audit</div>
+  <div class="mast">
+    <h1>The <em>E.N.G.A.G.E.</em> Trust Audit</h1>
+    <p class="lede">Eight scored categories that measure whether your organization is building community trust or quietly losing it. Answer 24 questions about what you actually do. The report shows where you stand, what the pattern means, and what to do next.</p>
   </div>
-</nav>
-
-<section class="hero">
-  <p class="hero-eyebrow">Community Intelligence Platform</p>
-  <h1>Intelligence<br>for the <em>Black<br>Diaspora.</em></h1>
-  <hr class="hero-rule">
-  <p class="hero-statement">Listening helps communities be heard. Community intelligence helps communities be understood.</p>
-  <a href="intelligence.html" class="hero-cta">Read this week's brief →</a>
-</section>
-
-<section class="positioning">
-  <div class="pos-left">Not a media company.<br>Not a listening project.<br>Not a newsletter.<br><em>A community intelligence organization.</em></div>
-  <div class="pos-right">Global Harlem turns listening into intelligence, intelligence into trust, and trust into action. Built for organizations that need to understand diaspora communities, not just observe them.</div>
-</section>
-
-<section class="products">
-  <p class="products-eyebrow">The Platform</p>
-
-  <div class="product-row">
-    <div class="pr-left">
-      <div class="pr-number">01</div>
-      <div class="pr-name"><a href="intelligence.html">Intelligence</a></div>
-      <div class="pr-status live">Live</div>
-    </div>
-    <div class="pr-right">
-      <div class="pr-question">"What is happening in the diaspora?"</div>
-      <p class="pr-desc">AI-powered weekly intelligence brief covering signals across culture, economics, wellness, and technology. Executive summary, cultural nuance, business applications, and source links, built for organizations that make decisions about diaspora communities.</p>
-    </div>
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tab-insights" aria-controls="view-insights" aria-selected="true">Insights report</button>
+    <button role="tab" id="tab-audit" aria-controls="view-audit" aria-selected="false">Take the audit<span class="count" id="tabCount"></span></button>
   </div>
 
-  <div class="product-row">
-    <div class="pr-left">
-      <div class="pr-number">02</div>
-      <div class="pr-name"><a href="pulse.html">Pulse</a></div>
-      <div class="pr-status live">Live</div>
-    </div>
-    <div class="pr-right">
-      <div class="pr-question">"What is the community feeling?"</div>
-      <p class="pr-desc">The listening layer. Direct community voice, surveys, feedback, and listening tools that capture what diaspora communities are experiencing before it becomes a headline. The input that feeds everything else.</p>
-    </div>
-  </div>
+  <div class="banner" id="sampleBanner"><span><b>Sample organization.</b> This report is built from example answers so you can see what the audit tells you. Your own answers replace it.</span><button class="btn ghost" id="startOwn" type="button">Start your own audit</button></div>
 
-  <div class="product-row">
-    <div class="pr-left">
-      <div class="pr-number">03</div>
-      <div class="pr-name"><a href="trust.html">Trust</a></div>
-      <div class="pr-status live">Live</div>
-    </div>
-    <div class="pr-right">
-      <div class="pr-question">"How strong is our engagement?"</div>
-      <p class="pr-desc">The Engage or Fade trust audit. Organizations answer questions about their community engagement and receive a trust score with specific, actionable recommendations. Culture is not a soft issue. It directly affects revenue, retention, and growth.</p>
-    </div>
-  </div>
+  <section id="view-insights" role="tabpanel" aria-labelledby="tab-insights"></section>
 
-  <div class="product-row">
-    <div class="pr-left">
-      <div class="pr-number">04</div>
-      <div class="pr-name">The Signal</div>
-      <div class="pr-status coming">Coming</div>
-    </div>
-    <div class="pr-right">
-      <div class="pr-question">"What does it mean?"</div>
-      <p class="pr-desc">Weekly conversations unpacking the top signals from the intelligence brief with voices from each city. Not just what happened. What it means for communities, organizations, and the future of the diaspora.</p>
-    </div>
-  </div>
-
-</section>
-
-<section class="cycle-section">
-  <p class="cycle-eyebrow">The Intelligence Cycle</p>
-  <div class="cycle-flow">
-    <div class="cy-step">
-      <div class="cy-word">Listen</div>
-      <div class="cy-label">Pulse</div>
-    </div>
-    <div class="cy-arrow">→</div>
-    <div class="cy-step">
-      <div class="cy-word">Analyze</div>
-      <div class="cy-label">Intelligence</div>
-    </div>
-    <div class="cy-arrow">→</div>
-    <div class="cy-step">
-      <div class="cy-word">Measure</div>
-      <div class="cy-label">Trust</div>
-    </div>
-    <div class="cy-arrow">→</div>
-    <div class="cy-step">
-      <div class="cy-word">Interpret</div>
-      <div class="cy-label">The Signal</div>
-    </div>
-    <div class="cy-arrow">→</div>
-    <div class="cy-step">
-      <div class="cy-word">Impact</div>
-      <div class="cy-label">Action</div>
-    </div>
-  </div>
-  <p class="cycle-statement">Community intelligence is not a report. It is a cycle. We listen, analyze, measure, interpret, and drive impact. Every product feeds the next. Every week the cycle runs again.</p>
-</section>
-
-<section class="audience">
-  <p class="audience-eyebrow">Who This Serves</p>
-  <h2 class="audience-title">Built for organizations that<br>need to understand.</h2>
-  <div class="aud-grid">
-    <div class="aud-item">
-      <div class="aud-name">Foundations</div>
-      <p class="aud-desc">Program officers making funding decisions. Weekly intelligence replaces the research report that traditionally takes months and a real budget to produce.</p>
-    </div>
-    <div class="aud-item">
-      <div class="aud-name">Brand Agencies</div>
-      <p class="aud-desc">Cultural strategists who need to see where diaspora taste is moving before their competitors do.</p>
-    </div>
-    <div class="aud-item">
-      <div class="aud-name">Corporations</div>
-      <p class="aud-desc">CDOs and community affairs teams who need grounded intelligence about what Black communities are experiencing globally.</p>
-    </div>
-    <div class="aud-item">
-      <div class="aud-name">Media Teams</div>
-      <p class="aud-desc">Editors who need a diaspora story pipeline where every signal comes with built-in audience demand data.</p>
-    </div>
-    <div class="aud-item">
-      <div class="aud-name">City Governments</div>
-      <p class="aud-desc">Policy offices tracking economic health and displacement in Black communities between elections and commissions.</p>
-    </div>
-    <div class="aud-item">
-      <div class="aud-name">Researchers</div>
-      <p class="aud-desc">Academics needing consistent longitudinal diaspora data. Same categories, same methodology, every week, starting in Harlem and expanding city by city.</p>
-    </div>
-  </div>
-</section>
-
-<section class="cta-section">
-  <div class="cta-text">Read this week's<br><em>intelligence brief.</em></div>
-  <a href="intelligence.html" class="cta-link">Open the terminal →</a>
-</section>
-
-<footer class="footer">
-  <div class="footer-inner">
-    <div>
-      <div class="footer-brand">Global <span>Harlem</span></div>
-      <p class="footer-tagline">Listening helps communities be heard. Community intelligence helps communities be understood.</p>
-    </div>
-    <div class="footer-right">
-      <nav class="footer-nav">
-        <a href="index.html" class="footer-link">Home</a>
-        <a href="intelligence.html" class="footer-link">Intelligence</a>
-        <a href="pulse.html" class="footer-link">Pulse</a>
-        <a href="trust.html" class="footer-link">Trust</a>
-        <a href="about.html" class="footer-link">About</a>
-      </nav>
-      <div class="footer-social">
-        <a href="https://www.youtube.com/@GlobalHarlem" target="_blank" rel="noopener" title="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.5a3 3 0 0 0-2.1-2.1C19.5 4 12 4 12 4s-7.5 0-9.4.4a3 3 0 0 0-2.1 2.1C0 8.4 0 12 0 12s0 3.6.5 5.5a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.5.5-5.5s0-3.6-.5-5.5zM9.5 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg></a>
-        <a href="https://www.instagram.com/globalharlem" target="_blank" rel="noopener" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.1 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.2.5 3 .3.8.7 1.5 1.4 2.1.7.7 1.3 1.1 2.1 1.4.8.3 1.7.5 3 .5C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.2-.2 3-.5.8-.3 1.5-.7 2.1-1.4.7-.7 1.1-1.3 1.4-2.1.3-.8.5-1.7.5-3 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.2-.5-3-.3-.8-.7-1.5-1.4-2.1-.7-.7-1.3-1.1-2.1-1.4-.8-.3-1.7-.5-3-.5C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a>
-        <a href="https://www.linkedin.com/company/globalharlem" target="_blank" rel="noopener" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.5V9h3.4v1.6h.1c.5-.9 1.6-1.8 3.3-1.8 3.5 0 4.2 2.3 4.2 5.3v6.3zM5.3 7.4a2 2 0 1 1 0-4.1 2 2 0 0 1 0 4.1zM7.1 20.4H3.6V9h3.5v11.4zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7c0-.9-.8-1.7-1.8-1.7z"/></svg></a>
+  <section id="view-audit" role="tabpanel" aria-labelledby="tab-audit" hidden>
+    <div class="audit-grid">
+      <div>
+        <p style="max-width:66ch">Answer for how your organization operates today, not how you intend to. Every answer is evidence. The report scores what you do, then compares it with what you believe.</p>
+        <div class="cat">
+          <div class="label" style="margin:0">Before you begin</div>
+          <div class="setup">
+            <label class="f">Organization name<input type="text" id="org" placeholder="e.g. Harlem Community Radio"></label>
+            <label class="f">Type
+              <select id="otype"><option>Nonprofit or community org</option><option>Newsroom or publication</option><option>Podcast</option><option>Newsletter</option><option>Radio station</option><option>Communications team</option><option>Foundation or funder</option><option>Corporate brand</option><option>University or program</option></select>
+            </label>
+          </div>
+          <div class="q">
+            <div style="font-weight:600">Gut check, before the evidence</div>
+            <p style="font-size:14px;color:var(--muted);margin:4px 0 6px">On a scale of 1 to 10, how much does your community trust your organization?</p>
+            <div class="gut"><input type="range" min="1" max="10" step="1" id="gutScore" aria-label="Gut-check trust score"><output id="gutOut" for="gutScore"></output></div>
+            <label class="f" style="margin-top:8px">Which category do you believe is your strongest?<select id="belief"></select></label>
+          </div>
+          <div class="q" id="shareBox" hidden>
+            <label class="opt" style="background:none;border:0;padding:0"><input type="checkbox" id="share"><span>Share my results with Global Harlem. I'd like to hear about a full Engage or Fade audit for my organization.</span></label>
+            <label class="f" style="margin-top:10px">Email (optional)<input type="email" id="email" placeholder="you@organization.org" autocomplete="email"></label>
+            <p style="font-size:12.5px;color:var(--muted);margin-top:6px">Nothing is sent unless you check the box. Your answers otherwise stay in this browser.</p>
+          </div>
+        </div>
+        <div id="questions"></div>
+        <div style="margin-top:28px"><button class="btn" type="button" id="toReport">See your insights report</button></div>
       </div>
-      <p class="footer-legal">© 2026 The Baron Carr Company, Inc. d/b/a Global Harlem. All rights reserved.</p>
+      <aside class="rail">
+        <div class="label" style="margin:0">Live read</div>
+        <div><span id="railScore" style="font-family:var(--display);font-weight:700;font-size:40px;line-height:1">–</span> <span style="font-family:var(--mono);font-size:12px;color:var(--muted)">/ 10</span></div>
+        <div id="railBand"></div>
+        <div class="mini" id="railBars"></div>
+        <div style="font-size:12px;color:var(--muted)" id="railProgress"></div>
+      </aside>
     </div>
-  </div>
-</footer>
+  </section>
 
-<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js")}</script>
+  <footer><span>Engage or Fade™ · The E.N.G.A.G.E. Framework</span><span>Baron Carr · Global Harlem · globalharlem.com</span></footer>
+</div>
+
+<script>
+/* ===== Site config: fill these two values from Supabase > Project Settings > API ===== */
+const SUPABASE_URL="";      /* e.g. https://abcd1234.supabase.co */
+const SUPABASE_ANON_KEY=""; /* the public anon key, safe in the browser with the RLS policy in setup.sql */
+</script>
+<script>
+const PTS=[10,7,4,1];
+const CATS=[
+ {n:"01",l:"E",tag:"Environment",title:"Before the First Word",d:"Did the organization listen before publishing? Community trust begins before the first sentence is written.",
+  qs:[["Before your last major piece or campaign, what listening happened?",["Structured listening: surveys, listening sessions, interviews","Informal conversations with community members","Desk research and internal discussion","None. We started writing."]],
+      ["When did a community member last change what you decided to publish?",["This week","This month","This quarter","We can't point to one"]],
+      ["Do you know your community's top three concerns right now, in their words?",["Yes, from input we gathered in the last 90 days","Yes, from older input","We think so, from instinct","No"]]],
+  fix:"Run a listening session or short community survey before your next major piece. Make \"Who did we hear from?\" a required line in every pitch.",when:"30 days",
+  warn:"They stop telling you things. When you publish before you listen, people can tell the conclusion was written first, and they stop offering what they know.",
+  ask:"Who did we listen to before we published our last major piece?"},
+ {n:"02",l:"N",tag:"Narrative",title:"Clarity is Craft",d:"Is content written at Grade 8 or below? Complexity is a trust barrier. Clarity is a signal of respect.",
+  qs:[["What reading level is your typical piece written at?",["Grade 8 or below, and we check","Probably around Grade 8, unchecked","Higher. We write for insiders and experts.","We've never considered it"]],
+      ["How much jargon, acronyms or insider language makes it into your work?",["We cut it deliberately","Some slips through","A lot. It's the language of our field.","We wouldn't notice"]],
+      ["Could a community member explain your last piece to a neighbor in one sentence?",["Yes, and we test for that","Probably","Maybe not","We don't know"]]],
+  fix:"Run your last five pieces through a readability check and set Grade 8 as the standard. Build a banned-jargon list. Test one piece with three community readers before it goes out.",when:"14 days",
+  warn:"They stop finishing. Dense, insider writing tells readers the work wasn't made for them, and they quietly leave.",
+  ask:"Who is our writing actually written for?"},
+ {n:"03",l:"G",tag:"Ground",title:"Invited or Included",d:"Does the community have editorial power or only editorial access? There is a difference.",
+  qs:[["What power does the community hold over your editorial decisions?",["Formal power: they set or vote on priorities","Advisory input we act on","They can submit ideas; we decide everything","None"]],
+      ["In the last 90 days, how many pieces were initiated by community members, not just quoting them?",["Five or more","Two to four","One","None"]],
+      ["When the community disagrees with an editorial call, what happens?",["A defined process that can change the call","We listen and sometimes change course","We explain our decision","Nothing changes"]]],
+  fix:"Hand the community real decision power over one thing: a recurring story slot, a priority vote, or a seat in editorial meetings. Track community-initiated pieces every month.",when:"60 days",
+  warn:"They stop believing their input matters. Invited voices that never hold power eventually stop accepting the invitation.",
+  ask:"What decision have we handed to the community in the last 90 days?"},
+ {n:"04",l:"A",tag:"Accountability",title:"Radical Transparency",d:"Is the organization honest about how it operates, who funds it, and what it gets wrong?",
+  qs:[["Is your funding public?",["Fully published: sources and amounts","Sources listed, no amounts","Available if someone asks","Not disclosed"]],
+      ["When you get something wrong, how is it corrected?",["Publicly, prominently and fast","Corrected quietly","Only if someone complains","We don't have a corrections practice"]],
+      ["Does your audience know how you make decisions (sourcing, standards, AI use)?",["Published in plain language","Partly explained","Written down, internal only","Not written down"]]],
+  fix:"Publish who funds you and how. Create a visible corrections practice. Publish your editorial standards and AI policy in plain language.",when:"30 days",
+  warn:"They stop giving you the benefit of the doubt. Without transparency, every mistake looks like a cover-up and every funder looks like an agenda.",
+  ask:"If our funders, our corrections and our AI use were on the front page tomorrow, would our community trust us more or less?"},
+ {n:"05",l:"G",tag:"Geography",title:"Meet Them There",d:"Is the organization present on the platforms its community actually uses or only where it is comfortable?",
+  qs:[["Do you know which platforms and places your community actually uses for information?",["Yes, from our own audience research","From general industry data","We assume","No"]],
+      ["Where does most of your distribution effort go?",["Where they are, online and offline: WhatsApp, churches, barbershops, block associations","Mostly where they are","Mostly the channels we're comfortable with","Only our own channels"]],
+      ["How often do you show up in person in the community?",["Monthly or more","A few times a year","About once a year","Never"]]],
+  fix:"Ask your audience where they get information. Pick one platform or physical place where your community is and you aren't, and show up there consistently for 90 days.",when:"30 days",
+  warn:"They never find you. Your best work circulates among people who already follow you, and the community gets its information somewhere else.",
+  ask:"Where does our community actually get its information, and are we there?"},
+ {n:"06",l:"E",tag:"Effect",title:"Did It Move Anything",d:"Did the content produce real change in behavior, belief, or action? Impact is the measure, not reach.",
+  qs:[["What do you measure most?",["Change: actions taken, decisions influenced, outcomes","Depth: replies, shares, return visits","Reach: views, downloads, followers","Nothing consistently"]],
+      ["Can you name a real change your work caused in the last six months?",["Several, documented","One, documented","Anecdotes only","No"]],
+      ["Do you follow up after publishing to see what happened?",["Routinely","Sometimes","Rarely","Never"]]],
+  fix:"Set one change metric for each initiative: an action, a decision, a behavior. Follow up on your last three pieces and document what happened.",when:"45 days",
+  warn:"They stop seeing the point. Work that changes nothing becomes noise, however many people saw it.",
+  ask:"What changed in our community because of our work last quarter?"},
+ {n:"07",l:"",tag:"Integrity",title:"Internal Truth",d:"Does the organization practice what it publishes? Internal culture and public voice must align.",
+  qs:[["If your staff read your public statements on equity, community and trust, would they say it matches how they're treated?",["Yes, without hesitation","Mostly","Some would disagree","Many would disagree"]],
+      ["Do the people you serve see themselves in who makes decisions inside your organization?",["Yes, in leadership","On staff, not in leadership","Rarely","No"]],
+      ["When internal practice and the public message conflict, what happens?",["We fix the practice","We discuss it and sometimes change","We adjust the messaging","It doesn't get raised"]]],
+  fix:"Run an anonymous internal survey asking whether your public values match life inside. Fix one practice, not the messaging.",when:"60 days",
+  warn:"Your own people stop defending you. Staff see the gap between what you say and what you do first, and the community hears about it from them.",
+  ask:"Would our staff describe us the way our marketing does?"},
+ {n:"08",l:"",tag:"Intelligence",title:"Operational Intelligence",d:"Are the organization's AI systems and tools serving the mission or running it?",
+  qs:[["Do you have a written policy for how AI is used in your work?",["Yes, and it's public","Yes, internal only","Informal norms","No"]],
+      ["Who decides what your AI tools do?",["Leadership chooses tools for specific mission goals","Staff decide case by case","We use vendor defaults","Nobody. It's ad hoc."]],
+      ["What happens to the time AI saves you?",["We reinvest it in listening, reporting and community work","It's saved but not deliberately reinvested","It mostly cuts cost","We haven't looked at it"]]],
+  fix:"Write and publish a plain-language AI policy. Inventory every AI tool and name the mission goal each one serves. Put the time it saves back into listening.",when:"30 days",
+  warn:"They stop trusting what's real. One AI misstep, an invented quote or a tone-deaf automated post, can undo years of relationship.",
+  ask:"Is our AI serving the mission, or is the mission adjusting to the AI?"}
+];
+CATS.forEach(c=>c.short=c.tag);
+const SAMPLE={org:"Uptown Voices",otype:"Nonprofit or community org",gut:8,belief:6,
+  answers:[[1,1,1],[0,1,1],[2,2,1],[1,1,2],[2,2,1],[2,2,1],[1,1,1],[2,1,2]],owners:{},sample:true};
+const KEY="eof-engage-audit-v3";
+const blank=()=>({org:"",otype:"Nonprofit or community org",gut:7,belief:0,answers:CATS.map(()=>[null,null,null]),owners:{},sample:false});
+let state=JSON.parse(JSON.stringify(SAMPLE));
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s&&Array.isArray(s.answers)&&s.answers.length===8)state=s;}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const TOTAL=CATS.length*3;
+const tagLine=c=>c.l?`${c.l} — ${c.tag}`:c.tag;
+
+function band(v){if(v==null)return["Not scored","none"];if(v>=8)return["Deeply Engaging","deeply"];if(v>=7)return["Engaging","engaging"];if(v>=5)return["At Risk","risk"];return["Fading","fading"];}
+function catScore(i){const a=state.answers[i].filter(x=>x!=null);if(!a.length)return null;return Math.round(a.reduce((s,x)=>s+PTS[x],0)/a.length*10)/10;}
+const scores=()=>CATS.map((c,i)=>catScore(i));
+function overall(sc){const v=sc.filter(x=>x!=null);return v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length*10)/10:null;}
+const answered=()=>state.answers.flat().filter(x=>x!=null).length;
+const fmt=v=>v==null?"–":v.toFixed(1);
+const col=k=>`var(--${k==="none"?"muted":k})`;
+
+/* ---------- Insight engine ---------- */
+function patterns(s){
+  const P=[],ok=v=>v!=null;
+  const [env,nar,gro,acc,geo,eff,integ,intel]=s;
+  if(ok(env)&&ok(gro)&&env>=7&&gro<7)P.push({t:"You listen. The community still doesn't hold power.",why:`Environment ${fmt(env)} · Ground ${fmt(gro)}`,
+    b:"You do the listening before you publish, but the community has access, not power. People notice when their input shapes your work without ever directing it. Listening that never transfers a decision starts to feel like extraction."});
+  if(ok(nar)&&ok(geo)&&nar>=7&&geo<7)P.push({t:"Clear work, in the wrong room.",why:`Narrative ${fmt(nar)} · Geography ${fmt(geo)}`,
+    b:"Your writing respects the reader, but it isn't reaching the places your community spends its time. Clarity only builds trust when people actually encounter it. Your next gain is distribution, not craft."});
+  if(ok(geo)&&ok(eff)&&geo>=7&&eff<7)P.push({t:"Present, but not moving anything.",why:`Geography ${fmt(geo)} · Effect ${fmt(eff)}`,
+    b:"You show up where your community is, and the work isn't producing change. Presence without impact slowly turns into background noise. Decide what each piece is supposed to move before you make it."});
+  if(ok(eff)&&ok(acc)&&eff>=7&&acc<7)P.push({t:"Influence without transparency.",why:`Effect ${fmt(eff)} · Accountability ${fmt(acc)}`,
+    b:"Your work moves things, but the community can't see how you operate or who pays for it. In communities that have been studied, sold to and spoken for, influence nobody can trace reads as an agenda."});
+  if(ok(acc)&&ok(integ)&&acc>=7&&integ<7)P.push({t:"The public face and the inside don't match.",why:`Accountability ${fmt(acc)} · Integrity ${fmt(integ)}`,
+    b:"You're open with the public about funding and mistakes, and your own people see a gap between your values and your practice. That gap always travels outward. Fix it inside before it becomes the story outside."});
+  if(ok(nar)&&ok(gro)&&nar<6&&gro<6)P.push({t:"Speaking at the community, not with it.",why:`Narrative ${fmt(nar)} · Ground ${fmt(gro)}`,
+    b:"Dense writing and closed editorial doors together tell the community the work is about them, not for them or with them. This is the hardest pattern to see from inside the building, and the first one the community sees."});
+  if(ok(intel)&&intel<6&&((ok(eff)&&eff<7)||(ok(env)&&env<7)))P.push({t:"Faster, but not more trusted.",why:`Intelligence ${fmt(intel)}${ok(eff)?` · Effect ${fmt(eff)}`:""}${ok(env)?` · Environment ${fmt(env)}`:""}`,
+    b:"Your AI use isn't clearly tied to the mission, and listening or impact are lagging. Tools that save time without putting it back into the community make the organization faster, not more trusted. Use AI to protect the time the human work needs."});
+  if(ok(env)&&ok(integ)&&env<6&&integ<6)P.push({t:"Out of touch on both sides of the door.",why:`Environment ${fmt(env)} · Integrity ${fmt(integ)}`,
+    b:"You aren't listening to the community before you publish, and your own staff don't see your values in practice. When neither the inside nor the outside feels heard, trust erodes in both directions at once."});
+  const v=s.filter(ok);
+  if(v.length===8&&v.every(x=>x>=7))P.unshift({good:true,t:"You're engaging, and it compounds.",why:"All eight categories at 7 or above",
+    b:"Trust is building across every category. The risk now is comfort. Organizations at this level fade by assuming the relationship maintains itself. Re-audit in 90 days and push your lowest category toward 8."});
+  return P.slice(0,3);
+}
+function perception(sc,ov){
+  if(ov==null)return null;
+  const gap=Math.round((state.gut-ov)*10)/10;let head,body;
+  if(gap>=1.5){head="You believe your community trusts you more than your evidence shows.";
+    body=`Your gut says ${state.gut}. Your practices score ${fmt(ov)}. A ${fmt(gap)}-point gap is a blind spot, and blind spots are how fading starts: from inside, everything still feels fine. Treat the evidence score as the real number.`;}
+  else if(gap<=-1.5){head="Your practices are stronger than you give yourself credit for.";
+    body=`Your gut says ${state.gut}. Your practices score ${fmt(ov)}. You're underselling ${fmt(-gap)} points of real trust-building work. Document it and use it with funders and partners.`;}
+  else{head="Your read on your community is calibrated.";
+    body=`Your gut says ${state.gut} and your practices score ${fmt(ov)}. Leadership's sense of the relationship matches the evidence, which makes the gaps below easier to act on. Nobody has to be convinced they're real.`;}
+  const ranked=sc.map((v,i)=>[v,i]).filter(x=>x[0]!=null).sort((a,b)=>b[0]-a[0]);
+  const top=ranked[0][1],bel=+state.belief;let sh,sb;
+  if(sc[bel]==null){sh=`You named ${CATS[bel].tag} as your strength.`;sb="You haven't answered those questions yet.";}
+  else if(bel===top||sc[bel]===sc[top]){sh=`You named ${CATS[bel].tag} as your strength. The evidence agrees.`;sb=`It scores ${fmt(sc[bel])}, your highest. Build on it deliberately and make it visible.`;}
+  else{sh=`You named ${CATS[bel].tag}. The evidence says ${CATS[top].tag}.`;sb=`${CATS[bel].tag} scores ${fmt(sc[bel])}; ${CATS[top].tag} scores ${fmt(sc[top])}. Organizations invest in the strength they believe in, so check where your time and budget are actually going.`;}
+  return{gap,head,body,sh,sb};
+}
+const priorities=sc=>sc.map((v,i)=>[v,i]).filter(x=>x[0]!=null&&x[0]<7).sort((a,b)=>a[0]-b[0]).slice(0,3).map(x=>x[1]);
+function costly(){const L=[];state.answers.forEach((r,i)=>r.forEach((a,q)=>{if(a!=null&&a>=2)L.push({i,q,a});}));return L.sort((x,y)=>y.a-x.a);}
+function checkinDate(){const d=new Date();d.setDate(d.getDate()+90);return d.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"});}
+
+function dial(v){
+  const r=64,C=2*Math.PI*r,pct=v==null?0:v/10,[,k]=band(v),a=0.7*2*Math.PI;
+  return `<svg viewBox="0 0 156 156" aria-hidden="true"><circle cx="78" cy="78" r="${r}" fill="none" stroke="var(--soft)" stroke-width="11"/>
+  <circle cx="78" cy="78" r="${r}" fill="none" stroke="${col(k)}" stroke-width="11" stroke-dasharray="${C*pct} ${C}" transform="rotate(-90 78 78)"/>
+  <line x1="${78+Math.sin(a)*(r-10)}" y1="${78-Math.cos(a)*(r-10)}" x2="${78+Math.sin(a)*(r+10)}" y2="${78-Math.cos(a)*(r+10)}" stroke="var(--ink)" stroke-width="2" stroke-dasharray="3 2" opacity=".55"/></svg>`;
+}
+
+function renderReport(){
+  const sc=scores(),ov=overall(sc),n=answered(),[ob,ok]=band(ov),el=$("view-insights");
+  if(n===0){el.innerHTML=`<div class="sec"><h2>Your report builds as you answer.</h2><p style="max-width:62ch">Answer the ${TOTAL} evidence questions and this page turns them into a Trust Score, the patterns behind it, and the three moves that matter most.</p><div style="margin-top:16px"><button class="btn" type="button" data-go="audit">Take the audit</button></div></div>`;wireGo(el);return;}
+  const fadingN=sc.filter(v=>v!=null&&v<7).length,scored=sc.filter(v=>v!=null).length;
+  const name=esc(state.org.trim()||"Your organization");
+  const dir=fadingN===0?`${name} is engaging across all ${scored} scored categories.`
+    :fadingN>scored/2?`${name} is fading in ${fadingN} of ${scored} categories.`
+    :`${name} is engaging in ${scored-fadingN} of ${scored} categories and fading in ${fadingN}.`;
+  const per=perception(sc,ov),pats=patterns(sc),pri=priorities(sc),cost=costly().slice(0,6);
+  const lowest=sc.map((v,i)=>[v,i]).filter(x=>x[0]!=null).sort((a,b)=>a[0]-b[0])[0][1];
+  const quick=sc.map((v,i)=>[v,i]).filter(x=>x[0]!=null&&x[0]>=6&&x[0]<7).sort((a,b)=>b[0]-a[0])[0];
+  let h=`<div class="verdict"><div class="dial">${dial(ov)}<div class="val"><div><b>${fmt(ov)}</b><span>TRUST SCORE</span></div></div></div>
+   <div><div class="org">${name} · ${esc(state.otype)}${n<TOTAL?` · ${n} of ${TOTAL} answered`:""}</div><h2>${dir}</h2>
+   <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:4px"><span class="chip b-${ok}">${ob}</span>
+   <span style="font-size:14px;color:var(--muted)">7 is the line between engaging and fading.</span></div></div></div>`;
+  if(n<TOTAL)h+=`<div class="banner"><span>This read is partial. Answer all ${TOTAL} questions for a full report.</span><button class="btn ghost" type="button" data-go="audit">Finish the audit</button></div>`;
+
+  h+=`<div class="sec"><div class="label">Category by category</div><h2>Your <em>E.N.G.A.G.E.</em> profile</h2><div class="cells c4" style="margin-top:16px">`+
+   CATS.map((c,i)=>{const[b,k]=band(sc[i]);return`<div class="pcell${sc[i]!=null&&sc[i]<7?" weak":""}"><div class="top"><span class="numeral">${c.n}</span><span class="score">${fmt(sc[i])}</span></div>
+     <div class="label" style="margin:0">${tagLine(c)}</div><h3>${c.title}</h3>
+     <div class="track"><div class="fill" style="width:${(sc[i]||0)*10}%;background:${col(k)}"></div><span class="seven"></span></div>
+     <span><span class="chip b-${k}">${b}</span></span></div>`}).join("")+`</div></div>`;
+
+  h+=`<div class="sec cells c2">
+   <div><div class="label">Perception vs. evidence</div><h3>${per.head}</h3>
+    <div class="gap-bars">
+     <div class="gb"><span>What you believe</span><div class="track"><div class="fill" style="width:${state.gut*10}%;background:var(--muted)"></div><span class="seven"></span></div><span class="v">${state.gut}</span></div>
+     <div class="gb"><span>What you do</span><div class="track"><div class="fill" style="width:${ov*10}%;background:${col(ok)}"></div><span class="seven"></span></div><span class="v">${fmt(ov)}</span></div>
+    </div><p>${per.body}</p></div>
+   <div><div class="label">Your strength</div><h3>${per.sh}</h3><p>${per.sb}</p>
+    ${quick?`<div class="label" style="margin-top:10px">Closest to the line</div><p><b>${CATS[quick[1]].tag}</b> is at ${fmt(quick[0])}, one action from engaging. It's your fastest visible win.</p>`:""}</div></div>`;
+
+  if(pats.length)h+=`<div class="sec"><div class="label">What the pattern says</div><h2>How your organization builds trust, and where it leaks</h2><div class="patterns" style="margin-top:18px">`+
+    pats.map(p=>`<div class="pattern${p.good?" good":""}"><div><h3>${p.t}</h3><p>${p.b}</p><span class="why">${p.why}</span></div></div>`).join("")+`</div></div>`;
+
+  h+=`<div class="sec cells c2">
+    <div><div class="label">Early warning · ${CATS[lowest].tag}</div><h3>What your community stops doing first</h3><p>${CATS[lowest].warn}</p></div>
+    <div><div class="label">For your leadership team</div><p class="question">${CATS[lowest].ask}</p><p style="font-size:13.5px;color:var(--muted)">Put this to the room before you assign a single action. The disagreement is the data.</p></div></div>`;
+
+  if(cost.length)h+=`<div class="sec"><div class="label">Where the evidence cost you</div><h2>The answers pulling your score down</h2><div class="ledger" style="margin-top:14px">`+
+    cost.map(x=>`<div class="lrow"><span class="c">${CATS[x.i].tag}</span><span>${CATS[x.i].qs[x.q][0]} <span class="a">“${CATS[x.i].qs[x.q][1][x.a]}”</span></span><span class="pts">${PTS[x.a]}/10</span></div>`).join("")+`</div></div>`;
+
+  h+=`<div class="sec"><div class="label">Your 90-day roadmap</div><h2>${pri.length?"Three moves, in order":"Hold the line"}</h2><div class="cells" style="margin-top:14px">`+
+    (pri.length?pri.map((i,k)=>`<div class="action"><div style="display:flex;gap:14px;align-items:baseline"><span class="numeral" style="font-size:34px">${k+1}</span><div style="display:grid;gap:6px"><div class="label" style="margin:0">${tagLine(CATS[i])} · ${fmt(sc[i])}</div><p>${CATS[i].fix}</p>
+     <div class="meta"><span>Timeline: ${CATS[i].when}</span><label>Owner <input type="text" data-owner="${i}" value="${esc(state.owners[i]||"")}" placeholder="Name"></label></div></div></div></div>`).join("")
+     :`<div class="action"><p>All eight categories are engaging. Re-audit in 90 days and push your lowest category toward 8.</p></div>`)+`</div>
+     <p style="margin-top:14px;font-size:14.5px"><b>90-day check-in:</b> ${checkinDate()}. Take this audit again then and compare.</p></div>`;
+
+  h+=`<div class="sec" style="border-top:1px solid var(--line);padding-top:22px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between"><div><h3>Want to talk through your score?</h3><p style="color:var(--muted);margin-top:4px">Book a call and we will read it together.</p></div><a class="btn" href="/contact" target="_top" style="text-decoration:none;display:inline-block">Book a call</a></div><div class="sec closing"><span class="toast" id="toast">Copy the full written output to share internally or drop into a doc.</span><button class="btn" type="button" id="copy">Copy written output</button></div><textarea id="fallback" hidden readonly aria-label="Written output"></textarea>`;
+  el.innerHTML=h;wireGo(el);
+  el.querySelectorAll("[data-owner]").forEach(inp=>inp.addEventListener("input",e=>{state.owners[e.target.dataset.owner]=e.target.value;save();}));
+  $("copy").addEventListener("click",()=>{copyOut();track("report_copied",{});});
+}
+function wireGo(el){el.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.go)));}
+
+function writtenOutput(){
+  const sc=scores(),ov=overall(sc),per=perception(sc,ov),pats=patterns(sc),pri=priorities(sc);
+  const d=new Date().toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"});
+  let t=`ENGAGE OR FADE · E.N.G.A.G.E. TRUST AUDIT\n${state.org||"[Organization]"} (${state.otype}) · ${d}\n\nOVERALL TRUST SCORE: ${fmt(ov)} / 10 (${band(ov)[0]})\n\nSCORES BY CATEGORY\n`;
+  CATS.forEach((c,i)=>t+=`${c.n} ${tagLine(c)} · ${c.title}: ${fmt(sc[i])} (${band(sc[i])[0]})\n`);
+  if(per)t+=`\nPERCEPTION VS. EVIDENCE\n${per.head}\n${per.body}\n${per.sh} ${per.sb}\n`;
+  if(pats.length){t+=`\nPATTERNS\n`;pats.forEach(p=>t+=`• ${p.t}\n  ${p.b}\n`);}
+  t+=`\nPRIORITY ACTIONS\n`;
+  if(pri.length)pri.forEach((i,k)=>t+=`${k+1}. ${CATS[i].tag} (${fmt(sc[i])}): ${CATS[i].fix} Timeline: ${CATS[i].when}. Owner: ${state.owners[i]||"________"}\n`);
+  else t+=`All categories engaging. Push the lowest toward 8.\n`;
+  t+=`\n90-DAY CHECK-IN: ${checkinDate()}\n\nEngage or Fade™ · Baron Carr · Global Harlem · globalharlem.com`;
+  return t;
+}
+function copyOut(){
+  const t=writtenOutput(),fb=$("fallback");
+  const fall=()=>{fb.value=t;fb.hidden=false;fb.focus();fb.select();$("toast").textContent="Select all and copy the text below.";};
+  try{navigator.clipboard.writeText(t).then(()=>{$("toast").textContent="Copied. Paste it into an email or doc.";fb.hidden=true;},fall);}catch(e){fall();}
+}
+
+
+/* ---------- Tracking ---------- */
+const CAPTURE=!!(SUPABASE_URL&&SUPABASE_ANON_KEY);
+function track(name,data){try{window.va&&window.va("event",{name,data});}catch(e){}}
+let started=false;
+function onAnswer(){if(!started){started=true;track("audit_started",{type:state.otype});}}
+function sig(){return JSON.stringify([state.answers,state.gut,state.org,state.otype]);}
+async function onComplete(){
+  if(answered()!==TOTAL)return;
+  const sc=scores(),ov=overall(sc),s=sig();
+  if(state.lastTracked===s)return;
+  state.lastTracked=s;save();
+  track("audit_completed",{band:band(ov)[0],score:fmt(ov),type:state.otype});
+  if(!CAPTURE||!$("share").checked)return;
+  const row={org:state.org||null,org_type:state.otype,gut_score:state.gut,believed_strength:CATS[+state.belief].tag,
+    overall:ov,band:band(ov)[0],scores:Object.fromEntries(CATS.map((c,i)=>[c.tag.toLowerCase(),sc[i]])),
+    answers:state.answers,patterns:patterns(sc).map(p=>p.t),email:($("email").value||"").trim()||null};
+  try{const r=await fetch(SUPABASE_URL+"/rest/v1/audit_responses",{method:"POST",headers:{"apikey":SUPABASE_ANON_KEY,"Authorization":"Bearer "+SUPABASE_ANON_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify(row)});
+    if(!r.ok)throw new Error(r.status);}catch(e){state.lastTracked=null;save();console.warn("Result not sent",e);}
+}
+
+/* ---------- Audit workbook ---------- */
+function buildAudit(){
+  $("belief").innerHTML=CATS.map((c,i)=>`<option value="${i}">${c.n} ${tagLine(c)} · ${c.title}</option>`).join("");
+  $("questions").innerHTML=CATS.map((c,i)=>`<div class="cat" id="cat${c.n}"><div class="cat-head"><span class="numeral">${c.n}</span><div class="label" style="margin:0">${tagLine(c)}</div><span class="score" id="cs${i}"></span><h3>${c.title}</h3><p class="desc">${c.d}</p></div>`+
+    c.qs.map((q,j)=>`<div class="q"><fieldset><legend>${q[0]}</legend><div class="opts">`+
+      q[1].map((o,k)=>`<label class="opt"><input type="radio" name="q${i}_${j}" id="q${i}_${j}_${k}" value="${k}"><span>${o}</span></label>`).join("")+`</div></fieldset></div>`).join("")+`</div>`).join("");
+  $("questions").addEventListener("change",e=>{const m=e.target.name&&e.target.name.match(/^q(\d)_(\d)$/);if(!m)return;
+    leaveSample();onAnswer();state.answers[+m[1]][+m[2]]=+e.target.value;save();renderRail();});
+  $("org").addEventListener("input",e=>{leaveSample();state.org=e.target.value;save();});
+  $("otype").addEventListener("change",e=>{state.otype=e.target.value;save();});
+  $("gutScore").addEventListener("input",e=>{leaveSample();state.gut=+e.target.value;$("gutOut").textContent=state.gut;save();});
+  $("belief").addEventListener("change",e=>{state.belief=+e.target.value;save();});
+  $("toReport").addEventListener("click",()=>showTab("insights"));
+}
+function fillAudit(){
+  $("org").value=state.org;$("otype").value=state.otype;$("gutScore").value=state.gut;$("gutOut").textContent=state.gut;$("belief").value=state.belief;
+  state.answers.forEach((r,i)=>r.forEach((a,j)=>document.querySelectorAll(`input[name="q${i}_${j}"]`).forEach(x=>x.checked=(a!=null&&+x.value===a))));
+}
+function renderRail(){
+  const sc=scores(),ov=overall(sc),[b,k]=band(ov),n=answered();
+  $("railScore").textContent=fmt(ov);$("railBand").innerHTML=`<span class="chip b-${k}">${b}</span>`;
+  $("railBars").innerHTML=CATS.map((c,i)=>{const[,kk]=band(sc[i]);return`<div class="r" title="${c.tag}"><span class="n">${c.l||c.tag[0]}</span><div class="track"><div class="fill" style="width:${(sc[i]||0)*10}%;background:${col(kk)}"></div><span class="seven"></span></div><span class="v">${fmt(sc[i])}</span></div>`}).join("");
+  $("railProgress").textContent=`${n} of ${TOTAL} answered`;$("tabCount").textContent=`${n}/${TOTAL}`;
+  CATS.forEach((c,i)=>{$("cs"+i).textContent=sc[i]==null?"":`${fmt(sc[i])} · ${band(sc[i])[0]}`;});
+}
+function leaveSample(){if(state.sample){state.sample=false;$("sampleBanner").hidden=true;}}
+function showTab(t){
+  const ins=t==="insights";$("view-insights").hidden=!ins;$("view-audit").hidden=ins;
+  $("tab-insights").setAttribute("aria-selected",ins);$("tab-audit").setAttribute("aria-selected",!ins);
+  if(ins){renderReport();onComplete();}window.scrollTo({top:0});
+}
+$("tab-insights").addEventListener("click",()=>showTab("insights"));
+$("tab-audit").addEventListener("click",()=>showTab("audit"));
+$("startOwn").addEventListener("click",()=>{state=blank();save();$("sampleBanner").hidden=true;fillAudit();renderRail();showTab("audit");});
+
+buildAudit();fillAudit();renderRail();
+$("shareBox").hidden=!CAPTURE;
+$("sampleBanner").hidden=!state.sample;
+renderReport();
+</script>
+<script>
+/* when embedded on /take-audit, tell the parent how tall to be */
+(function(){if(window.parent===window)return;
+function send(){parent.postMessage({type:'gh-height',h:document.documentElement.scrollHeight},location.origin)}
+if(window.ResizeObserver)new ResizeObserver(send).observe(document.body);window.addEventListener('load',send);setInterval(send,800);})();
+</script>
 </body>
 </html>
