@@ -1,4 +1,11 @@
 (function(){
+document.documentElement.classList.add('js');
+var rv=[].slice.call(document.querySelectorAll('.row,.item,.cols>div,.intro,.w.sec>h2,.player'));
+if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion:reduce)').matches){
+  rv.forEach(function(e){e.classList.add('rv')});
+  var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px'});
+  rv.forEach(function(e){io.observe(e)});
+}
 var nav=document.getElementById('nav'),mb=document.getElementById('menu');
 if(mb)mb.addEventListener('click',function(){var o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
 

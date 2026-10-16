@@ -109,3 +109,32 @@ output.note{display:block}
 @media (max-width:820px){.herogrid{grid-template-columns:1fr}.herogrid>div:first-child{padding-bottom:8px}.portrait{max-width:420px}}
 .herogrid{align-items:stretch}.portrait{position:relative;min-height:480px}.portrait img{position:absolute;inset:0;height:100%;max-height:none}@media (max-width:820px){.portrait{min-height:0;aspect-ratio:4/5}}
 .ph.blend{background:none;border:0;aspect-ratio:4/5}.ph.blend img{-webkit-mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent),linear-gradient(to bottom,transparent,#000 7%,#000 88%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent),linear-gradient(to bottom,transparent,#000 7%,#000 88%,transparent);mask-composite:intersect}
+
+/* warm accent + tinted bands */
+:root{--gold:#C28A1E;--sage:#EAF2EC;--cream:#FBF4E4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--gold:#E3B24F;--sage:#12271B;--cream:#1A2418}}
+:root[data-theme="dark"]{--gold:#E3B24F;--sage:#12271B;--cream:#1A2418}
+html{overflow-x:clip}
+.row .n{color:var(--gold)}
+.read{border-bottom-color:var(--gold)}
+.read:hover{color:var(--gold)}
+.label:not(.util *)::before{content:"";display:inline-block;width:22px;height:3px;background:var(--gold);margin-right:10px;vertical-align:middle}
+.band .label::before,.band .read{border-color:var(--gold)}
+.tint{position:relative;clip-path:inset(0 -100vmax)}
+.tint.sage{background:var(--sage);box-shadow:0 0 0 100vmax var(--sage)}
+.tint.cream{background:var(--cream);box-shadow:0 0 0 100vmax var(--cream)}
+
+/* readability */
+:root{--grey:#4A564F}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--grey:#B9C5BE}}
+:root[data-theme="dark"]{--grey:#B9C5BE}
+body{font-size:18px;line-height:1.6}
+.row p,.cols p{font-size:18px}
+.item small{font-size:16px}
+.note{font-size:15px}
+.label,.util{font-size:13px}
+.band .cols p,.band p[style*="9AA8A0"],.band small{color:#C3CEC8!important}
+/* scroll-in motion */
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}}
